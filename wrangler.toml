@@ -1,6 +1,9 @@
-# Cloudflare Pages: Git 연동 시 빌드 산출물 폴더를 저장소에 명시
-# 대시보드에서도 Build output directory = `out` 인지 꼭 확인하세요.
-# Framework preset은 "Next.js"가 아니라 None(또는 빈 값) + npm run build 권장.
+# Cloudflare Pages (Git 연동)
+# 빌드 명령이 없으면 "Skipping build step" → out 폴더가 없어 404 남. 반드시 [build].command 필요.
 name = "english"
 compatibility_date = "2024-11-01"
 pages_build_output_dir = "./out"
+
+[build]
+command = "npm run build"
+cwd = "."
