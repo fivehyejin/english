@@ -1,0 +1,99 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 40% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 40% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 40% 12%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+
+    --ring: 220 70% 40%;
+
+    --primary: 220 60% 22%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 93%;
+    --secondary-foreground: 220 40% 18%;
+
+    --accent: 0 72% 51%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --radius: 0.5rem;
+
+    --note-bg: 220 30% 96%;
+    --note-border: 220 30% 85%;
+    --note-accent: 220 60% 35%;
+
+    --highlight-bg: 0 72% 97%;
+    --highlight-border: 0 72% 85%;
+  }
+
+  .dark {
+    --background: 220 30% 8%;
+    --foreground: 220 14% 95%;
+
+    --card: 220 30% 11%;
+    --card-foreground: 220 14% 95%;
+
+    --popover: 220 30% 11%;
+    --popover-foreground: 220 14% 95%;
+
+    --muted: 220 25% 16%;
+    --muted-foreground: 220 10% 65%;
+
+    --border: 220 25% 20%;
+    --input: 220 25% 20%;
+
+    --ring: 220 60% 60%;
+
+    --primary: 220 14% 95%;
+    --primary-foreground: 220 40% 12%;
+
+    --secondary: 220 25% 16%;
+    --secondary-foreground: 220 14% 90%;
+
+    --accent: 0 75% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 75% 58%;
+    --destructive-foreground: 0 0% 100%;
+
+    --note-bg: 220 25% 15%;
+    --note-border: 220 25% 25%;
+    --note-accent: 220 60% 65%;
+
+    --highlight-bg: 0 50% 18%;
+    --highlight-border: 0 50% 35%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family:
+      'Pretendard Variable',
+      Pretendard,
+      system-ui,
+      sans-serif;
+  }
+}
