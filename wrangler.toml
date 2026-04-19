@@ -1,9 +1,6 @@
-# Cloudflare Pages (Git 연동)
-# 빌드 명령이 없으면 "Skipping build step" → out 폴더가 없어 404 남. 반드시 [build].command 필요.
+# Cloudflare Pages — Pages 프로젝트는 wrangler.toml에 [build]를 쓸 수 없음(검증 오류).
+# 빌드 명령은 반드시 대시보드에서: Settings → Builds → Build command = npm run build
+# 출력 폴더: Build output directory = out (아래 pages_build_output_dir과 동일)
 name = "english"
 compatibility_date = "2024-11-01"
 pages_build_output_dir = "./out"
-
-[build]
-command = "npm run build"
-cwd = "."

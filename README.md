@@ -335,7 +335,19 @@ interface AppState {
 - **next-themes** 라이트/다크
 - **localStorage** (아주 최소한의 상태만)
 - **Web Speech API** (발음)
-- 배포: **Vercel**
+- 배포: **Vercel** 또는 **Cloudflare Pages** (정적 내보내기 `out/`)
+
+### Cloudflare Pages
+
+`wrangler.toml`에는 **`[build]` 섹션을 넣지 마세요.** Pages는 이를 지원하지 않아 배포가 실패합니다. 대신 **Cloudflare 대시보드** → 해당 프로젝트 → **Settings** → **Builds & deployments** → **Configure build**에서:
+
+| 항목 | 값 |
+|------|-----|
+| Build command | `npm run build` |
+| Build output directory | `out` |
+| Framework preset | None (또는 비워 둠) |
+
+저장소의 `wrangler.toml`은 출력 폴더(`pages_build_output_dir`)만 참고용으로 둡니다.
 
 ---
 
