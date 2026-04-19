@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, PencilLine } from 'lucide-react';
 
 import type { DaySummary } from '@/types';
 import {
@@ -12,6 +12,8 @@ import {
 } from '@/types';
 import { CURRENT_CURRICULUM } from '@/lib/curriculum';
 import { setLastViewedDay } from '@/lib/storage';
+import { difficultKey, useDifficultExamples } from '@/hooks/useDifficultExamples';
+import { Button } from '@/components/ui/button';
 
 import { ClassNoteBox } from './ClassNoteBox';
 import { DayNav } from './DayNav';
@@ -19,6 +21,8 @@ import { GroupSection } from './GroupSection';
 import { KeyIdeaBox } from './KeyIdeaBox';
 
 export function DayView({ day }: { day: number }) {
+  const { has: difficultSet, mark, unmark } = useDifficultExamples();
+
   const curriculum = CURRENT_CURRICULUM;
   const summary = curriculum.daySummaries[day] as DaySummary | undefined;
 
@@ -56,6 +60,14 @@ export function DayView({ day }: { day: number }) {
       <h2 className="mt-2 text-xl font-semibold text-foreground md:text-2xl">
         {summary.dayTitle}
       </h2>
+      <div className="mt-4">
+        <Button asChild variant="outline" className="gap-2">
+          <Link href={`/day/${day}/practice`}>
+            <PencilLine className="h-4 w-4" />
+            📝 연습 모드
+          </Link>
+        </Button>
+      </div>
 
       <div className="mt-10 space-y-10 md:space-y-14">
         <KeyIdeaBox summary={summary} />
@@ -65,7 +77,19 @@ export function DayView({ day }: { day: number }) {
         ))}
 
         {regular.map((g) => (
-          <GroupSection key={g.id} group={g} />
+          <GroupSection
+            key={g.id}
+            group={g}
+            difficultKeys={difficultSet}
+            onToggleDifficult={(groupId, exampleIdx) => {
+              const key = difficultKey(groupId, exampleIdx);
+              if (difficultSet.has(key)) {
+                unmark(key);
+              } else {
+                mark(key, { sessionsStruggled: 1 });
+              }
+            }}
+          />
         ))}
       </div>
 

@@ -531,6 +531,293 @@ Day 페이지에서는 "← 목차로" 링크 추가:
 </nav>
 ```
 
+### 5.7 연습 모드 진입 버튼 (Day 페이지 상단)
+
+Day 헤더 영역, 제목 근처에 배치. 너무 튀지 않게 secondary 톤.
+
+```tsx
+<div className="mb-8 flex items-start justify-between gap-4">
+  <div>
+    <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground tabular-nums">
+      Day {day}
+    </div>
+    <h1 className="mt-1 text-3xl md:text-4xl font-bold tracking-tight">
+      {daySummary.dayTitle}
+    </h1>
+  </div>
+  <Link
+    href={`/day/${day}/practice`}
+    className="
+      shrink-0 inline-flex items-center gap-2 rounded-md
+      border border-border bg-secondary text-secondary-foreground
+      px-3 py-2 text-sm font-medium
+      hover:bg-secondary/80 transition-colors
+    "
+  >
+    📝 연습 모드
+  </Link>
+</div>
+```
+
+### 5.8 연습 모드 시작 화면
+
+`/day/[day]/practice` 기본 화면. 유형 + 길이 선택.
+
+```tsx
+<article className="max-w-xl mx-auto">
+  {/* 상단 back */}
+  <Link href={`/day/${day}`} className="text-sm text-muted-foreground hover:text-foreground">
+    ← Day 노트로
+  </Link>
+
+  <h1 className="mt-6 text-2xl md:text-3xl font-bold tracking-tight">
+    Day {day} · 연습 모드
+  </h1>
+  <p className="mt-2 text-sm text-muted-foreground">
+    {daySummary.dayTitle}
+  </p>
+
+  {/* 최근 세션 상태 (있으면) */}
+  {difficultCount > 0 && (
+    <div className="
+      mt-6 rounded-md border bg-[hsl(var(--highlight-bg))]
+      border-l-4 border-l-accent
+      px-4 py-3 text-sm
+    ">
+      어려움 표시된 예문 <strong className="tabular-nums">{difficultCount}개</strong>
+      <button
+        onClick={startDifficultOnly}
+        className="block mt-2 text-accent font-medium hover:underline"
+      >
+        → 어려움 표시된 것만 풀기
+      </button>
+    </div>
+  )}
+
+  {/* 유형 선택 */}
+  <section className="mt-8 space-y-4">
+    <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+      연습 유형 (여러 개 선택 가능)
+    </h2>
+
+    <label className="flex items-start gap-3 rounded-md border p-4 cursor-pointer hover:border-primary/30">
+      <input type="checkbox" checked={...} className="mt-1" />
+      <div className="flex-1">
+        <div className="font-semibold">빈칸 채우기</div>
+        <div className="text-sm text-muted-foreground mt-0.5">
+          HAVE/GET/KEEP 같은 자매 동사 중 고르기 · 동사 구분 훈련
+        </div>
+      </div>
+      <span className="text-xs tabular-nums text-muted-foreground">{fillInCount}문제</span>
+    </label>
+
+    {/* 동사 고르기 · 자타동사 분류도 같은 패턴 */}
+  </section>
+
+  {/* 길이 선택 */}
+  <section className="mt-8 space-y-3">
+    <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+      세션 길이
+    </h2>
+    <div className="flex gap-2">
+      {([5, 10, 'all'] as const).map(len => (
+        <button
+          key={len}
+          onClick={() => setLength(len)}
+          className={cn(
+            'flex-1 rounded-md border px-4 py-3 text-sm font-medium transition-colors',
+            length === len ? 'bg-primary text-primary-foreground border-primary' : 'hover:bg-muted'
+          )}
+        >
+          {len === 'all' ? '전체' : `${len}개`}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <Button
+    onClick={startSession}
+    disabled={selectedKinds.length === 0}
+    className="mt-8 w-full"
+    size="lg"
+  >
+    연습 시작 →
+  </Button>
+</article>
+```
+
+### 5.9 연습 모드 진행 화면
+
+한 문제씩. 카드 형태.
+
+```tsx
+<article className="max-w-xl mx-auto">
+  {/* 진행률 */}
+  <div className="flex items-center justify-between mb-6">
+    <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground tabular-nums">
+      Day {day} · {kindLabel(q.kind)}
+    </span>
+    <span className="text-xs tabular-nums text-muted-foreground">
+      {current + 1} / {total}
+    </span>
+  </div>
+
+  {/* 프로그레스 바 */}
+  <div className="h-1 bg-muted rounded-full overflow-hidden mb-8">
+    <div
+      className="h-full bg-primary transition-all"
+      style={{ width: `${((current) / total) * 100}%` }}
+    />
+  </div>
+
+  {/* 문제 카드 */}
+  <div className="rounded-lg border bg-card p-6 md:p-8">
+    {/* 한국어 프롬프트 */}
+    <p className="text-lg md:text-xl leading-relaxed">
+      "{q.prompt}"
+    </p>
+
+    {/* 빈칸 있는 영어 문장 (fill-in일 때) */}
+    {q.kind === 'fill-in' && (
+      <p className="mt-6 text-xl md:text-2xl font-semibold leading-relaxed">
+        {renderSentenceWithBlank(q.fullEn, q.blankStart, q.blankLength, userChoice)}
+      </p>
+    )}
+
+    {/* 선택지 */}
+    {q.choices && (
+      <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-2">
+        {q.choices.map(choice => {
+          const isCorrect = choice === q.answer;
+          const isSelected = userChoice === choice;
+          return (
+            <button
+              key={choice}
+              disabled={revealed}
+              onClick={() => selectChoice(choice)}
+              className={cn(
+                'rounded-md border py-3 px-4 font-semibold transition-colors',
+                !revealed && 'hover:bg-muted',
+                revealed && isCorrect && 'bg-green-50 dark:bg-green-950 border-green-500 text-green-900 dark:text-green-100',
+                revealed && isSelected && !isCorrect && 'bg-red-50 dark:bg-red-950 border-destructive text-destructive',
+                !revealed && isSelected && 'bg-muted border-primary',
+              )}
+            >
+              {choice}
+            </button>
+          );
+        })}
+      </div>
+    )}
+
+    {/* 정답 공개 후 */}
+    {revealed && (
+      <div className="mt-6 space-y-3">
+        <p className="text-base md:text-lg font-semibold">{q.fullEn}</p>
+        <Button size="sm" variant="ghost" onClick={() => speak(q.fullEn)}>
+          <Volume2 className="h-4 w-4 mr-1" /> 다시 듣기
+        </Button>
+      </div>
+    )}
+  </div>
+
+  {/* 하단 액션 */}
+  <div className="mt-6 flex items-center justify-between">
+    <label className="flex items-center gap-2 text-sm">
+      <input
+        type="checkbox"
+        checked={markedDifficult}
+        onChange={toggleDifficult}
+      />
+      <span>어려움 표시</span>
+    </label>
+
+    {revealed && (
+      <Button onClick={next}>
+        {current + 1 === total ? '결과 보기' : '다음 →'}
+      </Button>
+    )}
+  </div>
+</article>
+```
+
+### 5.10 연습 모드 종료 화면
+
+```tsx
+<article className="max-w-xl mx-auto text-center">
+  <h1 className="text-3xl font-bold tracking-tight">
+    Day {day} · 연습 완료
+  </h1>
+
+  <div className="mt-8 rounded-lg border bg-card p-8">
+    <div className="text-6xl font-bold tabular-nums">
+      {result.correct} <span className="text-muted-foreground">/ {result.total}</span>
+    </div>
+    <p className="mt-2 text-muted-foreground">
+      {result.correct === result.total ? '전부 맞췄어요!' : `${result.total - result.correct}개 틀림`}
+    </p>
+  </div>
+
+  {/* 어려움 표시된 예문 */}
+  {result.wrong.length > 0 && (
+    <section className="mt-8 text-left">
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+        다음 세션에 우선 노출될 예문
+      </h2>
+      <ul className="space-y-2">
+        {result.wrong.map((q, i) => (
+          <li key={i} className="rounded-md border bg-muted/30 px-4 py-3">
+            <div className="text-sm font-semibold">{q.fullEn}</div>
+            <div className="text-xs text-muted-foreground mt-1">정답: {q.answer}</div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <div className="mt-8 flex gap-3">
+    <Button variant="outline" onClick={restart} className="flex-1">
+      다시 하기
+    </Button>
+    <Button onClick={() => router.push(`/day/${day}`)} className="flex-1">
+      Day 노트로
+    </Button>
+  </div>
+</article>
+```
+
+### 5.11 노트 페이지에서 "어려움" 점 표시
+
+Day 노트 페이지의 `ExampleRow`에 조용히 추가. **레드 금지**.
+
+```tsx
+<li className="group relative">
+  {/* 어려움 표시된 경우 왼쪽 점 */}
+  {isDifficult && (
+    <button
+      onClick={toggleDifficult}
+      aria-label="어려움 표시 해제"
+      className="
+        absolute -left-4 top-3
+        h-1.5 w-1.5 rounded-full
+        bg-muted-foreground/40
+        hover:bg-muted-foreground/70 transition-colors
+      "
+      title="어려움 표시 해제"
+    />
+  )}
+
+  {/* 기존 예문 내용 */}
+  <div className="...">...</div>
+</li>
+```
+
+점 크기·색 가이드:
+- 크기: `h-1.5 w-1.5` (6px) — 눈에 안 띌 정도
+- 색: `bg-muted-foreground/40` — 매우 옅은 회색
+- 호버: 약간 진해짐
+- **절대 레드·브라이트한 색 금지**
+
 ---
 
 ## 6. shadcn/ui 사용 가이드

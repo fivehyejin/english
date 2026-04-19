@@ -85,9 +85,75 @@ export interface AppState {
   lastViewedDay: { month: number; day: number } | null;
   /** 테마 (next-themes가 관리하지만 명시용) */
   theme?: 'light' | 'dark' | 'system';
+  /** 연습 모드 상태 (v2.1 추가) */
+  practice?: PracticeState;
 }
 
-/** localStorage 키 */
+// ============================================
+// 연습 모드 (v2.1 추가)
+// ============================================
+
+/**
+ * 연습 모드 영구 상태.
+ *
+ * 저장하는 건 "어려움 표시된 예문" 단 하나뿐.
+ * 세션 기록, 누적 통계, 점수, streak 등은 저장하지 않음 (복습 앱 회귀 방지).
+ */
+export interface PracticeState {
+  /**
+   * 어려움 플래그가 켜진 예문들.
+   * key 형식: `${groupId}:${exampleIdx}` (e.g. "m2d3-have:5")
+   */
+  difficultExamples: Record<string, DifficultFlag>;
+}
+
+export interface DifficultFlag {
+  /** 최초로 어려움 표시된 날짜 (ISO) */
+  markedAt: string;
+  /** 이 플래그가 유지된 세션 수 (표시용, 의사결정에 쓰지 않음) */
+  sessionsStruggled: number;
+}
+
+/** 연습 유형 */
+export type PracticeKind =
+  | 'fill-in'        // 빈칸 채우기 (동사 고르기)
+  | 'pattern-choice' // 동사/패턴 고르기 (패턴 인식)
+  | 'sort-transitivity'; // 자·타동사 분류 (Day 1 전용)
+
+/** 한 문제 */
+export interface PracticeQuestion {
+  kind: PracticeKind;
+  groupId: string;
+  exampleIdx: number;
+  /** 문제 프롬프트 (한국어 문장 등) */
+  prompt: string;
+  /** 영어 원문 (정답 공개 시 보여줌) */
+  fullEn: string;
+  /** 정답 (빈칸에 들어갈 단어, 또는 패턴 이름) */
+  answer: string;
+  /** 선택지 (fill-in, pattern-choice만) */
+  choices?: string[];
+  /** 빈칸 위치 (fill-in만). 영어 문장 렌더링 시 이 index부터 answer.length만큼이 빈칸 */
+  blankStart?: number;
+  blankLength?: number;
+}
+
+/** 세션 설정 (시작 전 선택) */
+export interface PracticeSessionConfig {
+  day: number;
+  kinds: PracticeKind[];  // 복수 선택 가능
+  length: 5 | 10 | 'all' | 'difficult-only';
+}
+
+/** 세션 결과 (세션 종료 화면용, 영구 저장 X) */
+export interface PracticeSessionResult {
+  total: number;
+  correct: number;
+  wrong: PracticeQuestion[];  // 틀린 문제 목록
+  newlyDifficult: string[];   // 이번 세션에 어려움 표시된 key들
+}
+
+/** localStorage 키 (AppState 하나로 합침) */
 export const STORAGE_KEY = 'english-notebook-state';
 
 
@@ -125,6 +191,62 @@ export function getRegularGroupsByDay(curriculum: CurriculumData, day: number): 
 export function getAllDays(curriculum: CurriculumData): number[] {
   const days = new Set(curriculum.groups.map(g => g.day));
   return Array.from(days).sort((a, b) => a - b);
+}
+
+
+// ============================================
+// 연습 모드 유틸 (v2.1)
+// ============================================
+
+/**
+ * "자매 그룹" 찾기.
+ * 빈칸 채우기·동사 고르기에서 선택지 생성용.
+ *
+ * 예: Day 3 "have" 그룹의 자매는 "get", "keep"
+ *     Day 4 "try-N"의 자매는 "try-ing", "try-to-V"
+ *     Day 2 "can-could-might"의 자매는 "will", "should" 등
+ */
+const SISTER_GROUPS: Record<string, string[]> = {
+  // Day 3: HAVE · GET · KEEP
+  'm2d3-have':  ['m2d3-get', 'm2d3-keep'],
+  'm2d3-get':   ['m2d3-have', 'm2d3-keep'],
+  'm2d3-keep':  ['m2d3-have', 'm2d3-get'],
+
+  // Day 4: TRY 3형제
+  'm2d4-try-N':    ['m2d4-try-ing', 'm2d4-try-to-V'],
+  'm2d4-try-ing':  ['m2d4-try-N',   'm2d4-try-to-V'],
+  'm2d4-try-to-V': ['m2d4-try-N',   'm2d4-try-ing'],
+
+  // Day 2: 조동사 (will/should/would/could/might 상호 비교)
+  'm2d2-will':             ['m2d2-should', 'm2d2-can-could-might', 'm2d2-haveto'],
+  'm2d2-should':           ['m2d2-will',   'm2d2-haveto'],
+  'm2d2-can-could-might':  ['m2d2-will',   'm2d2-should'],
+  'm2d2-haveto':           ['m2d2-should', 'm2d2-will'],
+};
+
+export function getSisterGroupIds(groupId: string): string[] {
+  return SISTER_GROUPS[groupId] ?? [];
+}
+
+/** 어려움 플래그 key 생성 */
+export function difficultKey(groupId: string, exampleIdx: number): string {
+  return `${groupId}:${exampleIdx}`;
+}
+
+/** 특정 예문이 어려움 표시됐는지 */
+export function isDifficult(practice: PracticeState | undefined, groupId: string, exampleIdx: number): boolean {
+  if (!practice) return false;
+  return difficultKey(groupId, exampleIdx) in practice.difficultExamples;
+}
+
+/** 특정 Day에서 어려움 표시된 예문 개수 */
+export function countDifficultInDay(practice: PracticeState | undefined, curriculum: CurriculumData, day: number): number {
+  if (!practice) return 0;
+  const dayGroupIds = new Set(curriculum.groups.filter(g => g.day === day).map(g => g.id));
+  return Object.keys(practice.difficultExamples).filter(k => {
+    const [gid] = k.split(':');
+    return dayGroupIds.has(gid);
+  }).length;
 }
 ```
 

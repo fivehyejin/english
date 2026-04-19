@@ -7,8 +7,19 @@ import type { PatternGroup } from '@/types';
 import { speak, speakSequence } from '@/lib/speech';
 
 import { Button } from '@/components/ui/button';
+import { ExampleRow } from '@/components/ExampleRow';
 
-export function GroupSection({ group }: { group: PatternGroup }) {
+interface GroupSectionProps {
+  group: PatternGroup;
+  difficultKeys?: Set<string>;
+  onToggleDifficult?: (groupId: string, exampleIdx: number) => void;
+}
+
+export function GroupSection({
+  group,
+  difficultKeys,
+  onToggleDifficult,
+}: GroupSectionProps) {
   const playGroup = () => {
     const texts = group.examples.slice(0, 3).map((e) => e.en);
     if (!texts.length) {
@@ -79,35 +90,17 @@ export function GroupSection({ group }: { group: PatternGroup }) {
 
       <ol className="space-y-3">
         {group.examples.map((ex, i) => (
-          <li key={i} className="group">
-            <div className="grid grid-cols-1 gap-x-4 gap-y-1 md:grid-cols-[1fr_auto]">
-              <div className="min-w-0">
-                <p className="break-words text-base font-semibold text-foreground md:text-lg">
-                  {ex.en}
-                </p>
-                <p className="mt-0.5 break-words text-sm text-muted-foreground md:text-base">
-                  {ex.ko}
-                </p>
-                {ex.note ? (
-                  <div className="mt-2 inline-block max-w-full rounded border border-[hsl(var(--note-border))] bg-[hsl(var(--note-bg))] px-2 py-1 text-xs text-muted-foreground">
-                    {ex.note}
-                  </div>
-                ) : null}
-              </div>
-
-              <div className="flex items-start justify-end md:justify-start">
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  type="button"
-                  onClick={() => playOne(ex.en)}
-                  aria-label="영어 예문 듣기"
-                >
-                  <Volume2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </li>
+          <ExampleRow
+            key={i}
+            example={ex}
+            difficult={difficultKeys?.has(`${group.id}::${i}`)}
+            onSpeak={() => playOne(ex.en)}
+            onToggleDifficult={
+              onToggleDifficult
+                ? () => onToggleDifficult(group.id, i)
+                : undefined
+            }
+          />
         ))}
       </ol>
     </section>

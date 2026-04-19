@@ -41,7 +41,28 @@ export interface Example {
 
 export interface AppState {
   lastViewedDay: { month: number; day: number } | null;
+  difficultExamples?: Record<string, DifficultExample>;
   theme?: 'light' | 'dark' | 'system';
+}
+
+export interface DifficultExample {
+  markedAt: string;
+  sessionsStruggled: number;
+}
+
+export type PracticeType = 'fill-in' | 'pattern-choice' | 'sort';
+
+export interface PracticeQuestion {
+  id: string;
+  type: PracticeType;
+  groupId: string;
+  groupTitle: string;
+  exampleIdx: number;
+  fullEn: string;
+  ko: string;
+  prompt: string;
+  choices: string[];
+  answer: string;
 }
 
 export const STORAGE_KEY = 'english-notebook-state';
