@@ -3,7 +3,9 @@
 `curriculum-m2.json`의 구조를 TypeScript로 옮긴 것. `src/types.ts`로 그대로 복사해서 사용하면 됩니다.
 
 ## 변경 이력
-- **v2 (현재)**: Day 요약(`daySummaries`) 추가, 복습 관련 타입 전체 제거
+- **v2.2 (현재)**: `PracticeKind`에 3개 추가 (`collocation`, `minimal-pairs`, `composition`), 작문 채점 유틸, `CROSS_DAY_SISTERS` 매핑
+- v2.1: 연습 모드 타입 추가 (`PracticeState`, `PracticeKind`, `PracticeQuestion`, `SISTER_GROUPS`)
+- v2: Day 요약(`daySummaries`) 추가, 복습 관련 타입 전체 제거
 - v1: 복습 관리 앱 버전 (사용 안 함)
 
 ---
@@ -85,12 +87,12 @@ export interface AppState {
   lastViewedDay: { month: number; day: number } | null;
   /** 테마 (next-themes가 관리하지만 명시용) */
   theme?: 'light' | 'dark' | 'system';
-  /** 연습 모드 상태 (v2.1 추가) */
+  /** 연습 모드 상태 (v2.1 추가, v2.2에서도 동일 스키마 공유) */
   practice?: PracticeState;
 }
 
 // ============================================
-// 연습 모드 (v2.1 추가)
+// 연습 모드 영구 상태 (v2.1 추가, v2.2 공유)
 // ============================================
 
 /**
@@ -98,6 +100,9 @@ export interface AppState {
  *
  * 저장하는 건 "어려움 표시된 예문" 단 하나뿐.
  * 세션 기록, 누적 통계, 점수, streak 등은 저장하지 않음 (복습 앱 회귀 방지).
+ *
+ * v2.2 전체 연습도 이 스키마를 그대로 공유. Day별 연습과 전체 연습은
+ * 같은 어려움 플래그 풀을 사용함.
  */
 export interface PracticeState {
   /**
@@ -114,35 +119,83 @@ export interface DifficultFlag {
   sessionsStruggled: number;
 }
 
+// ============================================
+// 연습 유형 · 질문 (v2.1 + v2.2 확장)
+// ============================================
+
 /** 연습 유형 */
 export type PracticeKind =
-  | 'fill-in'        // 빈칸 채우기 (동사 고르기)
-  | 'pattern-choice' // 동사/패턴 고르기 (패턴 인식)
-  | 'sort-transitivity'; // 자·타동사 분류 (Day 1 전용)
+  // v2.1 (Day별 연습)
+  | 'fill-in'            // 빈칸 채우기 (같은 Day 자매 그룹 동사 고르기)
+  | 'pattern-choice'     // 한국어 → 패턴 이름 고르기
+  | 'sort-transitivity'  // 자·타동사 분류 (Day 1 전용)
+
+  // v2.2 (전체 연습)
+  | 'collocation'        // 동사 + 짝꿍 목적어/전치사 (Day 경계 없음)
+  | 'minimal-pairs'      // 비슷한 동사 구분 (자매 그룹 크로스-Day)
+  | 'composition';       // 한국어 → 영어 타이핑
 
 /** 한 문제 */
 export interface PracticeQuestion {
   kind: PracticeKind;
   groupId: string;
   exampleIdx: number;
-  /** 문제 프롬프트 (한국어 문장 등) */
+
+  /** 한국어 프롬프트 */
   prompt: string;
-  /** 영어 원문 (정답 공개 시 보여줌) */
+  /** 영어 정답 원문 (정답 공개 시 보여줌) */
   fullEn: string;
-  /** 정답 (빈칸에 들어갈 단어, 또는 패턴 이름) */
+  /** 정답 (빈칸에 들어갈 단어, 또는 패턴 이름, 또는 작문 정답 전문) */
   answer: string;
-  /** 선택지 (fill-in, pattern-choice만) */
+
+  // ── fill-in / minimal-pairs / collocation ──
   choices?: string[];
-  /** 빈칸 위치 (fill-in만). 영어 문장 렌더링 시 이 index부터 answer.length만큼이 빈칸 */
+  /** 빈칸이 하나일 때 시작 위치 (fullEn 기준) */
   blankStart?: number;
   blankLength?: number;
+
+  // ── collocation 전용 (v2.2) ──
+  /** 빈칸이 2개일 때 (동사+전치사 세트 고르기 등) */
+  blanks?: Array<{ start: number; length: number; answer: string }>;
+  /** 그룹의 pattern 문자열 (힌트용) — e.g. "invest money in 투자처" */
+  groupPattern?: string;
+  /** 서브 유형 */
+  subKind?: 'fill-preposition' | 'fill-verb-and-prep' | 'detect-transitivity-error';
+
+  // ── minimal-pairs 전용 (v2.2) ──
+  /** 정답 그룹의 title (e.g. "KEEP") */
+  correctGroupTitle?: string;
+  /** 정답 그룹의 meaning */
+  correctGroupMeaning?: string;
+  /** 오답 선택지별 간단 설명 { [choice]: "HAVE · 정적 소유" } */
+  wrongGroupBrief?: Record<string, string>;
+
+  // ── composition 전용 (v2.2) ──
+  /** 힌트 (그룹 pattern 또는 title) */
+  hint?: string;
+  /** 한국어 원문 (prompt과 동일. 명시성 위해 별도 필드) */
+  ko?: string;
 }
 
-/** 세션 설정 (시작 전 선택) */
+// ============================================
+// 세션 설정 & 결과
+// ============================================
+
+/** Day별 연습 세션 설정 (v2.1) */
 export interface PracticeSessionConfig {
   day: number;
   kinds: PracticeKind[];  // 복수 선택 가능
   length: 5 | 10 | 'all' | 'difficult-only';
+}
+
+/** 전체 연습 범위 (v2.2) */
+export type PracticeScope = 'all' | 'd1-3' | 'd4-5';
+
+/** 전체 연습 세션 설정 (v2.2) */
+export interface GlobalPracticeConfig {
+  scope: PracticeScope;
+  kinds: PracticeKind[];  // ['collocation', 'minimal-pairs', 'composition']에서 복수 선택
+  length: 5 | 10 | 20 | 'difficult-only';
 }
 
 /** 세션 결과 (세션 종료 화면용, 영구 저장 X) */
@@ -151,6 +204,23 @@ export interface PracticeSessionResult {
   correct: number;
   wrong: PracticeQuestion[];  // 틀린 문제 목록
   newlyDifficult: string[];   // 이번 세션에 어려움 표시된 key들
+}
+
+/** 작문 채점 결과 (v2.2) */
+export type CompositionVerdict =
+  | 'exact'     // 정확히 일치
+  | 'reorder'   // 단어는 맞는데 순서 다름
+  | 'partial'   // 핵심 단어 일부 일치 (≥70%)
+  | 'mismatch'; // 다름
+
+export interface CompositionResult {
+  verdict: CompositionVerdict;
+  /** 내 답 단어 배열 (정규화 후) */
+  userWords: string[];
+  /** 정답 단어 배열 (정규화 후) */
+  answerWords: string[];
+  /** 매칭된 단어 비율 (0~1) */
+  matchRatio: number;
 }
 
 /** localStorage 키 (AppState 하나로 합침) */
@@ -195,16 +265,18 @@ export function getAllDays(curriculum: CurriculumData): number[] {
 
 
 // ============================================
-// 연습 모드 유틸 (v2.1)
+// Day별 연습 유틸 (v2.1)
 // ============================================
 
 /**
- * "자매 그룹" 찾기.
- * 빈칸 채우기·동사 고르기에서 선택지 생성용.
+ * 같은 Day 내의 "자매 그룹" 찾기.
+ * Day별 연습의 빈칸 채우기·동사 고르기에서 선택지 생성용.
  *
  * 예: Day 3 "have" 그룹의 자매는 "get", "keep"
  *     Day 4 "try-N"의 자매는 "try-ing", "try-to-V"
  *     Day 2 "can-could-might"의 자매는 "will", "should" 등
+ *
+ * v2.2의 CROSS_DAY_SISTERS와 별개. 이건 Day 경계 내부.
  */
 const SISTER_GROUPS: Record<string, string[]> = {
   // Day 3: HAVE · GET · KEEP
@@ -217,7 +289,7 @@ const SISTER_GROUPS: Record<string, string[]> = {
   'm2d4-try-ing':  ['m2d4-try-N',   'm2d4-try-to-V'],
   'm2d4-try-to-V': ['m2d4-try-N',   'm2d4-try-ing'],
 
-  // Day 2: 조동사 (will/should/would/could/might 상호 비교)
+  // Day 2: 조동사 상호 비교
   'm2d2-will':             ['m2d2-should', 'm2d2-can-could-might', 'm2d2-haveto'],
   'm2d2-should':           ['m2d2-will',   'm2d2-haveto'],
   'm2d2-can-could-might':  ['m2d2-will',   'm2d2-should'],
@@ -248,11 +320,162 @@ export function countDifficultInDay(practice: PracticeState | undefined, curricu
     return dayGroupIds.has(gid);
   }).length;
 }
+
+/** 전체 어려움 개수 (v2.2 홈 배너용) */
+export function countAllDifficult(practice: PracticeState | undefined): number {
+  if (!practice) return 0;
+  return Object.keys(practice.difficultExamples).length;
+}
+
+
+// ============================================
+// 전체 연습 유틸 (v2.2)
+// ============================================
+
+/**
+ * 크로스-Day 자매 그룹 묶음.
+ * 전체 연습의 minimal-pairs 문제에서 선택지를 만들 때 참조.
+ */
+export const CROSS_DAY_SISTERS: Record<string, string[]> = {
+  // 소유 4동사 — D3, D4 크로스
+  'm2d3-have':       ['m2d3-get', 'm2d3-keep', 'm2d4-take-basic'],
+  'm2d3-get':        ['m2d3-have', 'm2d3-keep', 'm2d4-take-basic'],
+  'm2d3-keep':       ['m2d3-have', 'm2d3-get', 'm2d4-take-basic'],
+  'm2d4-take-basic': ['m2d3-have', 'm2d3-get', 'm2d3-keep'],
+
+  // try 3형제 — D4
+  'm2d4-try-N':     ['m2d4-try-ing', 'm2d4-try-to-V'],
+  'm2d4-try-ing':   ['m2d4-try-N',   'm2d4-try-to-V'],
+  'm2d4-try-to-V':  ['m2d4-try-N',   'm2d4-try-ing'],
+
+  // 조동사 — D2
+  'm2d2-will':             ['m2d2-should', 'm2d2-can-could-might', 'm2d2-haveto'],
+  'm2d2-should':           ['m2d2-will',   'm2d2-can-could-might', 'm2d2-haveto'],
+  'm2d2-can-could-might':  ['m2d2-will',   'm2d2-should',          'm2d2-haveto'],
+  'm2d2-haveto':           ['m2d2-will',   'm2d2-should',          'm2d2-can-could-might'],
+
+  // too vs enough (D5) — 구조별 쌍 (순환 ↔ 순환, 직선 ↔ 직선…)
+  'm2d5-too-circular':    ['m2d5-enough-circular'],
+  'm2d5-enough-circular': ['m2d5-too-circular'],
+  'm2d5-too-straight':    ['m2d5-enough-straight'],
+  'm2d5-enough-straight': ['m2d5-too-straight'],
+  'm2d5-too-it-subject':    ['m2d5-enough-it-subject'],
+  'm2d5-enough-it-subject': ['m2d5-too-it-subject'],
+};
+
+export function getCrossDaySisters(groupId: string): string[] {
+  return CROSS_DAY_SISTERS[groupId] ?? [];
+}
+
+/** 범위에 해당하는 Day 번호들 */
+export function daysInScope(scope: PracticeScope, allDays: number[]): number[] {
+  if (scope === 'all')  return allDays;
+  if (scope === 'd1-3') return allDays.filter(d => d >= 1 && d <= 3);
+  if (scope === 'd4-5') return allDays.filter(d => d >= 4 && d <= 5);
+  return allDays;
+}
+
+/** 특정 범위의 그룹들 */
+export function groupsInScope(
+  curriculum: CurriculumData,
+  scope: PracticeScope
+): PatternGroup[] {
+  const days = daysInScope(scope, getAllDays(curriculum));
+  return curriculum.groups.filter(g => days.includes(g.day));
+}
+
+/**
+ * 그룹의 pattern 문자열에서 짝꿍 전치사를 추출 (collocation 문제 생성용).
+ *
+ * 예: "invest money in 투자처" → { verb: "invest", prep: "in" }
+ *     "bet money on 돈을 거는 대상" → { verb: "bet", prep: "on" }
+ *     "help someone with 일" → { verb: "help", prep: "with" }
+ *     "leave 출발지 for 목적지" → { verb: "leave", prep: "for" }
+ *
+ * 알려진 전치사 집합 외의 단어는 무시. 추출 실패 시 null.
+ */
+const KNOWN_PREPS = new Set([
+  'in', 'on', 'at', 'to', 'for', 'with', 'by',
+  'from', 'into', 'onto', 'about', 'of', 'off'
+]);
+
+export function extractCollocation(pattern: string | undefined): { verb: string; prep: string } | null {
+  if (!pattern) return null;
+  const words = pattern.toLowerCase().split(/\s+/);
+  if (words.length < 2) return null;
+  const verb = words[0];
+  const prep = words.find(w => KNOWN_PREPS.has(w));
+  if (!prep) return null;
+  return { verb, prep };
+}
+
+/**
+ * "이 자동사 뒤엔 반드시 이 전치사" 목록.
+ * detect-transitivity-error 서브 유형 문제 생성용.
+ *
+ * 데이터에서 자동 추출되지 않는 부분이므로 수동 관리.
+ * 새 동사가 추가되면 여기 등록.
+ */
+export const INTRANSITIVE_PREP_RULES: Record<string, { required: string; meaning: string }> = {
+  arrive:   { required: 'at/in',   meaning: '장소에 도착' },
+  listen:   { required: 'to',      meaning: '~을 듣다 (귀 기울이다)' },
+  talk:     { required: 'to/with', meaning: '~와 얘기하다' },
+  wait:     { required: 'for',     meaning: '~을 기다리다' },
+  look:     { required: 'at',      meaning: '~을 보다 (시선)' },
+  go:       { required: 'to',      meaning: '~에 가다' },
+  laugh:    { required: 'at',      meaning: '~을 비웃다' },
+};
+
+
+// ============================================
+// 작문 채점 유틸 (v2.2)
+// ============================================
+
+/** 작문 비교용 정규화: 소문자, 괄호/구두점 제거, 공백 정돈 */
+export function normalizeForGrading(text: string): string[] {
+  return text
+    .toLowerCase()
+    .replace(/[()[\]{}]/g, ' ')        // 괄호 제거
+    .replace(/[.,!?;:"']/g, ' ')       // 구두점 제거
+    .replace(/\s+/g, ' ')              // 여백 정돈
+    .trim()
+    .split(' ')
+    .filter(Boolean);
+}
+
+/** 작문 채점 — 단순 비교 기반 */
+export function gradeComposition(user: string, answer: string): CompositionResult {
+  const userWords = normalizeForGrading(user);
+  const answerWords = normalizeForGrading(answer);
+
+  // 1. 완전 일치
+  if (userWords.join(' ') === answerWords.join(' ')) {
+    return { verdict: 'exact', userWords, answerWords, matchRatio: 1 };
+  }
+
+  // 2. 순서만 다름 (정렬 후 일치)
+  const sortedUser = [...userWords].sort().join(' ');
+  const sortedAnswer = [...answerWords].sort().join(' ');
+  if (sortedUser === sortedAnswer) {
+    return { verdict: 'reorder', userWords, answerWords, matchRatio: 1 };
+  }
+
+  // 3. 매칭 비율
+  const answerSet = new Set(answerWords);
+  const matched = userWords.filter(w => answerSet.has(w)).length;
+  const ratio = answerWords.length === 0 ? 0 : matched / answerWords.length;
+
+  if (ratio >= 0.7) {
+    return { verdict: 'partial', userWords, answerWords, matchRatio: ratio };
+  }
+
+  return { verdict: 'mismatch', userWords, answerWords, matchRatio: ratio };
+}
 ```
 
 ## 제거된 타입 (v1에서 있던 것들)
 
-참고용. v2에서는 **쓰지 않음**:
+참고용. v2 이후로는 **쓰지 않음**:
 
 - ❌ `REVIEW_INTERVALS` (망각곡선 간격)
 - ❌ `GroupProgress` (복습 스테이지·카운트·북마크)
@@ -272,7 +495,7 @@ export function countDifficultInDay(practice: PracticeState | undefined, curricu
   "month": 2,
   "level": "beginner",
   "topic": "Catch up · 구문 학습 집중달",
-  "topicNote": "동사암기 · 조동사 · have/get/keep · take · try ...",
+  "topicNote": "동사암기 · 조동사 · have/get/keep · take · try · too~to · enough",
   "daySummaries": {
     "3": {
       "dayTitle": "HAVE · GET · KEEP",
@@ -281,8 +504,7 @@ export function countDifficultInDay(practice: PracticeState | undefined, curricu
         "공통 구조: **S + [have/get/keep] + O + [상태]** (adv / adj / p+n / -ed / -ing)",
         "**HAVE** = 정적인 소유. 그 상태가 이미 확보되어 있음. `I have the door open` = 문이 열려있는 상태",
         "**GET** = 동작. 그 상태가 **되게 만듦**. `Get the door open` = 어떻게든 열리게 만들어",
-        "**KEEP** = 유지·자제. 반대로 움직이려는 걸 막음. `Keep the door open` = 계속 열려있게 지켜",
-        "`get the door open` ≠ `open the door` — get은 '어떻게든' 뉘앙스"
+        "**KEEP** = 유지·자제. 반대로 움직이려는 걸 막음. `Keep the door open` = 계속 열려있게 지켜"
       ],
       "mustRemember": [
         "같은 'door open' 상태라도 → have(이미) / get(만듦) / keep(유지)",
@@ -377,3 +599,4 @@ function renderInlineMarkdown(text: string): React.ReactNode {
 - **`noteSource`는 표시용 텍스트**. 링크나 구조화된 값 아님.
 - **`example.note`와 `group.notes`는 다른 것**. 전자는 예문 한 줄 주석, 후자는 그룹 전체 필기.
 - **ID 형식**: `m{month}d{day}-{topic-slug}`. 월/일로 정렬 쉽게 가능.
+- **연습 모드 타입은 2가지 용도로 쓰임**: `SISTER_GROUPS` (Day 내, v2.1) / `CROSS_DAY_SISTERS` (Day 경계 없음, v2.2). 헷갈리지 말 것.

@@ -23,7 +23,10 @@ function titleToken(group: PatternGroup): string | null {
   return m ? m[0].toLowerCase() : null;
 }
 
-export function getSisterGroupIds(groupId: string, groups: PatternGroup[]): string[] {
+export function getSisterGroupIds(
+  groupId: string,
+  groups: PatternGroup[]
+): string[] {
   for (const set of SISTER_SETS) {
     if (set.includes(groupId)) {
       return set;
@@ -60,7 +63,7 @@ export function generateFillInQuestions(
     if (!choices.includes(token)) choices[0] = token;
     out.push({
       id: `fill-${group.id}-${exampleIdx}`,
-      type: 'fill-in',
+      kind: 'fill-in',
       groupId: group.id,
       groupTitle: group.title,
       exampleIdx,
@@ -74,7 +77,9 @@ export function generateFillInQuestions(
   return out;
 }
 
-export function generatePatternChoiceQuestions(dayGroups: PatternGroup[]): PracticeQuestion[] {
+export function generatePatternChoiceQuestions(
+  dayGroups: PatternGroup[]
+): PracticeQuestion[] {
   const candidates = dayGroups.filter((g) => g.kind !== 'class-note');
   const titles = uniq(candidates.map((g) => g.title));
   const out: PracticeQuestion[] = [];
@@ -85,7 +90,7 @@ export function generatePatternChoiceQuestions(dayGroups: PatternGroup[]): Pract
       const choices = shuffle(uniq([g.title, ...wrongs]));
       out.push({
         id: `pattern-${g.id}-${exampleIdx}`,
-        type: 'pattern-choice',
+        kind: 'pattern-choice',
         groupId: g.id,
         groupTitle: g.title,
         exampleIdx,
@@ -100,11 +105,22 @@ export function generatePatternChoiceQuestions(dayGroups: PatternGroup[]): Pract
   return out;
 }
 
-export function generateSortQuestions(dayGroups: PatternGroup[]): PracticeQuestion[] {
+export function generateSortQuestions(
+  dayGroups: PatternGroup[]
+): PracticeQuestion[] {
   const out: PracticeQuestion[] = [];
   const rules = [
-    { id: 'transitive', label: '타동사', test: (id: string) => id.includes('transitive') && !id.includes('intransitive') },
-    { id: 'intransitive', label: '자동사', test: (id: string) => id.includes('intransitive') },
+    {
+      id: 'transitive',
+      label: '타동사',
+      test: (id: string) =>
+        id.includes('transitive') && !id.includes('intransitive'),
+    },
+    {
+      id: 'intransitive',
+      label: '자동사',
+      test: (id: string) => id.includes('intransitive'),
+    },
     { id: 'both', label: '둘 다', test: (id: string) => id.includes('both') },
   ] as const;
 
@@ -114,7 +130,7 @@ export function generateSortQuestions(dayGroups: PatternGroup[]): PracticeQuesti
     g.examples.forEach((ex, exampleIdx) => {
       out.push({
         id: `sort-${g.id}-${exampleIdx}`,
-        type: 'sort',
+        kind: 'sort-transitivity',
         groupId: g.id,
         groupTitle: g.title,
         exampleIdx,
@@ -134,7 +150,7 @@ export function uniqueByExample(questions: PracticeQuestion[]): PracticeQuestion
   const seen = new Set<string>();
   const out: PracticeQuestion[] = [];
   for (const q of questions) {
-    const key = `${q.groupId}::${q.exampleIdx}`;
+    const key = `${q.groupId}:${q.exampleIdx}:${q.kind}`;
     if (seen.has(key)) continue;
     seen.add(key);
     out.push(q);

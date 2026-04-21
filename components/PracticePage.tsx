@@ -15,7 +15,11 @@ import {
   uniqueByExample,
 } from '@/lib/practice';
 import { difficultKey, useDifficultExamples } from '@/hooks/useDifficultExamples';
-import { getRegularGroupsByDay, type PracticeQuestion, type PracticeType } from '@/types';
+import {
+  getRegularGroupsByDay,
+  type PracticeKind,
+  type PracticeQuestion,
+} from '@/types';
 
 type Phase = 'setup' | 'running' | 'result';
 
@@ -33,7 +37,7 @@ export function PracticePage({ day }: { day: number }) {
   const regularGroups = getRegularGroupsByDay(CURRENT_CURRICULUM, day);
 
   const [phase, setPhase] = useState<Phase>('setup');
-  const [type, setType] = useState<PracticeType>('fill-in');
+  const [kind, setKind] = useState<PracticeKind>('fill-in');
   const [count, setCount] = useState(10);
   const [onlyDifficult, setOnlyDifficult] = useState(false);
 
@@ -48,9 +52,9 @@ export function PracticePage({ day }: { day: number }) {
 
   const generated = useMemo(() => {
     let questions: PracticeQuestion[] = [];
-    if (type === 'fill-in') {
+    if (kind === 'fill-in') {
       questions = regularGroups.flatMap((g) => generateFillInQuestions(g, regularGroups));
-    } else if (type === 'pattern-choice') {
+    } else if (kind === 'pattern-choice') {
       questions = generatePatternChoiceQuestions(regularGroups);
     } else {
       questions = generateSortQuestions(regularGroups);
@@ -61,7 +65,7 @@ export function PracticePage({ day }: { day: number }) {
       questions = questions.filter((q) => keys.has(difficultKey(q.groupId, q.exampleIdx)));
     }
     return questions;
-  }, [type, regularGroups, onlyDifficult, items]);
+  }, [kind, regularGroups, onlyDifficult, items]);
 
   const start = () => {
     if (!generated.length) {
@@ -104,9 +108,7 @@ export function PracticePage({ day }: { day: number }) {
       });
     }
 
-    if (correct) {
-      window.setTimeout(() => next(), 800);
-    } else {
+    if (!correct) {
       setWrongIds((prev) => [...prev, current.id]);
     }
   };
@@ -148,9 +150,14 @@ export function PracticePage({ day }: { day: number }) {
               {[
                 ['fill-in', '빈칸 채우기'],
                 ['pattern-choice', '동사/패턴 고르기'],
-                ['sort', '자·타동사 분류'],
+                ['sort-transitivity', '자·타동사 분류'],
               ].map(([id, label]) => (
-                <Button key={id} type="button" variant={type === id ? 'default' : 'outline'} onClick={() => setType(id as PracticeType)}>
+                <Button
+                  key={id}
+                  type="button"
+                  variant={kind === id ? 'default' : 'outline'}
+                  onClick={() => setKind(id as PracticeKind)}
+                >
                   {label}
                 </Button>
               ))}
@@ -185,7 +192,7 @@ export function PracticePage({ day }: { day: number }) {
           <p className="mt-1 text-sm text-muted-foreground">{current.ko}</p>
 
           <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {current.choices.map((c) => {
+            {(current.choices ?? []).map((c) => {
               const active = selected === c;
               const isAns = current.answer === c;
               const className =
@@ -223,7 +230,7 @@ export function PracticePage({ day }: { day: number }) {
             <button type="button" onClick={toggleManualDifficult} className="text-sm text-muted-foreground underline-offset-4 hover:underline">
               {markedManually ? '어려움 표시 해제' : '이 문제 어려움 표시'}
             </button>
-            {selected != null && isCorrect === false ? (
+            {selected != null ? (
               <Button type="button" onClick={next}>다음</Button>
             ) : null}
           </div>

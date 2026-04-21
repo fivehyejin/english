@@ -818,6 +818,474 @@ Day 노트 페이지의 `ExampleRow`에 조용히 추가. **레드 금지**.
 - 호버: 약간 진해짐
 - **절대 레드·브라이트한 색 금지**
 
+
+### 5.12 홈 페이지 "전체 연습" 진입 버튼 (v2.2)
+
+홈 상단 영역의 "📍 최근 학습" 뱃지 옆에 배치. 이 버튼은 홈 페이지에만 존재.
+
+```tsx
+<div className="flex flex-wrap items-center gap-2 mb-6">
+  {lastViewedDay && (
+    <Link
+      href={`/day/${lastViewedDay.day}`}
+      className="
+        inline-flex items-center gap-1.5 rounded-full
+        border bg-secondary text-secondary-foreground
+        px-3 py-1 text-xs font-medium
+        hover:bg-secondary/80 transition-colors
+      "
+    >
+      📍 최근 학습 · Day {lastViewedDay.day}
+    </Link>
+  )}
+
+  <Link
+    href="/practice"
+    className="
+      inline-flex items-center gap-1.5 rounded-full
+      border bg-secondary text-secondary-foreground
+      px-3 py-1 text-xs font-medium
+      hover:bg-secondary/80 transition-colors
+    "
+  >
+    🎯 전체 연습
+  </Link>
+</div>
+```
+
+**톤 규칙**
+- primary/accent 색 쓰지 말 것 — **유혹하듯 강조하지 않음**. secondary 동일.
+- 뱃지 느낌 (rounded-full, text-xs). 큰 CTA가 아님.
+- 홈이 노트 목차라는 정체성을 훼손하지 않기 위해 "오늘 N개 풀어야 해요" 같은 카운트도 **절대 붙이지 말 것**.
+
+### 5.13 전체 연습 시작 화면 (v2.2)
+
+`/practice` 라우트의 기본 화면. Day별 연습 시작 화면(5.8)과 비슷하지만 **범위 선택**이 추가됨.
+
+```tsx
+<article className="max-w-xl mx-auto">
+  <Link
+    href="/"
+    className="text-sm text-muted-foreground hover:text-foreground"
+  >
+    ← 홈으로
+  </Link>
+
+  <h1 className="mt-6 text-2xl md:text-3xl font-bold tracking-tight">
+    🎯 전체 연습
+  </h1>
+  <p className="mt-2 text-sm text-muted-foreground">
+    지금까지 배운 동사를 섞어서 반복
+  </p>
+
+  {/* 어려움 바로가기 (있을 때만) */}
+  {difficultCount > 0 && (
+    <div className="
+      mt-6 rounded-md border bg-[hsl(var(--highlight-bg))]
+      border-l-4 border-l-accent
+      px-4 py-3 text-sm
+    ">
+      어려움 표시된 예문 <strong className="tabular-nums">{difficultCount}개</strong>
+      <button
+        onClick={startDifficultOnly}
+        className="block mt-2 text-accent font-medium hover:underline"
+      >
+        → 어려움 표시된 것만 풀기
+      </button>
+    </div>
+  )}
+
+  {/* 범위 선택 */}
+  <section className="mt-8 space-y-3">
+    <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+      범위
+    </h2>
+    <div className="flex flex-wrap gap-2">
+      {[
+        { value: 'all',  label: '전체'    },
+        { value: 'd1-3', label: 'Day 1~3' },
+        { value: 'd4-5', label: 'Day 4~5' },
+      ].map(opt => (
+        <button
+          key={opt.value}
+          onClick={() => setScope(opt.value)}
+          className={cn(
+            'rounded-md border px-4 py-2 text-sm font-medium transition-colors',
+            scope === opt.value
+              ? 'bg-primary text-primary-foreground border-primary'
+              : 'hover:bg-muted'
+          )}
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  {/* 유형 선택 — 5.8과 동일 패턴, 카드 3개 */}
+  <section className="mt-8 space-y-3">
+    <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+      연습 유형 (여러 개 선택 가능)
+    </h2>
+
+    <KindCard
+      kind="collocation"
+      title="동사 짝꿍"
+      description="타동사 목적어 · 자동사 전치사 짝꿍"
+      count={collocationCount}
+    />
+    <KindCard
+      kind="minimal-pairs"
+      title="비슷한 동사 구분"
+      description="have/get/keep · try 3형제 · too/enough 등"
+      count={minimalPairsCount}
+    />
+    <KindCard
+      kind="composition"
+      title="직접 작문"
+      description="한국어 → 영어 타이핑"
+      count={compositionCount}
+    />
+  </section>
+
+  {/* 길이 선택 */}
+  <section className="mt-8 space-y-3">
+    <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+      세션 길이
+    </h2>
+    <div className="flex gap-2">
+      {[5, 10, 20].map(len => (
+        <button
+          key={len}
+          onClick={() => setLength(len)}
+          className={cn(
+            'flex-1 rounded-md border px-4 py-3 text-sm font-medium transition-colors',
+            length === len
+              ? 'bg-primary text-primary-foreground border-primary'
+              : 'hover:bg-muted'
+          )}
+        >
+          {len}문제
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <Button
+    onClick={startSession}
+    disabled={selectedKinds.length === 0}
+    className="mt-8 w-full"
+    size="lg"
+  >
+    연습 시작 →
+  </Button>
+</article>
+```
+
+`KindCard` 컴포넌트는 5.8의 checkbox 카드 패턴 그대로 재사용.
+
+### 5.14 동사 짝꿍 (collocation) 문제 렌더링 (v2.2)
+
+빈칸이 하나 또는 둘. 선택지는 버튼 배열.
+
+```tsx
+{/* prompt (한국어) */}
+<p className="text-sm text-muted-foreground mb-2">
+  {q.prompt}
+</p>
+
+{/* 영어 문장 with blank */}
+<p className="text-lg md:text-xl font-medium leading-relaxed mb-6">
+  {renderBlanks(q.fullEn, q.blankStart, q.blankLength, q.blanks, userChoice)}
+</p>
+{/* 예: "I ___ my money ___ real estate." */}
+
+{/* 선택지 */}
+<div className="grid grid-cols-2 gap-3">
+  {q.choices?.map(choice => (
+    <button
+      key={choice}
+      disabled={revealed}
+      onClick={() => handlePick(choice)}
+      className={cn(
+        'rounded-md border px-4 py-3 text-sm font-medium transition-colors',
+        revealed && choice === q.answer && 'bg-green-50 dark:bg-green-950 border-green-500 text-green-900 dark:text-green-100',
+        revealed && picked === choice && choice !== q.answer && 'bg-red-50 dark:bg-red-950 border-destructive text-destructive',
+        !revealed && 'hover:bg-muted',
+      )}
+    >
+      {/* "invest / in" 처럼 슬래시 포함되면 세로 스택, 아니면 인라인 */}
+      {choice.includes(' / ') ? (
+        <div className="flex flex-col items-center gap-0.5">
+          {choice.split(' / ').map((w, i) => (
+            <span key={i} className={i === 0 ? 'font-semibold' : 'text-xs text-muted-foreground'}>
+              {w}
+            </span>
+          ))}
+        </div>
+      ) : choice}
+    </button>
+  ))}
+</div>
+
+{/* 정답 후: 패턴 힌트 + 원문 */}
+{revealed && (
+  <div className="mt-6 rounded-md bg-muted/50 px-4 py-3 text-sm space-y-2">
+    {q.groupPattern && (
+      <div>
+        <div className="text-xs text-muted-foreground mb-1">패턴</div>
+        <div className="font-medium">{q.groupPattern}</div>
+        {/* e.g. "invest money in 투자처" */}
+      </div>
+    )}
+    <div>
+      <div className="text-xs text-muted-foreground mb-1">원문</div>
+      <div>{q.fullEn}</div>
+    </div>
+  </div>
+)}
+```
+
+**자·타동사 오류 감지 하위 유형** (`subKind: 'detect-transitivity-error'`)은 이지선다 `[맞다] [틀리다]`. 정답 후 정상 문장과 잘못된 문장을 나란히 보여줌:
+
+```tsx
+{q.subKind === 'detect-transitivity-error' && revealed && (
+  <div className="mt-6 space-y-3 text-sm">
+    <div className="rounded-md border-l-4 border-l-destructive bg-red-50 dark:bg-red-950/30 px-4 py-3">
+      <div className="text-xs text-muted-foreground mb-1">틀린 문장</div>
+      <div className="line-through opacity-60">{q.fullEn /* wrong version */}</div>
+    </div>
+    <div className="rounded-md border-l-4 border-l-green-500 bg-green-50 dark:bg-green-950/30 px-4 py-3">
+      <div className="text-xs text-muted-foreground mb-1">올바른 문장</div>
+      <div className="font-medium">{q.answer /* correct version */}</div>
+    </div>
+    <div className="text-xs text-muted-foreground">
+      {INTRANSITIVE_PREP_RULES[q.verb]?.meaning}
+    </div>
+  </div>
+)}
+```
+
+### 5.15 작문 (composition) 문제 렌더링 (v2.2)
+
+타이핑 입력창. 제출 전과 후 UI가 완전히 다름.
+
+**제출 전:**
+```tsx
+<div>
+  {/* 한국어 */}
+  <p className="text-lg md:text-xl font-medium leading-relaxed mb-3">
+    {q.ko}
+  </p>
+
+  {/* 힌트 (있으면) */}
+  {q.hint && (
+    <p className="text-xs text-muted-foreground mb-6">
+      힌트: {q.hint}
+      {/* e.g. "too ~ to V 순환구조" */}
+    </p>
+  )}
+
+  {/* 입력창 */}
+  <textarea
+    value={input}
+    onChange={e => setInput(e.target.value)}
+    className="
+      w-full min-h-24 resize-none rounded-md border bg-background
+      px-4 py-3 text-base font-mono leading-relaxed
+      focus:outline-none focus:ring-2 focus:ring-primary/40
+    "
+    placeholder="여기에 영어로…"
+  />
+
+  <Button
+    onClick={submit}
+    disabled={!input.trim()}
+    className="mt-4 w-full"
+  >
+    제출
+  </Button>
+</div>
+```
+
+- 입력창 폰트는 `font-mono`로 (타이핑 감각 강조)
+- Enter 키로 제출 금지 (여러 줄 타이핑 가능성 있음)
+- 최소 높이 24, 자동 확장 아님
+
+**제출 후:**
+```tsx
+<div className="space-y-5">
+  {/* 내 답 */}
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
+      당신 답
+    </div>
+    <div className="rounded-md border bg-muted/40 px-4 py-3 font-mono text-sm">
+      {input}
+    </div>
+  </div>
+
+  {/* 정답 */}
+  <div>
+    <div className="flex items-center justify-between mb-1">
+      <div className="text-xs uppercase tracking-wide text-muted-foreground">
+        정답
+      </div>
+      <button onClick={() => speak(q.answer)} className="text-xs inline-flex items-center gap-1">
+        <Volume2 className="h-3 w-3" /> 듣기
+      </button>
+    </div>
+    <div className="rounded-md border border-l-4 border-l-green-500 bg-green-50 dark:bg-green-950/30 px-4 py-3 font-medium">
+      {q.answer}
+    </div>
+  </div>
+
+  {/* 자동 판정 (참고용) */}
+  <div className="text-sm">
+    <span className="text-muted-foreground">자동 판정: </span>
+    {verdict === 'exact'    && <span className="text-green-700 dark:text-green-400">✓ 정확히 일치</span>}
+    {verdict === 'reorder'  && <span>△ 단어는 맞는데 순서 다름</span>}
+    {verdict === 'partial'  && <span>△ 핵심 단어 일부 일치</span>}
+    {verdict === 'mismatch' && <span className="text-destructive">✗ 다름</span>}
+  </div>
+
+  {/* 최종 판단 (사용자) */}
+  <div>
+    <div className="text-sm font-medium mb-2">이번엔 어땠어?</div>
+    <div className="grid grid-cols-2 gap-2">
+      <button
+        onClick={() => markAndNext('correct')}
+        className="rounded-md border border-green-500 px-4 py-3 text-sm font-medium hover:bg-green-50 dark:hover:bg-green-950/30"
+      >
+        ✓ 맞다고 치겠어
+      </button>
+      <button
+        onClick={() => markAndNext('wrong')}
+        className="rounded-md border px-4 py-3 text-sm font-medium hover:bg-muted"
+      >
+        ✗ 다시 보겠어
+      </button>
+    </div>
+  </div>
+</div>
+```
+
+**중요**
+- 제출 즉시 `speak(q.answer)` 자동 재생
+- 사용자가 `[✓ 맞다고]`/`[✗ 다시]` 눌러야 다음 문제로 넘어감 — **자동 진행 금지**
+- 두 버튼은 시각적으로 동등한 무게 (✓가 green 테두리지만 배경은 없음)
+- 자동 판정 배지는 참고용. 사용자 버튼 선택이 최종 판단
+
+### 5.16 minimal-pairs 문제 렌더링 (v2.2)
+
+5.14와 비슷하지만 선택지가 단어 하나씩. 선택지 개수에 따라 grid 열 수 조정.
+
+```tsx
+<p className="text-sm text-muted-foreground mb-2">{q.prompt}</p>
+
+<p className="text-lg md:text-xl font-medium leading-relaxed mb-6">
+  {renderBlanks(q.fullEn, q.blankStart, q.blankLength, undefined, userChoice)}
+</p>
+
+<div className={cn(
+  'grid gap-3',
+  q.choices?.length === 2 && 'grid-cols-2',
+  q.choices?.length === 3 && 'grid-cols-3',
+  q.choices?.length === 4 && 'grid-cols-2 md:grid-cols-4'
+)}>
+  {q.choices?.map(choice => (
+    <ChoiceButton key={choice} choice={choice} /* ... */ />
+  ))}
+</div>
+
+{/* 정답 후 그룹 의미 피드백 */}
+{revealed && (
+  <div className="mt-6 space-y-3 text-sm">
+    {/* 정답 그룹 */}
+    <div className="rounded-md border-l-4 border-l-green-500 bg-green-50 dark:bg-green-950/30 px-4 py-3">
+      <div className="font-semibold">{q.correctGroupTitle}</div>
+      {q.correctGroupMeaning && (
+        <div className="text-muted-foreground mt-0.5">{q.correctGroupMeaning}</div>
+      )}
+      {/* e.g. "KEEP · 자제, 억제 — 그 상태가 유지되게" */}
+    </div>
+
+    {/* 틀린 경우 오답 설명 */}
+    {picked !== q.answer && q.wrongGroupBrief?.[picked!] && (
+      <div className="rounded-md border px-4 py-3">
+        <span className="text-muted-foreground">당신이 고른 {picked}는: </span>
+        <span>{q.wrongGroupBrief[picked!]}</span>
+        {/* e.g. "HAVE · 정적인 소유 — 이미 그 상태가 확보되어 있음" */}
+      </div>
+    )}
+
+    {/* 원문 */}
+    <div className="rounded-md bg-muted/50 px-4 py-3">
+      <div className="text-xs text-muted-foreground mb-1">원문</div>
+      <div>{q.fullEn}</div>
+    </div>
+  </div>
+)}
+```
+
+**힌트 전략**: `q.correctGroupMeaning`에는 해당 그룹의 `meaning` 필드를, `q.wrongGroupBrief`는 오답 그룹의 `title + meaning`을 축약해 보여줌. 이게 "왜 이 동사인지" 감각을 만드는 핵심 피드백.
+
+### 5.17 전체 연습 세션 진행 화면 (v2.2)
+
+Day별 연습(5.9)과 레이아웃 공유. 차이는 상단 라벨과 문제 카드 내용물:
+
+```tsx
+<article className="max-w-xl mx-auto">
+  {/* 진행률 */}
+  <div className="flex items-center justify-between mb-6">
+    <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground tabular-nums">
+      🎯 전체 연습 · {kindLabel(q.kind)}
+    </span>
+    <span className="text-xs tabular-nums text-muted-foreground">
+      {current + 1} / {total}
+    </span>
+  </div>
+
+  {/* 프로그레스 바 */}
+  <div className="h-1 bg-muted rounded-full overflow-hidden mb-8">
+    <div
+      className="h-full bg-primary transition-all"
+      style={{ width: `${(current / total) * 100}%` }}
+    />
+  </div>
+
+  {/* 문제 카드 — kind에 따라 다른 컴포넌트 */}
+  <div className="rounded-lg border bg-card p-6 md:p-8">
+    {q.kind === 'collocation'    && <QuestionCollocation q={q} /* ... */ />}
+    {q.kind === 'minimal-pairs'  && <QuestionMinimalPairs q={q} /* ... */ />}
+    {q.kind === 'composition'    && <QuestionComposition q={q} /* ... */ />}
+  </div>
+
+  {/* 하단 네비 */}
+  {revealed && q.kind !== 'composition' && (
+    <div className="mt-6 flex justify-end">
+      <Button onClick={next}>
+        {current + 1 === total ? '결과 보기' : '다음 →'}
+      </Button>
+    </div>
+  )}
+  {/* composition은 QuestionComposition 안에서 자체 버튼 처리 */}
+</article>
+```
+
+**kindLabel 매핑**:
+```ts
+const kindLabel = (k: PracticeKind) => ({
+  'collocation':   '동사 짝꿍',
+  'minimal-pairs': '비슷한 동사 구분',
+  'composition':   '직접 작문',
+  'fill-in':       '빈칸 채우기',
+  'pattern-choice':'동사 고르기',
+  'sort-transitivity': '자·타동사 분류',
+}[k]);
+```
+
+---
 ---
 
 ## 6. shadcn/ui 사용 가이드

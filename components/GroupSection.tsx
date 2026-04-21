@@ -3,7 +3,7 @@
 import { Volume2 } from 'lucide-react';
 import { toast } from 'sonner';
 
-import type { PatternGroup } from '@/types';
+import { difficultKey, type PatternGroup } from '@/types';
 import { speak, speakSequence } from '@/lib/speech';
 
 import { Button } from '@/components/ui/button';
@@ -93,7 +93,7 @@ export function GroupSection({
           <ExampleRow
             key={i}
             example={ex}
-            difficult={difficultKeys?.has(`${group.id}::${i}`)}
+            difficult={difficultKeys?.has(difficultKey(group.id, i))}
             onSpeak={() => playOne(ex.en)}
             onToggleDifficult={
               onToggleDifficult

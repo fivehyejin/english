@@ -1,8 +1,10 @@
 'use client';
 
+import Link from 'next/link';
+
+import { useLastViewedDay } from '@/hooks/useLastViewedDay';
 import { CURRENT_CURRICULUM } from '@/lib/curriculum';
 import { getAllDays, getGroupsByDay } from '@/types';
-import { useLastViewedDay } from '@/hooks/useLastViewedDay';
 
 import { DayCard } from './DayCard';
 
@@ -28,14 +30,22 @@ export function HomeContent() {
 
   return (
     <div>
-      {last ? (
-        <p className="mb-6 text-sm text-muted-foreground">
-          <span className="text-accent">📍</span> 최근 학습:{' '}
-          <span className="font-medium tabular-nums text-foreground">
-            Day {last.day}
-          </span>
-        </p>
-      ) : null}
+      <div className="mb-6 flex flex-wrap items-center gap-2">
+        {last ? (
+          <Link
+            href={`/day/${last.day}/`}
+            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+          >
+            📍 최근 학습 · Day {last.day}
+          </Link>
+        ) : null}
+        <Link
+          href="/practice/"
+          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+        >
+          🎯 전체 연습
+        </Link>
+      </div>
 
       <div className="flex flex-col gap-4">
         {days.map((day) => {

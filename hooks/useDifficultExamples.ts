@@ -7,20 +7,18 @@ import {
   markDifficult as saveMark,
   unmarkDifficult as saveUnmark,
 } from '@/lib/storage';
-import type { DifficultExample } from '@/types';
+import { difficultKey, type DifficultFlag } from '@/types';
 
-export function difficultKey(groupId: string, exampleIdx: number): string {
-  return `${groupId}::${exampleIdx}`;
-}
+export { difficultKey };
 
 export function useDifficultExamples() {
-  const [items, setItems] = useState<Record<string, DifficultExample>>({});
+  const [items, setItems] = useState<Record<string, DifficultFlag>>({});
 
   useEffect(() => {
     setItems(getDifficultExamples());
   }, []);
 
-  const mark = (key: string, patch?: Partial<DifficultExample>) => {
+  const mark = (key: string, patch?: Partial<DifficultFlag>) => {
     saveMark(key, patch);
     setItems(getDifficultExamples());
   };
