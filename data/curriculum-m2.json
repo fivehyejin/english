@@ -1673,6 +1673,436 @@
           "ko": "나 6개월 휴직 중이야."
         }
       ]
+    },
+    {
+      "id": "m2d5-too-enough-overview",
+      "day": 5,
+      "dayTopic": "TOO ~ TO V · ENOUGH TO V",
+      "title": "TOO / ENOUGH 구조 개요",
+      "kind": "class-note",
+      "noteSource": "✏️ 수업노트 · 04/21",
+      "notes": [
+        "핵심 패턴 비교:",
+        "  • TOO  adj/adv  TO V  = 너무 ~해서 ~할 수가 없다  (부정 뉘앙스)",
+        "  • adj/adv  ENOUGH  TO V  = ~할 만큼 충분히 ~하다  (긍정 뉘앙스)",
+        "",
+        "구조별 주어 처리:",
+        "  ① 순환구조  : S = 의미상 목적어  (The bag is too heavy to lift. → 가방을 드는 것)",
+        "  ② 직선구조  : 주어가 그대로 공유됨  (You are too young to watch the movie.)",
+        "  ③ 가주어·진주어: It is too hard (for me) to lift the bag.",
+        "  ④ 비인칭주어 : It is too cold to go out.  (날씨·시간 등)",
+        "",
+        "too adj N 패턴:",
+        "  • too + adj + N  (too much time / too many times / too little time)",
+        "  • enough + N  (enough time / enough people)",
+        "",
+        "비교:",
+        "  very / so  → 정도 강조만. 결과 없음",
+        "  so heavy  →  그냥 기술",
+        "  too heavy  →  기대 이하. '못 든다'는 결과 함의",
+        "  too expensive = 안 산다는 뜻까지 포함 (so expensive는 그냥 비쌈)"
+      ],
+      "examples": []
+    },
+    {
+      "id": "m2d5-too-circular",
+      "day": 5,
+      "dayTopic": "TOO ~ TO V · ENOUGH TO V",
+      "title": "TOO ~ TO V — 순환구조",
+      "pattern": "S + be + too + adj/adv + (for sb) + to V",
+      "meaning": "너무 ~해서 ~할 수 없다 (S가 동사의 의미상 목적어)",
+      "notes": [
+        "순환구조: 주어와 to V의 의미상 목적어가 같음",
+        "  ex) The bag is too heavy [for me] to lift (it). → S = it",
+        "  for sb 생략 가능. 생략 시 문맥상 누가 하는지 추측"
+      ],
+      "noteSource": "✏️ 수업노트 · 04/21",
+      "examples": [
+        {
+          "en": "The bag is too heavy (for me) to lift.",
+          "ko": "그 가방 무거워서 (난) 못 들어."
+        },
+        {
+          "en": "The coffee is too hot (for her) to drink.",
+          "ko": "그 커피 뜨거워서 (그 여자는) 못 마셔."
+        },
+        {
+          "en": "This soju is too bitter (for her) to drink.",
+          "ko": "이 소주 써서 (그 여자는) 못 마셔."
+        },
+        {
+          "en": "His name is too long (for me) to remember.",
+          "ko": "개 이름은 길어서 (난) 못 외웠어."
+        },
+        {
+          "en": "The movie is too boring (for me) to watch.",
+          "ko": "그 영화는 재미없어서 (난) 못 봐."
+        },
+        {
+          "en": "The book is too long (for us) to finish.",
+          "ko": "그 책은 길어서 (우린) 다 못 읽어."
+        },
+        {
+          "en": "Busan is too far away (for him) to go to every day.",
+          "ko": "부산은 멀어서 (걔가) 매일 못 다녀."
+        },
+        {
+          "en": "The music is too loud (for me) to listen to.",
+          "ko": "그 음악은 시끄러워서 (난) 못 듣겠다."
+        },
+        {
+          "en": "The music is too fast (for me) to dance to.",
+          "ko": "그 음악은 빨라서 (난) 맞춰 춤을 못 추겠어."
+        },
+        {
+          "en": "This topic is too difficult (for them) to talk about.",
+          "ko": "그 주제는 어려워서 (걔들이) 얘기 못 해."
+        },
+        {
+          "en": "This museum is too big (for us) to look at in a day.",
+          "ko": "이 박물관은 너무 커서 (우리가) 하루 만에 못 봐."
+        },
+        {
+          "en": "The town is too expensive (for us) to live in.",
+          "ko": "그 동네는 비싸서 (우린) 들어가 살 수가 없어."
+        }
+      ]
+    },
+    {
+      "id": "m2d5-too-straight",
+      "day": 5,
+      "dayTopic": "TOO ~ TO V · ENOUGH TO V",
+      "title": "TOO ~ TO V — 직선구조",
+      "pattern": "S + be + too + adj/adv + to V",
+      "meaning": "주어가 그대로 to V의 행위자 (주어 ≠ 의미상 목적어)",
+      "notes": [
+        "직선구조: 주어가 to V의 행위 주체",
+        "  ex) You are too young to watch the movie. → 네가 영화를 보는 것",
+        "  to V 뒤에 목적어 없음 (순환구조와 구별 포인트)"
+      ],
+      "noteSource": "✏️ 수업노트 · 04/21",
+      "examples": [
+        {
+          "en": "You are too young to watch the movie.",
+          "ko": "넌 어려서 그 영화 못 봐."
+        },
+        {
+          "en": "I am too sleepy to drive.",
+          "ko": "나 졸려서 운전 못 해."
+        },
+        {
+          "en": "I am too tired to work out.",
+          "ko": "나 피곤해서 운동 못 해.",
+          "note": "✏️ tired = 사람이 힘들어 / exhausted = 일이 힘들어서 exhausted"
+        },
+        {
+          "en": "She is too busy to see me.",
+          "ko": "그 여자는 바빠서 날 봐주질 못해."
+        },
+        {
+          "en": "She is too lazy to cook.",
+          "ko": "그 여자는 게을러서 요리 못해."
+        },
+        {
+          "en": "He is too short to play basketball.",
+          "ko": "그는 키가 작아서 농구 못 해."
+        },
+        {
+          "en": "You are too good to be true.",
+          "ko": "당신은 현실이기엔 너무 멋져."
+        }
+      ]
+    },
+    {
+      "id": "m2d5-too-it-subject",
+      "day": 5,
+      "dayTopic": "TOO ~ TO V · ENOUGH TO V",
+      "title": "TOO ~ TO V — 가주어·진주어 구조",
+      "pattern": "It is too + adj + (for sb) + to V",
+      "meaning": "진주어가 to V 이하 — '~하기엔 너무 ~하다'",
+      "notes": [
+        "가주어 It → 진주어 to V 절",
+        "  It is too hard (for me) to lift the bag.",
+        "  = [to lift the bag] is too hard (for me)",
+        "  for sb = 의미상 주어 명시 (없으면 문맥 추측)"
+      ],
+      "noteSource": "✏️ 수업노트 · 04/21",
+      "examples": [
+        {
+          "en": "It is too hard (for me) to lift the bag.",
+          "ko": "그 가방 드는 것은 힘들어서 (난) 못해 먹겠어."
+        },
+        {
+          "en": "It is too hard (for me) to remember his name.",
+          "ko": "개 이름 외우는 것은 힘들어서 (난) 못해."
+        },
+        {
+          "en": "It is too tiring (for me) to find a vacant spot.",
+          "ko": "주차할 빈자리 찾는 건 짜증나 (나) 못해 먹겠어."
+        },
+        {
+          "en": "It is too difficult (for us) to talk about the topic.",
+          "ko": "(우리가) 그 주제에 대해 얘기하는 것은 무리야."
+        },
+        {
+          "en": "It is too hard (for us) to look at the museum in a day.",
+          "ko": "(우리가) 하루 만에 그 박물관 보는 건 무리야."
+        }
+      ]
+    },
+    {
+      "id": "m2d5-too-impersonal",
+      "day": 5,
+      "dayTopic": "TOO ~ TO V · ENOUGH TO V",
+      "title": "TOO ~ TO V — 비인칭주어 구조",
+      "pattern": "It is too + adj + (for sb) + to V  (날씨·시간)",
+      "meaning": "날씨·시간 등 상황이 너무 ~해서 ~할 수 없다",
+      "notes": [
+        "비인칭 주어 It = 날씨·시간·상황을 가리키는 허사 주어",
+        "  It's cold. / It's 3 o'clock. 등과 같은 It",
+        "  It's too cold (for us) to go out. → 날씨가 너무 추워서 나가기 힘들다"
+      ],
+      "noteSource": "✏️ 수업노트 · 04/21",
+      "examples": [
+        {
+          "en": "It is too hot (for me) to wear this coat.",
+          "ko": "너무 더워서 (난) 이 코트 못 입겠어."
+        },
+        {
+          "en": "It is too cold (for us) to go out.",
+          "ko": "너무 추워서 (우리) 외출 못 해."
+        },
+        {
+          "en": "It is too early (for you) to go to the bank now.",
+          "ko": "아직 너무 일러서 은행 가봐야 소용없어."
+        },
+        {
+          "en": "It is too late (for you) to say sorry now.",
+          "ko": "사과하기에는 (넌) 지나치게 늦어버렸어."
+        }
+      ]
+    },
+    {
+      "id": "m2d5-too-verb-adv",
+      "day": 5,
+      "dayTopic": "TOO ~ TO V · ENOUGH TO V",
+      "title": "TOO ~ TO V — 동사 + too adv to V",
+      "pattern": "S + V + too + adv + to V",
+      "meaning": "동사를 너무 많이/쉽게 해서 to V의 결과에 못 미침",
+      "notes": [
+        "동사에 부사 too much/easily 등이 붙는 패턴",
+        "  I drank too much to stand up. → 술을 너무 많이 마셔서 일어설 수가 없어",
+        "  동사 행위 과잉 → 결과 불가"
+      ],
+      "noteSource": "✏️ 수업노트 · 04/21",
+      "examples": [
+        {
+          "en": "I drank too much to stand up.",
+          "ko": "나 (술) 너무 많이 마셔서 일어설 수가 없어."
+        },
+        {
+          "en": "I ate too much to breathe.",
+          "ko": "나 너무 많이 먹어서 숨을 쉴 수가 없어."
+        },
+        {
+          "en": "He works too much to cook.",
+          "ko": "그는 일을 하도 많이 해서 밥 못해 먹어."
+        },
+        {
+          "en": "She loves herself too much to date anyone.",
+          "ko": "그 여자는 자기를 너무 사랑해서 누구랑 연애 못 해."
+        },
+        {
+          "en": "I slept too much to be on time for school.",
+          "ko": "나 너무 많이 자서 학교에 제시간에 못 갔어."
+        },
+        {
+          "en": "You buy things too easily to save money.",
+          "ko": "넌 물건을 너무 쉽게 사서 돈을 못 모아."
+        }
+      ]
+    },
+    {
+      "id": "m2d5-enough-circular",
+      "day": 5,
+      "dayTopic": "TOO ~ TO V · ENOUGH TO V",
+      "title": "ENOUGH TO V — 순환구조",
+      "pattern": "S + be + adj/adv + enough + (for sb) + to V",
+      "meaning": "~할 만큼 충분히 ~하다 (S = 의미상 목적어)",
+      "notes": [
+        "TOO의 거울: 같은 구조에 긍정 뉘앙스",
+        "  The bag is light enough (for me) to lift. → 충분히 가벼워서 들 수 있다",
+        "  enough는 형용사/부사 뒤에 위치 (앞에 쓰면 어색)"
+      ],
+      "noteSource": "✏️ 수업노트 · 04/21",
+      "examples": [
+        {
+          "en": "The bag is light enough (for me) to lift.",
+          "ko": "그 가방 가벼워서 (내가) 들 만해."
+        },
+        {
+          "en": "The coffee is warm enough (for her) to drink.",
+          "ko": "그 커피 따끈해서 (그 여자가) 마실만 해."
+        },
+        {
+          "en": "This soju is mild enough (for her) to drink.",
+          "ko": "이 소주 순해서 (그 여자가) 마실만 해."
+        },
+        {
+          "en": "His name is simple enough (for me) to remember.",
+          "ko": "개 이름은 간단해서 (내가) 외울만 해."
+        },
+        {
+          "en": "The movie is good enough (for me) to watch.",
+          "ko": "그 영화는 (내가) 볼만큼은 괜찮아."
+        },
+        {
+          "en": "The book is short enough (for us) to finish.",
+          "ko": "그 책은 짧아서 (우리가) 다 읽을 만해."
+        },
+        {
+          "en": "Suwon is close enough (for him) to go to every day.",
+          "ko": "수원은 가까워서 (걔가) 매일 다닐 만해."
+        },
+        {
+          "en": "The music is good enough (for me) to listen to.",
+          "ko": "그 음악은 (내가) 들어줄 만큼은 괜찮아."
+        },
+        {
+          "en": "The music is slow enough (for me) to dance to.",
+          "ko": "그 음악은 느려서 (내가) 맞춰 춤을 출만해."
+        },
+        {
+          "en": "This topic is easy enough (for them) to talk about.",
+          "ko": "그 주제는 (걔들이) 얘기할 만큼은 쉬워."
+        },
+        {
+          "en": "This museum is small enough (for us) to look at in a day.",
+          "ko": "이 박물관은 (우리가) 하루 만에 볼만큼은 작아."
+        },
+        {
+          "en": "The town is cheap enough (for us) to live in.",
+          "ko": "그 동네는 (우리가) 들어가 살 만큼은 값이 싸."
+        }
+      ]
+    },
+    {
+      "id": "m2d5-enough-straight",
+      "day": 5,
+      "dayTopic": "TOO ~ TO V · ENOUGH TO V",
+      "title": "ENOUGH TO V — 직선구조",
+      "pattern": "S + be + adj/adv + enough + to V",
+      "meaning": "주어가 충분히 ~해서 ~할 수 있다",
+      "noteSource": "✏️ 수업노트 · 04/21",
+      "examples": [
+        {
+          "en": "You are old enough to watch the movie.",
+          "ko": "너 그 영화 볼만큼은 나이 들었어."
+        },
+        {
+          "en": "I am well enough to drive.",
+          "ko": "나 운전할 만큼은 컨디션 좋아."
+        },
+        {
+          "en": "I am strong enough to work out.",
+          "ko": "나 운동할 만큼은 기운 있어."
+        },
+        {
+          "en": "He is tall enough to play basketball.",
+          "ko": "그는 농구할 만큼은 키가 커."
+        }
+      ]
+    },
+    {
+      "id": "m2d5-enough-it-subject",
+      "day": 5,
+      "dayTopic": "TOO ~ TO V · ENOUGH TO V",
+      "title": "ENOUGH TO V — 가주어·진주어 구조",
+      "pattern": "It is + adj/adv + enough + (for sb) + to V",
+      "meaning": "~하기에 충분히 ~하다",
+      "noteSource": "✏️ 수업노트 · 04/21",
+      "examples": [
+        {
+          "en": "It is easy enough (for me) to lift the bag.",
+          "ko": "그 가방 드는 것은 제법 쉬워."
+        },
+        {
+          "en": "It is easy enough (for me) to remember his name.",
+          "ko": "개 이름 외우는 것은 제법 쉬워."
+        },
+        {
+          "en": "It is good enough (for you) to say sorry to me.",
+          "ko": "(네가) 나한테 사과하면 그걸로 됐어."
+        },
+        {
+          "en": "It is (good) enough (for us) to look at the museum.",
+          "ko": "그 박물관 보면 됐어."
+        }
+      ]
+    },
+    {
+      "id": "m2d5-enough-impersonal",
+      "day": 5,
+      "dayTopic": "TOO ~ TO V · ENOUGH TO V",
+      "title": "ENOUGH TO V — 비인칭주어 구조",
+      "pattern": "It is + adj + enough + (for sb) + to V  (날씨·상황)",
+      "meaning": "날씨·상황이 충분히 ~해서 ~할 수 있다",
+      "noteSource": "✏️ 수업노트 · 04/21",
+      "examples": [
+        {
+          "en": "It is warm enough (for us) to go out.",
+          "ko": "(우리가) 외출할 만큼은 (날씨가) 따뜻해."
+        },
+        {
+          "en": "It is hot enough (for us) to go to the beach now.",
+          "ko": "이제 (우리가) 해변에 갈 만큼은 더워."
+        },
+        {
+          "en": "It isn't dark enough (for us) to see the stars.",
+          "ko": "(우리가) 별을 볼 만큼은 족히 어둡지가 않아."
+        }
+      ]
+    },
+    {
+      "id": "m2d5-enough-verb-adv",
+      "day": 5,
+      "dayTopic": "TOO ~ TO V · ENOUGH TO V",
+      "title": "ENOUGH TO V — 동사 + adv enough to V",
+      "pattern": "S + V + adv + enough + to V",
+      "meaning": "충분히 ~해서 결과를 이룸 / 부족해서 못 이룸",
+      "notes": [
+        "didn't V + adv + enough to V = 부족해서 못 함",
+        "  She didn't study hard enough to pass the test.",
+        "  I don't know her well enough to say hello.",
+        "V + enough to V = 충분히 해서 결과 달성",
+        "  I drank enough to quench my thirst.",
+        "  ★ I can't thank you enough. → 아무리 감사해도 모자랄 정도야 (관용구)"
+      ],
+      "noteSource": "✏️ 수업노트 · 04/21",
+      "examples": [
+        {
+          "en": "She didn't study hard enough to pass the test.",
+          "ko": "그 여자가 합격할 만큼 열심히 공부했던 건 아냐."
+        },
+        {
+          "en": "I don't know her well enough to say hello.",
+          "ko": "나 인사할 정도로 그 여자를 잘 아는 건 아냐."
+        },
+        {
+          "en": "I drank enough to quench my thirst.",
+          "ko": "난 갈증을 풀만큼은 족히 마셨어.",
+          "note": "✏️ 긍정방향 — 충분히 마셔서 결과 달성"
+        },
+        {
+          "en": "I slept enough to overcome the jet-lag.",
+          "ko": "난 시차 피로를 풀만큼은 족히 잤어."
+        },
+        {
+          "en": "I can't thank you enough.",
+          "ko": "뭐가 감사의 말씀 드려야 할지 모르겠네요.",
+          "note": "✏️ 관용구 — 아무리 감사해도 모자랄 정도야"
+        }
+      ]
     }
   ],
   "daySummaries": {
@@ -1736,6 +2166,24 @@
       "mustRemember": [
         "try 3형제는 의미가 다 다르다: N(경험) / ~ing(해결책) / to V(노력)",
         "It takes ~ to V 구문 숙달 필수"
+      ]
+    },
+    "5": {
+      "dayTitle": "TOO ~ TO V · ENOUGH TO V",
+      "headline": "너무 ~해서 못 한다(too) vs 충분히 ~해서 할 수 있다(enough) — 같은 구조, 반대 방향",
+      "keyPoints": [
+        "**공통 구조**: S + be + **too** adj/adv + (for sb) + **to V** ↔ S + be + adj/adv + **enough** + (for sb) + **to V**",
+        "**TOO** = 기대 이하 → 부정 결과. `too expensive` = 안 산다는 뜻까지 포함 (`so expensive`는 그냥 비쌈)",
+        "**ENOUGH** = 기준 이상 → 긍정 결과. `enough`는 형용사/부사 **뒤**에 위치",
+        "**4가지 구조** 공통 적용: ① 순환구조(S = 의미상 목적어) ② 직선구조(주어 공유) ③ 가주어·진주어(It ~ to V) ④ 비인칭주어(날씨·시간)",
+        "`for sb` = 의미상 주어 — 생략 가능, 생략 시 문맥 추측",
+        "**동사 + too much/adv + to V**: `I drank too much to stand up` — 동사 행위 과잉 → 결과 불가",
+        "★ `I can't thank you enough.` — 아무리 감사해도 모자랄 정도 (관용구)"
+      ],
+      "mustRemember": [
+        "too ↔ enough는 같은 구조의 거울: 방향만 반대",
+        "순환구조 vs 직선구조: to V 뒤 목적어 자리가 비어있으면 순환구조",
+        "too는 `very/so`와 다름 — '기대 이하' 뉘앙스, 결과 함의"
       ]
     }
   }
