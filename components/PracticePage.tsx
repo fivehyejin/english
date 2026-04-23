@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { CURRENT_CURRICULUM } from '@/lib/curriculum';
+import { addSessionRecord, addToWrongBank, removeFromWrongBank } from '@/lib/storage';
 import { speak } from '@/lib/speech';
 import {
   generateFillInQuestions,
@@ -17,11 +18,12 @@ import {
 import { difficultKey, useDifficultExamples } from '@/hooks/useDifficultExamples';
 import {
   getRegularGroupsByDay,
+  type SessionRecord,
   type PracticeKind,
   type PracticeQuestion,
 } from '@/types';
 
-type Phase = 'setup' | 'running' | 'result';
+type Phase = 'setup' | 'running' | 'retry' | 'result';
 
 function shuffle<T>(items: T[]): T[] {
   const a = [...items];
@@ -40,14 +42,21 @@ export function PracticePage({ day }: { day: number }) {
   const [kind, setKind] = useState<PracticeKind>('fill-in');
   const [count, setCount] = useState(10);
   const [onlyDifficult, setOnlyDifficult] = useState(false);
+  const [retryWrongInSession, setRetryWrongInSession] = useState(true);
+  const [startedAt, setStartedAt] = useState<string | null>(null);
 
   const [pool, setPool] = useState<PracticeQuestion[]>([]);
+  const [retryPool, setRetryPool] = useState<PracticeQuestion[]>([]);
   const [idx, setIdx] = useState(0);
+  const [retryIdx, setRetryIdx] = useState(0);
+  const [retryCorrect, setRetryCorrect] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [markedManually, setMarkedManually] = useState(false);
   const [wrongIds, setWrongIds] = useState<string[]>([]);
 
-  const current = pool[idx];
+  const activePool = phase === 'retry' ? retryPool : pool;
+  const activeIdx = phase === 'retry' ? retryIdx : idx;
+  const current = activePool[activeIdx];
   const isCorrect = selected != null && current ? selected === current.answer : null;
 
   const generated = useMemo(() => {
@@ -77,16 +86,58 @@ export function PracticePage({ day }: { day: number }) {
     setIdx(0);
     setSelected(null);
     setWrongIds([]);
+    setRetryPool([]);
+    setRetryIdx(0);
+    setRetryCorrect(0);
     setMarkedManually(false);
+    setStartedAt(new Date().toISOString());
     setPhase('running');
   };
 
+  const finish = (retryTotal = 0, retryCorrectCount = 0) => {
+    const wrongQuestions = pool.filter((q) => wrongIds.includes(q.id));
+    const record: SessionRecord = {
+      id: new Date().toISOString(),
+      startedAt: startedAt ?? new Date().toISOString(),
+      endedAt: new Date().toISOString(),
+      source: 'day',
+      day,
+      kinds: [kind],
+      total: pool.length,
+      correct: pool.length - wrongIds.length,
+      wrongKeys: wrongQuestions.map((q) => difficultKey(q.groupId, q.exampleIdx)),
+    };
+    addSessionRecord(record);
+    setRetryCorrect(retryCorrectCount);
+    void retryTotal;
+    setPhase('result');
+  };
+
   const next = () => {
-    if (idx >= pool.length - 1) {
-      setPhase('result');
+    if (phase === 'running') {
+      if (idx >= pool.length - 1) {
+        const wrongQuestions = pool.filter((q) => wrongIds.includes(q.id));
+        if (retryWrongInSession && wrongQuestions.length > 0) {
+          setRetryPool(wrongQuestions);
+          setRetryIdx(0);
+          setSelected(null);
+          setMarkedManually(false);
+          setPhase('retry');
+          return;
+        }
+        finish(0, 0);
+        return;
+      }
+      setIdx((v) => v + 1);
+      setSelected(null);
+      setMarkedManually(false);
       return;
     }
-    setIdx((v) => v + 1);
+    if (retryIdx >= retryPool.length - 1) {
+      finish(retryPool.length, retryCorrect);
+      return;
+    }
+    setRetryIdx((v) => v + 1);
     setSelected(null);
     setMarkedManually(false);
   };
@@ -101,15 +152,19 @@ export function PracticePage({ day }: { day: number }) {
     const wasFlagged = !!items[key];
     if (correct && !markedManually) {
       if (wasFlagged) unmark(key);
+      removeFromWrongBank(key);
     } else {
       mark(key, {
         markedAt: items[key]?.markedAt ?? new Date().toISOString().slice(0, 10),
         sessionsStruggled: (items[key]?.sessionsStruggled ?? 0) + 1,
       });
+      addToWrongBank(key);
     }
 
-    if (!correct) {
-      setWrongIds((prev) => [...prev, current.id]);
+    if (!correct && phase === 'running') {
+      setWrongIds((prev) => (prev.includes(current.id) ? prev : [...prev, current.id]));
+    } else if (correct && phase === 'retry') {
+      setRetryCorrect((v) => v + 1);
     }
   };
 
@@ -180,14 +235,31 @@ export function PracticePage({ day }: { day: number }) {
             어려움 표시된 것만 풀기
           </label>
 
+          <label className="flex items-center gap-2 text-sm text-muted-foreground">
+            <input
+              type="checkbox"
+              checked={retryWrongInSession}
+              onChange={(e) => setRetryWrongInSession(e.target.checked)}
+            />
+            세션 끝에 틀린 거 다시 풀기
+          </label>
+
           <p className="text-sm text-muted-foreground">생성 가능 문제: {generated.length}</p>
           <Button type="button" onClick={start}>시작</Button>
         </section>
       ) : null}
 
-      {phase === 'running' && current ? (
+      {(phase === 'running' || phase === 'retry') && current ? (
         <section className="mt-8 rounded-lg border border-border bg-card p-5 md:p-6">
-          <p className="text-xs uppercase tracking-wide text-muted-foreground">{idx + 1} / {pool.length}</p>
+          {phase === 'retry' ? (
+            <div className="mb-4 text-center">
+              <div className="inline-flex items-center gap-2 rounded-full border bg-muted px-3 py-1.5 text-sm text-muted-foreground">
+                <RotateCcw className="h-3.5 w-3.5" />
+                아까 틀린 거 다시 · {retryIdx + 1} / {retryPool.length}
+              </div>
+            </div>
+          ) : null}
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">{activeIdx + 1} / {activePool.length}</p>
           <h2 className="mt-3 text-lg font-semibold leading-snug">{current.prompt}</h2>
           <p className="mt-1 text-sm text-muted-foreground">{current.ko}</p>
 
@@ -231,7 +303,15 @@ export function PracticePage({ day }: { day: number }) {
               {markedManually ? '어려움 표시 해제' : '이 문제 어려움 표시'}
             </button>
             {selected != null ? (
-              <Button type="button" onClick={next}>다음</Button>
+              <Button type="button" onClick={next}>
+                {phase === 'running' && idx + 1 === pool.length
+                  ? retryWrongInSession && wrongIds.length > 0
+                    ? '틀린 거 다시 풀기 →'
+                    : '결과 보기'
+                  : phase === 'retry' && retryIdx + 1 === retryPool.length
+                    ? '결과 보기'
+                    : '다음'}
+              </Button>
             ) : null}
           </div>
         </section>
@@ -243,9 +323,16 @@ export function PracticePage({ day }: { day: number }) {
           <p className="text-sm text-muted-foreground">
             정답률: {correctCount} / {pool.length} ({pool.length ? Math.round((correctCount / pool.length) * 100) : 0}%)
           </p>
+          {retryPool.length > 0 ? (
+            <p className="text-sm text-muted-foreground tabular-nums">
+              재풀이: {retryCorrect} / {retryPool.length}
+            </p>
+          ) : null}
           {wrongQuestions.length ? (
             <div>
-              <h3 className="text-sm font-semibold">틀린 예문</h3>
+              <h3 className="text-sm font-semibold">
+                오답 보관함에 추가됨 · {wrongQuestions.length}개
+              </h3>
               <ul className="mt-2 space-y-2 text-sm">
                 {wrongQuestions.map((q) => (
                   <li key={q.id} className="rounded border border-border p-2">
@@ -259,6 +346,7 @@ export function PracticePage({ day }: { day: number }) {
           <div className="flex gap-2">
             <Button type="button" onClick={() => setPhase('setup')}>다시 풀기</Button>
             <Button asChild variant="outline"><Link href={`/day/${day}`}>Day로 돌아가기</Link></Button>
+            <Button asChild variant="outline"><Link href="/dashboard/">📊 대시보드</Link></Button>
           </div>
         </section>
       ) : null}

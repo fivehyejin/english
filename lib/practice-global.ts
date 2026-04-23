@@ -626,5 +626,6 @@ export function buildGlobalQuestionPool(
   pool = dedupeByExampleAndKind(pool);
   pool = shuffle(pool);
   const len = config.length;
+  if (len === 'all') return pool;
   return pool.slice(0, Math.min(len, pool.length));
 }

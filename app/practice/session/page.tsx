@@ -7,8 +7,8 @@ import { toast } from 'sonner';
 
 import { GlobalPracticeSession } from '@/components/practice/GlobalPracticeSession';
 import { CURRENT_CURRICULUM } from '@/lib/curriculum';
-import { buildGlobalQuestionPool } from '@/lib/practice-global';
-import type { GlobalPracticeConfig, PracticeQuestion } from '@/types';
+import { buildDifficultOnlyQuestions, buildGlobalQuestionPool } from '@/lib/practice-global';
+import type { GlobalPracticeConfig, PracticeQuestion, SessionRecord } from '@/types';
 
 const CONFIG_KEY = 'english-global-practice-config';
 const DIFF_KEYS = 'english-global-practice-difficult-keys';
@@ -16,6 +16,13 @@ const DIFF_KEYS = 'english-global-practice-difficult-keys';
 export default function PracticeSessionPage() {
   const router = useRouter();
   const [questions, setQuestions] = useState<PracticeQuestion[] | null>(null);
+  const [meta, setMeta] = useState<{
+    source: SessionRecord['source'];
+    day?: number;
+    scope?: GlobalPracticeConfig['scope'];
+    kinds: SessionRecord['kinds'];
+    retryWrongInSession: boolean;
+  } | null>(null);
 
   useEffect(() => {
     const raw = sessionStorage.getItem(CONFIG_KEY);
@@ -44,15 +51,44 @@ export default function PracticeSessionPage() {
       config,
       diffKeys
     );
-    if (!pool.length) {
+
+    const source = config.source ?? 'global';
+    const retryWrongInSession = config.retryWrongInSession ?? true;
+    const kinds = config.kinds;
+    let finalPool = pool;
+    if (source === 'wrong-bank') {
+      const keys = diffKeys ?? [];
+      finalPool = buildDifficultOnlyQuestions(CURRENT_CURRICULUM, keys);
+      if (config.length !== 'difficult-only' && config.length !== 'all') {
+        finalPool = finalPool.slice(
+          0,
+          Math.min(config.length as number, finalPool.length)
+        );
+      }
+    }
+    if (!finalPool.length) {
       toast.error('선택한 조건에 문제가 없습니다.');
       router.replace('/practice/');
       return;
     }
-    setQuestions(pool);
+    setMeta({
+      source,
+      scope: config.scope,
+      kinds,
+      retryWrongInSession,
+    });
+    setQuestions(finalPool);
   }, [router]);
 
   if (questions === null) {
+    return (
+      <div className="mx-auto max-w-xl py-12 text-center text-sm text-muted-foreground">
+        불러오는 중…
+      </div>
+    );
+  }
+
+  if (!meta) {
     return (
       <div className="mx-auto max-w-xl py-12 text-center text-sm text-muted-foreground">
         불러오는 중…
@@ -70,7 +106,14 @@ export default function PracticeSessionPage() {
           ← 설정으로
         </Link>
       </div>
-      <GlobalPracticeSession questions={questions} />
+      <GlobalPracticeSession
+        questions={questions}
+        source={meta.source}
+        day={meta.day}
+        scope={meta.scope}
+        kinds={meta.kinds}
+        retryWrongInSession={meta.retryWrongInSession}
+      />
     </div>
   );
 }

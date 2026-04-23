@@ -1,8 +1,12 @@
 import {
+  MAX_SESSION_HISTORY,
   STORAGE_KEY,
   type AppState,
   type DifficultFlag,
   type PracticeState,
+  type SessionRecord,
+  type WrongEntry,
+  emptyPracticeState,
 } from '@/types';
 
 type Stored = Partial<AppState>;
@@ -37,20 +41,33 @@ export function getState(): Stored {
   const legacyFlat = migrateDifficultKeys(
     raw.difficultExamples as Record<string, DifficultFlag> | undefined
   );
-  const nested = raw.practice as PracticeState | undefined;
+  const nested = raw.practice as Partial<PracticeState> | undefined;
   const nestedDiff = migrateDifficultKeys(nested?.difficultExamples);
+  const nestedHistory = Array.isArray(nested?.sessionHistory)
+    ? nested!.sessionHistory!
+    : [];
+  const nestedWrongRaw = (nested?.wrongBank ?? {}) as Record<string, WrongEntry>;
+  const nestedWrongBank: Record<string, WrongEntry> = {};
+  for (const [k, v] of Object.entries(nestedWrongRaw)) {
+    const nk = k.includes('::') ? k.replace('::', ':') : k;
+    nestedWrongBank[nk] = v;
+  }
 
   const merged: Record<string, DifficultFlag> = {
     ...legacyFlat,
     ...nestedDiff,
   };
 
-  const practice: PracticeState | undefined =
-    Object.keys(merged).length > 0
-      ? { difficultExamples: merged }
-      : nested?.difficultExamples
-        ? { difficultExamples: nestedDiff }
-        : undefined;
+  const practice: PracticeState =
+    Object.keys(merged).length > 0 ||
+    nestedHistory.length > 0 ||
+    Object.keys(nestedWrongBank).length > 0
+      ? {
+          difficultExamples: merged,
+          sessionHistory: nestedHistory as SessionRecord[],
+          wrongBank: nestedWrongBank,
+        }
+      : emptyPracticeState();
 
   return {
     lastViewedDay: raw.lastViewedDay as AppState['lastViewedDay'],
@@ -73,9 +90,12 @@ export function setState(patch: Stored): void {
       lastViewedDay: next.lastViewedDay ?? null,
       theme: next.theme,
     };
-    if (next.practice?.difficultExamples) {
-      toSave.practice = { difficultExamples: next.practice.difficultExamples };
-    }
+    const practice = next.practice ?? emptyPracticeState();
+    toSave.practice = {
+      difficultExamples: practice.difficultExamples,
+      sessionHistory: practice.sessionHistory,
+      wrongBank: practice.wrongBank,
+    };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
   } catch {
     // ignore quota
@@ -84,11 +104,19 @@ export function setState(patch: Stored): void {
 
 export function getPracticeState(): PracticeState {
   const s = getState();
-  return s.practice ?? { difficultExamples: {} };
+  return s.practice ?? emptyPracticeState();
 }
 
 export function getDifficultExamples(): Record<string, DifficultFlag> {
   return { ...getPracticeState().difficultExamples };
+}
+
+export function getSessionHistory(): SessionRecord[] {
+  return [...getPracticeState().sessionHistory];
+}
+
+export function getWrongBank(): Record<string, WrongEntry> {
+  return { ...getPracticeState().wrongBank };
 }
 
 export function markDifficult(
@@ -104,7 +132,7 @@ export function markDifficult(
     sessionsStruggled: prev?.sessionsStruggled ?? 0,
     ...value,
   };
-  setState({ practice: { difficultExamples: all } });
+  setPractice({ difficultExamples: all });
 }
 
 export function unmarkDifficult(key: string): void {
@@ -113,5 +141,57 @@ export function unmarkDifficult(key: string): void {
   const all = { ...practice.difficultExamples };
   if (!all[normalizedKey]) return;
   delete all[normalizedKey];
-  setState({ practice: { difficultExamples: all } });
+  setPractice({ difficultExamples: all });
+}
+
+function setPractice(patch: Partial<PracticeState>): void {
+  const prev = getPracticeState();
+  setState({
+    practice: {
+      difficultExamples: prev.difficultExamples,
+      sessionHistory: prev.sessionHistory,
+      wrongBank: prev.wrongBank,
+      ...patch,
+    },
+  });
+}
+
+export function addSessionRecord(record: SessionRecord): void {
+  const prev = getPracticeState();
+  const nextHistory = [...prev.sessionHistory, record];
+  if (nextHistory.length > MAX_SESSION_HISTORY) {
+    nextHistory.splice(0, nextHistory.length - MAX_SESSION_HISTORY);
+  }
+  setPractice({ sessionHistory: nextHistory });
+}
+
+export function addToWrongBank(key: string, now = new Date().toISOString()): void {
+  const normalizedKey = key.includes('::') ? key.replace('::', ':') : key;
+  const prev = getPracticeState();
+  const existing = prev.wrongBank[normalizedKey];
+  const entry: WrongEntry = existing
+    ? {
+        ...existing,
+        lastWrongAt: now,
+        wrongCount: existing.wrongCount + 1,
+      }
+    : {
+        firstWrongAt: now,
+        lastWrongAt: now,
+        wrongCount: 1,
+      };
+  setPractice({
+    wrongBank: {
+      ...prev.wrongBank,
+      [normalizedKey]: entry,
+    },
+  });
+}
+
+export function removeFromWrongBank(key: string): void {
+  const normalizedKey = key.includes('::') ? key.replace('::', ':') : key;
+  const prev = getPracticeState();
+  if (!prev.wrongBank[normalizedKey]) return;
+  const { [normalizedKey]: _drop, ...rest } = prev.wrongBank;
+  setPractice({ wrongBank: rest });
 }

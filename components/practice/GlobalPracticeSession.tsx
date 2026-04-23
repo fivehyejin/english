@@ -3,13 +3,24 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
+import { RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { difficultKey, useDifficultExamples } from '@/hooks/useDifficultExamples';
-import { CURRENT_CURRICULUM } from '@/lib/curriculum';
+import {
+  addSessionRecord,
+  addToWrongBank,
+  removeFromWrongBank,
+} from '@/lib/storage';
 import { speak } from '@/lib/speech';
-import type { PracticeQuestion, PracticeSessionResult } from '@/types';
+import type {
+  PracticeQuestion,
+  PracticeScope,
+  PracticeSessionResult,
+  PracticeSource,
+  SessionRecord,
+} from '@/types';
 
 import { kindLabel } from './kindLabels';
 import { QuestionCollocation } from './QuestionCollocation';
@@ -20,39 +31,88 @@ const RESULT_KEY = 'english-global-practice-result';
 
 interface Props {
   questions: PracticeQuestion[];
+  source: PracticeSource;
+  day?: number;
+  scope?: PracticeScope;
+  kinds: SessionRecord['kinds'];
+  retryWrongInSession: boolean;
 }
 
-export function GlobalPracticeSession({ questions }: Props) {
+type SessionPhase = 'main' | 'retry';
+
+function pushUnique<T>(arr: T[], value: T): T[] {
+  return arr.includes(value) ? arr : [...arr, value];
+}
+
+export function GlobalPracticeSession({
+  questions,
+  source,
+  day,
+  scope,
+  kinds,
+  retryWrongInSession,
+}: Props) {
   const router = useRouter();
   const { items, mark, unmark } = useDifficultExamples();
-  const [idx, setIdx] = useState(0);
+  const [startedAt] = useState(() => new Date().toISOString());
+  const [phase, setPhase] = useState<SessionPhase>('main');
+  const [mainIdx, setMainIdx] = useState(0);
+  const [retryPool, setRetryPool] = useState<PracticeQuestion[]>([]);
+  const [retryIdx, setRetryIdx] = useState(0);
+  const [retryCorrect, setRetryCorrect] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
-  const [wrongIds, setWrongIds] = useState<string[]>([]);
+  const [mainWrongIds, setMainWrongIds] = useState<string[]>([]);
 
-  const total = questions.length;
-  const current = questions[idx];
+  const mainTotal = questions.length;
+  const currentPool = phase === 'main' ? questions : retryPool;
+  const currentIdx = phase === 'main' ? mainIdx : retryIdx;
+  const current = currentPool[currentIdx];
+  const retryTotal = retryPool.length;
+  const totalForBar = mainTotal + retryTotal;
+  const progressedForBar =
+    phase === 'main' ? mainIdx : mainTotal + retryIdx;
 
-  const applyDifficult = (q: PracticeQuestion, wasCorrect: boolean) => {
+  const applyDifficultAndWrongBank = (q: PracticeQuestion, wasCorrect: boolean) => {
     const key = difficultKey(q.groupId, q.exampleIdx);
     const wasFlagged = !!items[key];
+
     if (wasCorrect) {
       if (wasFlagged) unmark(key);
+      removeFromWrongBank(key);
     } else {
       mark(key, {
         markedAt: items[key]?.markedAt ?? new Date().toISOString().slice(0, 10),
         sessionsStruggled: (items[key]?.sessionsStruggled ?? 0) + 1,
       });
+      addToWrongBank(key);
     }
   };
 
-  const finish = (wrong: string[]) => {
-    const wrongQs = questions.filter((q) => wrong.includes(q.id));
+  const finish = (wrongIds: string[], retryCorrectCount: number, retryCount: number) => {
+    const wrongQs = questions.filter((q) => wrongIds.includes(q.id));
+    const wrongKeys = wrongQs.map((q) => difficultKey(q.groupId, q.exampleIdx));
+
+    addSessionRecord({
+      id: new Date().toISOString(),
+      startedAt,
+      endedAt: new Date().toISOString(),
+      source,
+      day,
+      scope,
+      kinds,
+      total: questions.length,
+      correct: questions.length - wrongIds.length,
+      wrongKeys,
+    });
+
     const result: PracticeSessionResult = {
       total: questions.length,
-      correct: questions.length - wrong.length,
+      correct: questions.length - wrongIds.length,
       wrong: wrongQs,
       newlyDifficult: [],
+      retryCorrect: retryCorrectCount,
+      retryTotal: retryCount,
     };
     try {
       sessionStorage.setItem(RESULT_KEY, JSON.stringify(result));
@@ -63,11 +123,28 @@ export function GlobalPracticeSession({ questions }: Props) {
   };
 
   const next = () => {
-    if (idx >= total - 1) {
-      finish(wrongIds);
-      return;
+    if (phase === 'main') {
+      if (mainIdx >= mainTotal - 1) {
+        const wrongMainQs = questions.filter((q) => mainWrongIds.includes(q.id));
+        if (retryWrongInSession && wrongMainQs.length > 0) {
+          setRetryPool(wrongMainQs);
+          setRetryIdx(0);
+          setPicked(null);
+          setRevealed(false);
+          setPhase('retry');
+          return;
+        }
+        finish(mainWrongIds, 0, 0);
+        return;
+      }
+      setMainIdx((v) => v + 1);
+    } else {
+      if (retryIdx >= retryPool.length - 1) {
+        finish(mainWrongIds, retryCorrect, retryPool.length);
+        return;
+      }
+      setRetryIdx((v) => v + 1);
     }
-    setIdx((v) => v + 1);
     setPicked(null);
     setRevealed(false);
   };
@@ -83,31 +160,67 @@ export function GlobalPracticeSession({ questions }: Props) {
         ? current.expectedFullEn
         : current.fullEn.split('/')[0]?.trim() ?? current.fullEn;
     speak(speakLine);
-    applyDifficult(current, ok);
+    applyDifficultAndWrongBank(current, ok);
     if (!ok) {
-      setWrongIds((prev) => [...prev, current.id]);
+      if (phase === 'main') {
+        setMainWrongIds((prev) => pushUnique(prev, current.id));
+      }
+    } else if (phase === 'retry') {
+      setRetryCorrect((v) => v + 1);
     }
   };
 
   const onCompositionSelfGrade = (wasCorrect: boolean) => {
     if (!current) return;
-    applyDifficult(current, wasCorrect);
-    const nextWrong = wasCorrect ? wrongIds : [...wrongIds, current.id];
-    if (!wasCorrect) {
-      setWrongIds(nextWrong);
-    }
-    if (idx >= total - 1) {
-      finish(nextWrong);
+    applyDifficultAndWrongBank(current, wasCorrect);
+
+    if (phase === 'main') {
+      const nextWrongIds = !wasCorrect
+        ? pushUnique(mainWrongIds, current.id)
+        : mainWrongIds;
+      if (!wasCorrect) {
+        setMainWrongIds(nextWrongIds);
+      }
+
+      if (mainIdx >= mainTotal - 1) {
+        const wrongMainQs = questions.filter((q) => nextWrongIds.includes(q.id));
+        if (retryWrongInSession && wrongMainQs.length > 0) {
+          setRetryPool(wrongMainQs);
+          setRetryIdx(0);
+          setPicked(null);
+          setRevealed(false);
+          setPhase('retry');
+          return;
+        }
+        finish(nextWrongIds, 0, 0);
+        return;
+      }
+
+      setMainIdx((v) => v + 1);
+      setPicked(null);
+      setRevealed(false);
       return;
     }
-    setIdx((v) => v + 1);
+
+    const nextRetryCorrect = wasCorrect ? retryCorrect + 1 : retryCorrect;
+    if (wasCorrect) {
+      setRetryCorrect(nextRetryCorrect);
+    }
+    if (retryIdx >= retryPool.length - 1) {
+      finish(mainWrongIds, nextRetryCorrect, retryPool.length);
+      return;
+    }
+    setRetryIdx((v) => v + 1);
     setPicked(null);
     setRevealed(false);
   };
 
   const progress = useMemo(
-    () => (total ? Math.min(100, ((idx + 1) / total) * 100) : 0),
-    [idx, total]
+    () =>
+      totalForBar
+        ? Math.min(100, ((progressedForBar + 1) / totalForBar) * 100)
+        : 0,
+    [progressedForBar, totalForBar]
   );
 
   if (!current) {
@@ -123,12 +236,22 @@ export function GlobalPracticeSession({ questions }: Props) {
 
   return (
     <article className="mx-auto max-w-xl">
+      {phase === 'retry' ? (
+        <div className="mb-6 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border bg-muted px-4 py-2 text-sm text-muted-foreground">
+            <RotateCcw className="h-3.5 w-3.5" />
+            아까 틀린 거 다시 · {retryIdx + 1} / {retryPool.length}
+          </div>
+        </div>
+      ) : null}
+
       <div className="mb-6 flex items-center justify-between">
         <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground tabular-nums">
-          🎯 전체 연습 · {kindLabel(current.kind)}
+          {phase === 'retry' ? '🔁 재풀이' : '🎯 전체 연습'} ·{' '}
+          {kindLabel(current.kind)}
         </span>
         <span className="text-xs tabular-nums text-muted-foreground">
-          {idx + 1} / {total}
+          {currentIdx + 1} / {currentPool.length}
         </span>
       </div>
       <div className="mb-8 h-1 overflow-hidden rounded-full bg-muted">
@@ -167,7 +290,13 @@ export function GlobalPracticeSession({ questions }: Props) {
       {revealed && current.kind !== 'composition' ? (
         <div className="mt-6 flex justify-end">
           <Button type="button" onClick={next}>
-            {idx + 1 === total ? '결과 보기' : '다음 →'}
+            {phase === 'main' && mainIdx + 1 === mainTotal
+              ? retryWrongInSession && mainWrongIds.length > 0
+                ? '틀린 거 다시 풀기 →'
+                : '결과 보기'
+              : phase === 'retry' && retryIdx + 1 === retryPool.length
+                ? '결과 보기'
+                : '다음 →'}
           </Button>
         </div>
       ) : null}

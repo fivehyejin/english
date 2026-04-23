@@ -53,7 +53,11 @@ const KIND_OPTS: Array<{
 export function PracticeSetup() {
   const router = useRouter();
   const { items } = useDifficultExamples();
-  const practiceSlice: PracticeState = { difficultExamples: items };
+  const practiceSlice: PracticeState = {
+    difficultExamples: items,
+    sessionHistory: [],
+    wrongBank: {},
+  };
   const difficultCount = countAllDifficult(practiceSlice);
 
   const [scope, setScope] = useState<PracticeScope>('all');
@@ -61,6 +65,7 @@ export function PracticeSetup() {
     'collocation',
   ]);
   const [length, setLength] = useState<5 | 10 | 20>(10);
+  const [retryWrongInSession, setRetryWrongInSession] = useState(true);
 
   const counts = useMemo((): Record<GlobalKind, number> => {
     const c = CURRENT_CURRICULUM;
@@ -101,6 +106,8 @@ export function PracticeSetup() {
       scope,
       kinds: selectedKinds as GlobalPracticeConfig['kinds'],
       length,
+      retryWrongInSession,
+      source: 'global',
     });
   };
 
@@ -112,6 +119,8 @@ export function PracticeSetup() {
         scope: 'all',
         kinds: ['collocation', 'minimal-pairs', 'composition'],
         length: 'difficult-only',
+        retryWrongInSession,
+        source: 'global',
       },
       keys
     );
@@ -214,6 +223,15 @@ export function PracticeSetup() {
           ))}
         </div>
       </section>
+
+      <label className="mt-6 flex items-center gap-2 text-sm text-muted-foreground">
+        <input
+          type="checkbox"
+          checked={retryWrongInSession}
+          onChange={(e) => setRetryWrongInSession(e.target.checked)}
+        />
+        세션 끝에 틀린 거 다시 풀기
+      </label>
 
       <Button
         type="button"

@@ -3,7 +3,8 @@
 `curriculum-m2.json`의 구조를 TypeScript로 옮긴 것. `src/types.ts`로 그대로 복사해서 사용하면 됩니다.
 
 ## 변경 이력
-- **v2.2 (현재)**: `PracticeKind`에 3개 추가 (`collocation`, `minimal-pairs`, `composition`), 작문 채점 유틸, `CROSS_DAY_SISTERS` 매핑
+- **v3 (현재)**: `SessionRecord`, `WrongEntry` 추가 (히스토리·오답 보관함·대시보드용)
+- v2.2: `PracticeKind`에 3개 추가 (`collocation`, `minimal-pairs`, `composition`), 작문 채점 유틸, `CROSS_DAY_SISTERS` 매핑
 - v2.1: 연습 모드 타입 추가 (`PracticeState`, `PracticeKind`, `PracticeQuestion`, `SISTER_GROUPS`)
 - v2: Day 요약(`daySummaries`) 추가, 복습 관련 타입 전체 제거
 - v1: 복습 관리 앱 버전 (사용 안 함)
@@ -98,18 +99,28 @@ export interface AppState {
 /**
  * 연습 모드 영구 상태.
  *
- * 저장하는 건 "어려움 표시된 예문" 단 하나뿐.
- * 세션 기록, 누적 통계, 점수, streak 등은 저장하지 않음 (복습 앱 회귀 방지).
- *
- * v2.2 전체 연습도 이 스키마를 그대로 공유. Day별 연습과 전체 연습은
- * 같은 어려움 플래그 풀을 사용함.
+ * v3: 어려움 플래그 외에 세션 히스토리 + 오답 보관함 추가.
+ * 대시보드, 오답 보관함 재풀이 기능의 데이터 소스.
  */
 export interface PracticeState {
   /**
    * 어려움 플래그가 켜진 예문들.
    * key 형식: `${groupId}:${exampleIdx}` (e.g. "m2d3-have:5")
+   * 노트 페이지에 조용한 점으로 표시되는 용도.
    */
   difficultExamples: Record<string, DifficultFlag>;
+
+  /**
+   * 세션 기록. 대시보드 · 정답률 추이 계산용.
+   * 최근 100회만 유지 (오래된 건 자동 삭제).
+   */
+  sessionHistory: SessionRecord[];
+
+  /**
+   * 오답 보관함. 세션에서 틀린 예문을 체계적으로 쌓아두고
+   * /practice/wrong 에서 다시 풀 수 있게 함.
+   */
+  wrongBank: Record<string, WrongEntry>;
 }
 
 export interface DifficultFlag {
@@ -117,6 +128,46 @@ export interface DifficultFlag {
   markedAt: string;
   /** 이 플래그가 유지된 세션 수 (표시용, 의사결정에 쓰지 않음) */
   sessionsStruggled: number;
+}
+
+/**
+ * 한 세션의 기록 (v3 추가).
+ * 세션이 끝날 때마다 append, 100개 초과 시 앞에서 pop.
+ */
+export interface SessionRecord {
+  /** ISO timestamp 기반 고유 ID */
+  id: string;
+  /** 세션 시작 시각 (ISO) */
+  startedAt: string;
+  /** 세션 종료 시각 (ISO) */
+  endedAt: string;
+  /** 어디서 시작한 세션인지 */
+  source: 'day' | 'global' | 'wrong-bank';
+  /** day 세션일 때만 */
+  day?: number;
+  /** global 세션일 때만 */
+  scope?: PracticeScope;
+  /** 이 세션에서 사용한 유형들 */
+  kinds: PracticeKind[];
+  /** 총 문제 수 */
+  total: number;
+  /** 정답 수 */
+  correct: number;
+  /** 틀린 문제 key 목록 (`groupId:idx`) */
+  wrongKeys: string[];
+}
+
+/**
+ * 오답 보관함 엔트리 (v3 추가).
+ * key = `${groupId}:${exampleIdx}`
+ */
+export interface WrongEntry {
+  /** 최초로 틀린 시각 (ISO) */
+  firstWrongAt: string;
+  /** 가장 최근에 틀린 시각 (ISO) */
+  lastWrongAt: string;
+  /** 총 틀린 횟수 */
+  wrongCount: number;
 }
 
 // ============================================
@@ -470,6 +521,174 @@ export function gradeComposition(user: string, answer: string): CompositionResul
   }
 
   return { verdict: 'mismatch', userWords, answerWords, matchRatio: ratio };
+}
+
+
+// ============================================
+// 세션 히스토리 · 오답 보관함 · 대시보드 유틸 (v3)
+// ============================================
+
+export const MAX_SESSION_HISTORY = 100;
+
+/** 세션 히스토리에 추가. 오래된 건 자동 삭제. */
+export function appendSessionHistory(
+  state: PracticeState,
+  record: SessionRecord
+): PracticeState {
+  const history = [...state.sessionHistory, record];
+  if (history.length > MAX_SESSION_HISTORY) {
+    history.splice(0, history.length - MAX_SESSION_HISTORY);
+  }
+  return { ...state, sessionHistory: history };
+}
+
+/** 오답 보관함에 추가/업데이트 */
+export function addToWrongBank(
+  state: PracticeState,
+  key: string,
+  now = new Date().toISOString()
+): PracticeState {
+  const existing = state.wrongBank[key];
+  const entry: WrongEntry = existing
+    ? { ...existing, lastWrongAt: now, wrongCount: existing.wrongCount + 1 }
+    : { firstWrongAt: now, lastWrongAt: now, wrongCount: 1 };
+  return {
+    ...state,
+    wrongBank: { ...state.wrongBank, [key]: entry },
+  };
+}
+
+/** 오답 보관함에서 제거 (맞췄을 때) */
+export function removeFromWrongBank(state: PracticeState, key: string): PracticeState {
+  const { [key]: _, ...rest } = state.wrongBank;
+  return { ...state, wrongBank: rest };
+}
+
+/** 오답 보관함 크기 */
+export function countWrongBank(state: PracticeState | undefined): number {
+  if (!state) return 0;
+  return Object.keys(state.wrongBank).length;
+}
+
+// ── 대시보드 집계 ──────────────────────────────────
+
+/** 회차별 정답률 추이 (최근 N개) */
+export function getAccuracyTrend(state: PracticeState, lastN = 20): Array<{
+  id: string;
+  date: string;        // YYYY-MM-DD
+  accuracy: number;    // 0~1
+  total: number;
+}> {
+  return state.sessionHistory.slice(-lastN).map(s => ({
+    id: s.id,
+    date: s.startedAt.slice(0, 10),
+    accuracy: s.total === 0 ? 0 : s.correct / s.total,
+    total: s.total,
+  }));
+}
+
+/** Day별 정답률 집계 */
+export function getAccuracyByDay(state: PracticeState): Array<{
+  day: number;
+  attempted: number;
+  correct: number;
+  accuracy: number;
+}> {
+  const byDay: Record<number, { attempted: number; correct: number }> = {};
+  for (const s of state.sessionHistory) {
+    if (s.source === 'day' && s.day != null) {
+      byDay[s.day] ??= { attempted: 0, correct: 0 };
+      byDay[s.day].attempted += s.total;
+      byDay[s.day].correct += s.correct;
+    }
+  }
+  return Object.entries(byDay)
+    .map(([day, v]) => ({
+      day: Number(day),
+      attempted: v.attempted,
+      correct: v.correct,
+      accuracy: v.attempted === 0 ? 0 : v.correct / v.attempted,
+    }))
+    .sort((a, b) => a.day - b.day);
+}
+
+/** 유형별 정답률 집계 */
+export function getAccuracyByKind(state: PracticeState): Array<{
+  kind: PracticeKind;
+  attempted: number;
+  correct: number;
+  accuracy: number;
+}> {
+  // 세션별로 kinds가 복수일 수 있음.
+  // 현재 구조에선 session.total을 kinds 개수로 균등 분배 (근사치).
+  // 정확하려면 문제 단위 기록이 필요하지만 v3 단순 버전은 세션 레벨로 충분.
+  const byKind: Record<string, { attempted: number; correct: number }> = {};
+  for (const s of state.sessionHistory) {
+    const per = s.kinds.length === 0 ? 1 : s.kinds.length;
+    for (const k of s.kinds) {
+      byKind[k] ??= { attempted: 0, correct: 0 };
+      byKind[k].attempted += Math.round(s.total / per);
+      byKind[k].correct += Math.round(s.correct / per);
+    }
+  }
+  return Object.entries(byKind).map(([k, v]) => ({
+    kind: k as PracticeKind,
+    attempted: v.attempted,
+    correct: v.correct,
+    accuracy: v.attempted === 0 ? 0 : v.correct / v.attempted,
+  }));
+}
+
+/**
+ * 가장 많이 틀린 그룹 Top N.
+ * wrongBank의 key(`groupId:idx`)를 groupId 기준으로 집계.
+ */
+export function getTopWrongGroups(
+  state: PracticeState,
+  topN = 5
+): Array<{ groupId: string; wrongCount: number; uniqueExamples: number }> {
+  const byGroup: Record<string, { count: number; examples: Set<string> }> = {};
+  for (const [key, entry] of Object.entries(state.wrongBank)) {
+    const [groupId, idx] = key.split(':');
+    byGroup[groupId] ??= { count: 0, examples: new Set() };
+    byGroup[groupId].count += entry.wrongCount;
+    byGroup[groupId].examples.add(idx);
+  }
+  return Object.entries(byGroup)
+    .map(([groupId, v]) => ({
+      groupId,
+      wrongCount: v.count,
+      uniqueExamples: v.examples.size,
+    }))
+    .sort((a, b) => b.wrongCount - a.wrongCount)
+    .slice(0, topN);
+}
+
+/** 전체 집계: 총 세션 수, 총 푼 문제 수, 총 정답 수, 전체 정답률 */
+export function getOverallStats(state: PracticeState): {
+  sessions: number;
+  totalQuestions: number;
+  totalCorrect: number;
+  overallAccuracy: number;
+} {
+  const sessions = state.sessionHistory.length;
+  const totalQuestions = state.sessionHistory.reduce((sum, s) => sum + s.total, 0);
+  const totalCorrect = state.sessionHistory.reduce((sum, s) => sum + s.correct, 0);
+  return {
+    sessions,
+    totalQuestions,
+    totalCorrect,
+    overallAccuracy: totalQuestions === 0 ? 0 : totalCorrect / totalQuestions,
+  };
+}
+
+/** 빈 PracticeState */
+export function emptyPracticeState(): PracticeState {
+  return {
+    difficultExamples: {},
+    sessionHistory: [],
+    wrongBank: {},
+  };
 }
 ```
 

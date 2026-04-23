@@ -45,6 +45,8 @@ export interface Example {
 
 export interface PracticeState {
   difficultExamples: Record<string, DifficultFlag>;
+  sessionHistory: SessionRecord[];
+  wrongBank: Record<string, WrongEntry>;
 }
 
 export interface AppState {
@@ -58,6 +60,27 @@ export interface AppState {
 export interface DifficultFlag {
   markedAt: string;
   sessionsStruggled: number;
+}
+
+export type PracticeSource = 'day' | 'global' | 'wrong-bank';
+
+export interface SessionRecord {
+  id: string;
+  startedAt: string;
+  endedAt: string;
+  source: PracticeSource;
+  day?: number;
+  scope?: PracticeScope;
+  kinds: PracticeKind[];
+  total: number;
+  correct: number;
+  wrongKeys: string[];
+}
+
+export interface WrongEntry {
+  firstWrongAt: string;
+  lastWrongAt: string;
+  wrongCount: number;
 }
 
 /** 호환용 별칭 */
@@ -116,7 +139,9 @@ export type PracticeScope = 'all' | 'd1-3' | 'd4-5';
 export interface GlobalPracticeConfig {
   scope: PracticeScope;
   kinds: PracticeKind[];
-  length: 5 | 10 | 20 | 'difficult-only';
+  length: 5 | 10 | 20 | 'all' | 'difficult-only';
+  retryWrongInSession?: boolean;
+  source?: PracticeSource;
 }
 
 export interface PracticeSessionResult {
@@ -124,6 +149,8 @@ export interface PracticeSessionResult {
   correct: number;
   wrong: PracticeQuestion[];
   newlyDifficult: string[];
+  retryTotal?: number;
+  retryCorrect?: number;
 }
 
 export type CompositionVerdict =
@@ -140,6 +167,7 @@ export interface CompositionResult {
 }
 
 export const STORAGE_KEY = 'english-notebook-state';
+export const MAX_SESSION_HISTORY = 100;
 
 export const TOTAL_MONTHS = 10;
 export const BEGINNER_MONTHS = 4;
@@ -200,4 +228,122 @@ export function countAllDifficult(
 ): number {
   if (!practice?.difficultExamples) return 0;
   return Object.keys(practice.difficultExamples).length;
+}
+
+export function countWrongBank(practice: PracticeState | undefined): number {
+  if (!practice) return 0;
+  return Object.keys(practice.wrongBank).length;
+}
+
+export function emptyPracticeState(): PracticeState {
+  return {
+    difficultExamples: {},
+    sessionHistory: [],
+    wrongBank: {},
+  };
+}
+
+export function getAccuracyTrend(
+  practice: PracticeState,
+  lastN = 20
+): Array<{ id: string; date: string; accuracy: number; total: number }> {
+  return practice.sessionHistory.slice(-lastN).map((s) => ({
+    id: s.id,
+    date: s.startedAt.slice(0, 10),
+    accuracy: s.total === 0 ? 0 : s.correct / s.total,
+    total: s.total,
+  }));
+}
+
+export function getAccuracyByDay(
+  practice: PracticeState
+): Array<{ day: number; attempted: number; correct: number; accuracy: number }> {
+  const byDay: Record<number, { attempted: number; correct: number }> = {};
+  for (const s of practice.sessionHistory) {
+    if (s.source !== 'day' || s.day == null) continue;
+    byDay[s.day] ??= { attempted: 0, correct: 0 };
+    byDay[s.day].attempted += s.total;
+    byDay[s.day].correct += s.correct;
+  }
+
+  return Object.entries(byDay)
+    .map(([day, v]) => ({
+      day: Number(day),
+      attempted: v.attempted,
+      correct: v.correct,
+      accuracy: v.attempted === 0 ? 0 : v.correct / v.attempted,
+    }))
+    .sort((a, b) => a.day - b.day);
+}
+
+export function getAccuracyByKind(
+  practice: PracticeState
+): Array<{
+  kind: PracticeKind;
+  attempted: number;
+  correct: number;
+  accuracy: number;
+}> {
+  const byKind: Record<string, { attempted: number; correct: number }> = {};
+  for (const s of practice.sessionHistory) {
+    const per = s.kinds.length === 0 ? 1 : s.kinds.length;
+    for (const kind of s.kinds) {
+      byKind[kind] ??= { attempted: 0, correct: 0 };
+      byKind[kind].attempted += Math.round(s.total / per);
+      byKind[kind].correct += Math.round(s.correct / per);
+    }
+  }
+
+  return Object.entries(byKind).map(([kind, v]) => ({
+    kind: kind as PracticeKind,
+    attempted: v.attempted,
+    correct: v.correct,
+    accuracy: v.attempted === 0 ? 0 : v.correct / v.attempted,
+  }));
+}
+
+export function getTopWrongGroups(
+  practice: PracticeState,
+  topN = 5
+): Array<{ groupId: string; wrongCount: number; uniqueExamples: number }> {
+  const byGroup: Record<string, { count: number; examples: Set<string> }> = {};
+  for (const [key, entry] of Object.entries(practice.wrongBank)) {
+    const parsed = parseDifficultKey(key);
+    if (!parsed) continue;
+    byGroup[parsed.groupId] ??= { count: 0, examples: new Set() };
+    byGroup[parsed.groupId].count += entry.wrongCount;
+    byGroup[parsed.groupId].examples.add(String(parsed.exampleIdx));
+  }
+
+  return Object.entries(byGroup)
+    .map(([groupId, v]) => ({
+      groupId,
+      wrongCount: v.count,
+      uniqueExamples: v.examples.size,
+    }))
+    .sort((a, b) => b.wrongCount - a.wrongCount)
+    .slice(0, topN);
+}
+
+export function getOverallStats(practice: PracticeState): {
+  sessions: number;
+  totalQuestions: number;
+  totalCorrect: number;
+  overallAccuracy: number;
+} {
+  const sessions = practice.sessionHistory.length;
+  const totalQuestions = practice.sessionHistory.reduce(
+    (sum, s) => sum + s.total,
+    0
+  );
+  const totalCorrect = practice.sessionHistory.reduce(
+    (sum, s) => sum + s.correct,
+    0
+  );
+  return {
+    sessions,
+    totalQuestions,
+    totalCorrect,
+    overallAccuracy: totalQuestions === 0 ? 0 : totalCorrect / totalQuestions,
+  };
 }

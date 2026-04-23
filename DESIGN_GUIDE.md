@@ -1285,7 +1285,365 @@ const kindLabel = (k: PracticeKind) => ({
 }[k]);
 ```
 
----
+### 5.18 세션 중 "틀린 거 다시" 단계 헤더 (v3)
+
+정규 문제가 끝난 직후, 틀린 문제가 있으면 재풀이 단계가 자동 시작됨. 이 단계 시작 지점에 구분 헤더를 삽입.
+
+```tsx
+{isRetryPhase && (
+  <div className="mt-6 mb-6 text-center">
+    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border bg-muted text-sm text-muted-foreground">
+      <RotateCcw className="h-3.5 w-3.5" />
+      아까 틀린 거 다시 · {retryCurrent + 1} / {retryTotal}
+    </div>
+  </div>
+)}
+```
+
+**규칙**
+- 축하 X, 격려 X — 담담하게 "다시 한번"
+- 진행률 바는 계속 이어지되, 라벨만 "재풀이"로 바뀜
+- 재풀이에서 맞으면 기존 세션 결과에 반영 X (별도 집계)
+- 재풀이도 자동 재풀이 대상 X (무한 루프 방지)
+
+### 5.19 오답 보관함 시작 화면 (v3)
+
+`/practice/wrong` 진입 화면. 전체 연습 시작 화면(5.13)과 레이아웃 유사.
+
+```tsx
+<article className="max-w-xl mx-auto">
+  <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">
+    ← 홈으로
+  </Link>
+
+  <h1 className="mt-6 text-2xl md:text-3xl font-bold tracking-tight">
+    📝 오답 보관함
+  </h1>
+  <p className="mt-2 text-sm text-muted-foreground tabular-nums">
+    총 {wrongCount}문제 틀렸어요
+  </p>
+
+  {/* 분포 요약 */}
+  <section className="mt-6 rounded-md border bg-muted/30 p-4 text-sm space-y-2">
+    <div>
+      <span className="text-muted-foreground">가장 자주: </span>
+      <span className="font-medium">{mostWrongExample}</span>
+      <span className="text-muted-foreground tabular-nums"> ({mostWrongCount}회)</span>
+    </div>
+    <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+      {byDay.map(({ day, count }) => (
+        <span key={day} className="tabular-nums">
+          Day {day}: {count}문제
+        </span>
+      ))}
+    </div>
+  </section>
+
+  {/* 정렬 */}
+  <section className="mt-8 space-y-3">
+    <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+      정렬
+    </h2>
+    <div className="flex gap-2 flex-wrap">
+      {[
+        { value: 'recent',  label: '최근 틀린 순'  },
+        { value: 'frequent',label: '자주 틀린 순' },
+        { value: 'day',     label: 'Day 순'       },
+      ].map(opt => (
+        <button
+          key={opt.value}
+          onClick={() => setSort(opt.value)}
+          className={cn(
+            'rounded-md border px-4 py-2 text-sm font-medium transition-colors',
+            sort === opt.value
+              ? 'bg-primary text-primary-foreground border-primary'
+              : 'hover:bg-muted'
+          )}
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  {/* 길이 */}
+  <LengthPicker length={length} setLength={setLength} options={[5, 10, 'all']} />
+
+  <Button onClick={startSession} className="mt-8 w-full" size="lg">
+    다시 풀기 →
+  </Button>
+</article>
+```
+
+**빈 상태**:
+```tsx
+{wrongCount === 0 && (
+  <div className="mt-8 rounded-md border bg-muted/30 p-8 text-center">
+    <p className="text-muted-foreground">오답이 없어요. 깔끔해요.</p>
+    <Link href="/practice" className="mt-4 inline-block text-sm font-medium text-primary hover:underline">
+      🎯 전체 연습하러 가기
+    </Link>
+  </div>
+)}
+```
+
+### 5.20 대시보드 페이지 (v3)
+
+`/dashboard` 라우트. recharts 사용. **애니메이션 일괄 끔** (`isAnimationActive={false}`).
+
+#### 전체 레이아웃
+
+```tsx
+<article className="max-w-4xl mx-auto space-y-10">
+  <div>
+    <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">
+      ← 홈으로
+    </Link>
+    <h1 className="mt-4 text-2xl md:text-3xl font-bold tracking-tight">
+      📊 대시보드
+    </h1>
+  </div>
+
+  {/* 빈 상태 */}
+  {sessions === 0 ? <EmptyDashboard /> : (
+    <>
+      <OverallSummary />
+      <AccuracyTrend />
+      <AccuracyByDay />
+      <AccuracyByKind />
+      <TopWrongGroups />
+    </>
+  )}
+</article>
+```
+
+#### 전체 요약 카드
+
+```tsx
+<section className="grid grid-cols-3 gap-3">
+  {[
+    { label: '총 세션',     value: sessions,       suffix: '회' },
+    { label: '총 푼 문제',  value: totalQuestions, suffix: '개' },
+    { label: '전체 정답률', value: `${Math.round(overallAccuracy * 100)}`, suffix: '%' },
+  ].map((stat, i) => (
+    <div key={i} className="rounded-lg border bg-card p-4 md:p-5 text-center">
+      <div className="text-xs uppercase tracking-wide text-muted-foreground">
+        {stat.label}
+      </div>
+      <div className="mt-2 text-2xl md:text-3xl font-bold tabular-nums">
+        {stat.value}
+        <span className="ml-0.5 text-sm font-medium text-muted-foreground">{stat.suffix}</span>
+      </div>
+    </div>
+  ))}
+</section>
+```
+
+#### 회차별 정답률 추이 (LineChart)
+
+```tsx
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
+<section>
+  <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-4">
+    회차별 정답률 추이 <span className="normal-case font-normal">(최근 20회)</span>
+  </h2>
+  <div className="h-56 md:h-64">
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={trendData}>
+        <CartesianGrid
+          strokeDasharray="3 3"
+          stroke="hsl(var(--border))"
+        />
+        <XAxis
+          dataKey="date"
+          tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+          stroke="hsl(var(--border))"
+        />
+        <YAxis
+          domain={[0, 1]}
+          tickFormatter={(v) => `${Math.round(v * 100)}%`}
+          tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+          stroke="hsl(var(--border))"
+        />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: 'hsl(var(--popover))',
+            border: '1px solid hsl(var(--border))',
+            borderRadius: '6px',
+            fontSize: '12px',
+          }}
+          formatter={(v: number) => [`${Math.round(v * 100)}%`, '정답률']}
+        />
+        <Line
+          type="monotone"
+          dataKey="accuracy"
+          stroke="hsl(var(--primary))"
+          strokeWidth={2}
+          dot={{ r: 3, fill: 'hsl(var(--primary))' }}
+          isAnimationActive={false}
+        />
+      </LineChart>
+    </ResponsiveContainer>
+  </div>
+</section>
+```
+
+#### Day별 / 유형별 정답률 (커스텀 막대)
+
+recharts `<BarChart>`도 가능하지만, 이 앱 톤에는 **커스텀 CSS 막대**가 더 잘 맞음 (가로 + 라벨 + 숫자 함께).
+
+```tsx
+<section>
+  <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-4">
+    Day별 정답률
+  </h2>
+  <div className="space-y-2">
+    {dayStats.map((d, i) => {
+      const pct = Math.round(d.accuracy * 100);
+      const weakest = d.day === weakestDay;
+      return (
+        <div key={d.day} className="flex items-center gap-3 text-sm">
+          <div className="w-14 text-muted-foreground tabular-nums">Day {d.day}</div>
+          <div className="flex-1 h-6 bg-muted rounded overflow-hidden relative">
+            <div
+              className="h-full bg-primary transition-none"
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+          <div className="w-14 text-right tabular-nums font-medium">{pct}%</div>
+          <div className="w-20 text-right text-xs text-muted-foreground tabular-nums">
+            {d.correct}/{d.attempted}
+          </div>
+          {weakest && (
+            <span className="text-xs text-accent font-medium">← 약함</span>
+          )}
+        </div>
+      );
+    })}
+  </div>
+</section>
+```
+
+유형별도 같은 패턴. 라벨만 "동사 짝꿍", "비슷한 동사 구분" 등 한글로.
+
+#### 틀린 그룹 Top 5
+
+```tsx
+<section>
+  <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-4">
+    가장 많이 틀리는 그룹 Top 5
+  </h2>
+  <ol className="space-y-2">
+    {topWrong.map((g, i) => (
+      <li key={g.groupId} className="flex items-baseline gap-3 rounded-md border bg-card px-4 py-3">
+        <span className="text-sm font-bold tabular-nums text-muted-foreground w-5">{i + 1}</span>
+        <div className="flex-1 min-w-0">
+          <div className="font-semibold truncate">{groupTitle(g.groupId)}</div>
+          <div className="text-xs text-muted-foreground">{g.groupId}</div>
+        </div>
+        <div className="text-sm tabular-nums text-muted-foreground">
+          {g.wrongCount}회 · {g.uniqueExamples}예문
+        </div>
+      </li>
+    ))}
+  </ol>
+  {topWrong.length > 0 && (
+    <Button
+      onClick={startTopWrongSession}
+      variant="outline"
+      className="mt-4 w-full"
+    >
+      Top 5 바로 풀기 →
+    </Button>
+  )}
+</section>
+```
+
+#### 빈 상태
+
+```tsx
+<div className="rounded-lg border bg-muted/30 p-8 md:p-10 text-center">
+  <p className="text-muted-foreground">아직 푼 세션이 없어요.</p>
+  <Link
+    href="/practice"
+    className="mt-4 inline-block text-sm font-medium text-primary hover:underline"
+  >
+    🎯 전체 연습 시작하기 →
+  </Link>
+</div>
+```
+
+#### 색·톤 규칙 (대시보드)
+
+- 막대 · 선: `hsl(var(--primary))` 네이비
+- 배경 트랙: `bg-muted`
+- 라벨 · 축 틱: `text-muted-foreground`
+- **레드 (`accent`)는 "← 약함" 표시 한 곳에만**
+- 그라데이션·그림자 금지 (`shadow` 쓰지 말기)
+- recharts 전부 `isAnimationActive={false}`
+
+### 5.21 세션 결과 화면 업데이트 (v3)
+
+Day별 연습(5.10) 세션 결과 화면에 다음을 추가:
+
+1. **재풀이 정보** (있을 때): "재풀이 3문제 중 2개 맞음" 조용하게 표시
+2. **이번 세션 기록됨** (v3): `sessionHistory`에 이미 저장된 상태이므로 특별 UI 없음
+3. **대시보드 바로가기** 버튼 추가
+
+```tsx
+<article className="max-w-xl mx-auto text-center">
+  <h1 className="text-3xl font-bold tracking-tight">
+    연습 완료
+  </h1>
+
+  <div className="mt-8 rounded-lg border bg-card p-8">
+    <div className="text-6xl font-bold tabular-nums">
+      {result.correct} <span className="text-muted-foreground">/ {result.total}</span>
+    </div>
+    <p className="mt-2 text-sm text-muted-foreground tabular-nums">
+      정답률 {Math.round((result.correct / result.total) * 100)}%
+    </p>
+  </div>
+
+  {/* 재풀이 정보 (v3) */}
+  {result.retryCorrect != null && result.retryTotal > 0 && (
+    <p className="mt-4 text-sm text-muted-foreground tabular-nums">
+      재풀이: {result.retryCorrect} / {result.retryTotal}
+    </p>
+  )}
+
+  {/* 틀린 것 */}
+  {result.wrong.length > 0 && (
+    <section className="mt-8 text-left">
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+        오답 보관함에 추가됨 · {result.wrong.length}개
+      </h2>
+      <ul className="space-y-2">
+        {result.wrong.map((q, i) => (
+          <li key={i} className="rounded-md border bg-muted/30 px-4 py-3">
+            <div className="text-sm font-semibold">{q.fullEn}</div>
+            <div className="text-xs text-muted-foreground mt-1">정답: {q.answer}</div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <div className="mt-8 grid grid-cols-2 gap-3">
+    <Button variant="outline" onClick={restart}>
+      다시 하기
+    </Button>
+    <Button variant="outline" asChild>
+      <Link href="/dashboard">📊 대시보드</Link>
+    </Button>
+  </div>
+  <Button className="mt-3 w-full" asChild>
+    <Link href={backHref}>돌아가기</Link>
+  </Button>
+</article>
+```
+
 ---
 
 ## 6. shadcn/ui 사용 가이드

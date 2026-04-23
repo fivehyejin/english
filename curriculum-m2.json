@@ -2103,6 +2103,375 @@
           "note": "✏️ 관용구 — 아무리 감사해도 모자랄 정도야"
         }
       ]
+    },
+    {
+      "id": "m2d6-worth-overview",
+      "day": 6,
+      "dayTopic": "WORTH · HAVE TO",
+      "title": "WORTH 구조 개요",
+      "kind": "class-note",
+      "noteSource": "✏️ 수업노트 · 04/23",
+      "notes": [
+        "WORTH 두 가지 패턴:",
+        "  • S is worth N        = S는 N의 값어치가 있다 / 가치가 있다",
+        "  • It is worth ~ing    = ~ing 하는 것은 가치가 있다. 대단히 ~할 만한 일이다",
+        "",
+        "순환구조 (to V처럼):",
+        "  The movie is worth watching. → 영화를 보는 것",
+        "  watching 뒤에 목적어(it) 없음 — S가 의미상 목적어",
+        "",
+        "well/very worth:",
+        "  The car is well worth the money. → '일찍거리' (충분히 그 값 해)",
+        "  well/very 붙이면 '충분히 가치있어' 강조",
+        "",
+        "not worth it:",
+        "  It isn't worth it. → 소용없어. (it = 그 행위/노력)",
+        "  worth 뒤 it이 오면 의미상 목적어를 it으로 받는 것",
+        "",
+        "부정 뉘앙스:",
+        "  It isn't worth trying. = 해봤자 소용없어 (~해서 뭐해.)",
+        "  don't have to / need → 안 해도 돼 (의무 없음, 금지 아님)",
+        "",
+        "To V (부사) 비율 참고 (수업 필기):",
+        "  70% 위해서 (목적)",
+        "  10% 해서 (결과)",
+        "  5% ~하기에 (형용사 수식)",
+        "  15% 그 외/기타"
+      ],
+      "examples": []
+    },
+    {
+      "id": "m2d6-ready-overview",
+      "day": 6,
+      "dayTopic": "WORTH · HAVE TO",
+      "title": "READY TO V",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 04/23",
+      "notes": [
+        "S is ready to V = S가 V할 준비가 되어있다",
+        "  • 사람 주어: I am ready to go out. → 나 나갈 준비 됐어.",
+        "  • 사물 주어: Your car is ready to go. → 네 차 갈 준비 됐어.",
+        "  • 음식: Our food is ready to pick up. → 음식 픽업 준비 됐어.",
+        "",
+        "not ready:",
+        "  Your hair is not ready (for me) to cut. → 네 머리카락이 아직 자를 준비가 안 됐어."
+      ],
+      "examples": []
+    },
+    {
+      "id": "m2d6-worth-N",
+      "day": 6,
+      "dayTopic": "WORTH · HAVE TO",
+      "title": "WORTH + N",
+      "pattern": "S is (well) worth N",
+      "meaning": "S는 N의 값어치가 있다 / 가치가 있다",
+      "notes": [
+        "S is worth N → S는 N만큼의 가치가 있다",
+        "  well/very 붙이면 '충분히 그 값 해' 강조",
+        "  How much is S worth? → S 값어치가 얼마야?"
+      ],
+      "noteSource": "✏️ 수업노트 · 04/23",
+      "examples": [
+        {
+          "en": "The movie is (well) worth the money.",
+          "ko": "그 영화 돈 값 (특히) 해."
+        },
+        {
+          "en": "The car is worth the price difference.",
+          "ko": "그 승용차는 가격차이만큼의 값을 해."
+        },
+        {
+          "en": "The vacuum cleaner is worth the high price.",
+          "ko": "그 진공청소기는 비싼 값을 해."
+        },
+        {
+          "en": "The food is worth the (long) wait.",
+          "ko": "그 음식은 오래 기다리는 값을 해."
+        },
+        {
+          "en": "This school is worth the time.",
+          "ko": "이 학교는 시간 투자할만해."
+        },
+        {
+          "en": "A picture is worth a thousand words.",
+          "ko": "그림 한 장은 천 마디 말의 값어치를 한다.",
+          "note": "✏️ 속담"
+        },
+        {
+          "en": "This beach is worth the long drive.",
+          "ko": "이 해변은 차 타고 오래 올 만해."
+        },
+        {
+          "en": "This place is worth the long walk.",
+          "ko": "이곳은 오래 걸어올 만한 값어치가 있네."
+        },
+        {
+          "en": "Hawaii is worth the long flight.",
+          "ko": "하와이는 오래 비행기 타고 갈만한 가치가 있어."
+        },
+        {
+          "en": "It is worth the time and effort to learn English.",
+          "ko": "영어 배우는 것은 시간과 노력을 들일 가치가 있어.",
+          "note": "✏️ 기주어-진주어"
+        },
+        {
+          "en": "It is worth the trouble to get there.",
+          "ko": "거기까지 가는 수고를 들일만한 값어치가 있어."
+        },
+        {
+          "en": "One dollar is worth about 1200 won.",
+          "ko": "1달러는 약 1200원의 값어치가 있다."
+        },
+        {
+          "en": "How much is one dollar worth in Korea?",
+          "ko": "한국에서 1달러는 얼마의 값어치가 있나요?"
+        },
+        {
+          "en": "How much is my car worth?",
+          "ko": "제 차 값이 얼마나 나가나요?"
+        },
+        {
+          "en": "Is it worth it?",
+          "ko": "그게 가치 있는 일인가요? 할만해?",
+          "note": "✏️ it = 그 행위/노력. 의미상 목적어를 it으로 받음"
+        }
+      ]
+    },
+    {
+      "id": "m2d6-worth-ing",
+      "day": 6,
+      "dayTopic": "WORTH · HAVE TO",
+      "title": "WORTH ~ing (긍정)",
+      "pattern": "It is worth ~ing / S is worth ~ing",
+      "meaning": "~ing 하는 것은 가치가 있다. 대단히 ~할 만한 일이다",
+      "notes": [
+        "두 가지 구조 모두 가능:",
+        "  It is worth reading the book. = The book is worth reading.",
+        "  순환구조: S(book)가 reading의 의미상 목적어",
+        "  → reading 뒤에 목적어 없음 (it 안 씀)"
+      ],
+      "noteSource": "✏️ 수업노트 · 04/23",
+      "examples": [
+        {
+          "en": "It is worth reading the book. / The book is worth reading.",
+          "ko": "그 책 정말 읽어볼 만해."
+        },
+        {
+          "en": "It is worth watching the movie twice. / The movie is worth watching twice.",
+          "ko": "그 영화는 두 번 볼만해."
+        },
+        {
+          "en": "It is worth taking the Korean subway. / The Korean subway is worth taking.",
+          "ko": "한국 전철은 정말 탈 만해."
+        },
+        {
+          "en": "It is worth taking his class. / His class is worth taking.",
+          "ko": "그의 수업은 정말 수강할 만해."
+        },
+        {
+          "en": "It is worth trying this kimchi. / This kimchi is worth trying.",
+          "ko": "이 김치 정말 먹어볼 만해."
+        },
+        {
+          "en": "It is worth visiting Hawaii. / Hawaii is worth visiting.",
+          "ko": "하와이는 정말 가볼만 해."
+        },
+        {
+          "en": "It is worth learning English. / English is worth learning.",
+          "ko": "영어는 배울만한 가치가 있어."
+        },
+        {
+          "en": "It is worth going to the museum. / The museum is worth going to.",
+          "ko": "그 박물관 정말 가볼 만해."
+        },
+        {
+          "en": "It is worth waiting in line for the food. / The food is worth waiting in line for.",
+          "ko": "그 음식은 줄 서서 기다릴만한 가치가 있어."
+        },
+        {
+          "en": "It is worth listening to this song. / This song is worth listening to.",
+          "ko": "이 노래 정말 들어볼 만해."
+        },
+        {
+          "en": "It is worth living in this town. / This town is worth living in.",
+          "ko": "이 동네는 정말 들어가 살 만해."
+        },
+        {
+          "en": "It is worth signing up for the course. / The course is worth signing up for.",
+          "ko": "그 과목은 수강 신청할 만해."
+        }
+      ]
+    },
+    {
+      "id": "m2d6-not-worth-ing",
+      "day": 6,
+      "dayTopic": "WORTH · HAVE TO",
+      "title": "NOT WORTH ~ing",
+      "pattern": "It is not worth ~ing / S is not worth ~ing",
+      "meaning": "~해봤자 소용없어. ~해서 뭐해",
+      "notes": [
+        "not worth ~ing = 해봤자 소용없어, ~해서 뭐해",
+        "  It isn't worth it. → 소용없어 (it = 그 행위)",
+        "  It isn't worth + 사람 → 그 사람은 그럴 가치도 없어"
+      ],
+      "noteSource": "✏️ 수업노트 · 04/23",
+      "examples": [
+        {
+          "en": "It is not worth repairing the car. / The car is not worth repairing.",
+          "ko": "그 차는 수리해봤자 소용없어."
+        },
+        {
+          "en": "It is not worth washing this car. / This car is not worth washing.",
+          "ko": "이 차는 세차해봤자 때깔도 안 나."
+        },
+        {
+          "en": "It is not worth regretting the past. / The past is not worth regretting.",
+          "ko": "과거는 후회해봤자 소용없어."
+        },
+        {
+          "en": "It is not worth talking about your ex. / Your ex is not worth talking about.",
+          "ko": "헤어진 사람에 대해 얘기해봤자 쓸데없는 일이야."
+        },
+        {
+          "en": "It's not worth washing the car. I think it's going to rain.",
+          "ko": "세차해봤자 소용없어. 비 올 것 같아."
+        },
+        {
+          "en": "It's not worth getting home early. There's nobody home.",
+          "ko": "집에 일찍 들어가서 뭐해. 아무도 없는데."
+        },
+        {
+          "en": "It's not worth raising kids. They are ungrateful.",
+          "ko": "자식들 키워봤자 소용없어. 배은망덕한 놈들이야.",
+          "note": "✏️ ungrateful = 배은망덕한"
+        },
+        {
+          "en": "It's not worth trying to lose weight if you drink that much.",
+          "ko": "살 빼려고 애써봐야 소용없어, 그리 많이 술 마시면."
+        },
+        {
+          "en": "Forget him. He's not worth it.",
+          "ko": "그 남자 잊어. 별 가치도 없는 놈이야."
+        }
+      ]
+    },
+    {
+      "id": "m2d6-have-to",
+      "day": 6,
+      "dayTopic": "WORTH · HAVE TO",
+      "title": "HAVE TO / HAS TO / HAD TO",
+      "pattern": "S have to / has to / had to V",
+      "meaning": "~해야 해 (의무·필수) / don't have to = 안 해도 돼 (금지 아님)",
+      "notes": [
+        "have to = 의무·필수 (must와 비슷하지만 더 일상적)",
+        "don't have to ≠ must not",
+        "  don't have to = 안 해도 돼 (의무 없음)",
+        "  must not = 하면 안 돼 (금지)",
+        "",
+        "의문문: Do you have to ~? / Does she have to ~?",
+        "과거: had to (had to drop = 어쩔 수 없이 그만뒀어)",
+        "",
+        "Does it have to be that expensive?",
+        "  → Yes, it has to be. (주어 자체 반복, 동사 없이)",
+        "",
+        "✏️ 필기: V(의식하여) 알면 구분V - 의용사가 앞에 오면 조용V"
+      ],
+      "noteSource": "✏️ 수업노트 · 04/23",
+      "examples": [
+        {
+          "en": "I have to get home early.",
+          "ko": "나 집에 일찍 들어가야 해."
+        },
+        {
+          "en": "Do you have to go so soon? - Yes, I have to.",
+          "ko": "너 그렇게 일찍 가야만 해? - 응, 그래야 해."
+        },
+        {
+          "en": "I don't have to wake up early tomorrow.",
+          "ko": "나 내일은 일찍 일어날 필요 없어."
+        },
+        {
+          "en": "He has to work late tonight. - Why does he have to?",
+          "ko": "그는 오늘 밤 야근해야 해. - 왜 그래야만 해?"
+        },
+        {
+          "en": "Does she have to work on Saturday? - Yes, she has to.",
+          "ko": "그 여자는 토요일에 일해야 해? - 응, 그래야 해."
+        },
+        {
+          "en": "Do you really have to be so mean to me?",
+          "ko": "너 나한테 꼭 그렇게 못되게 굴어야겠어?",
+          "note": "✏️ 의용사가 앞에 오면 조용V"
+        },
+        {
+          "en": "Why do you have to be so mean to me?",
+          "ko": "너 왜 나한테 그렇게 못되게 굴어야만 하는 거니?"
+        },
+        {
+          "en": "Does it have to be that expensive? - Yes, it has to be.",
+          "ko": "그게 그렇게 비싸야만 하는 거야? - 응, 그래야 해."
+        },
+        {
+          "en": "I had to drop the course. It was too hard to understand.",
+          "ko": "나 포기해야 했어. 어려워서 이해 못 하겠더라고.",
+          "note": "✏️ had to = 어쩔 수 없이 ~했어"
+        },
+        {
+          "en": "This is for you! - Oh, you didn't have to!",
+          "ko": "자, 이거 네 선물이야! - 아유, 그럴 필요 없었는데!"
+        }
+      ]
+    },
+    {
+      "id": "m2d6-ready-to-V",
+      "day": 6,
+      "dayTopic": "WORTH · HAVE TO",
+      "title": "READY TO V",
+      "pattern": "S is (not) ready (for sb) to V",
+      "meaning": "S가 V할 준비가 됐다 / 안 됐다",
+      "notes": [
+        "사람 주어: I am ready to go out. (나 나갈 준비 됐어)",
+        "사물 주어: Your car is ready to go. (네 차 갈 준비 됐어)",
+        "순환구조: S = to V의 의미상 목적어일 때",
+        "  The baby is ready to eat. (아기가 먹을 준비가 됐어 OR 아기를 먹을 준비가 됐어)",
+        "  Our food is ready (for us) to eat. → 음식이 먹힐 준비가 됐어"
+      ],
+      "noteSource": "✏️ 개인 필기 · 04/23",
+      "examples": [
+        {
+          "en": "I am ready to go out.",
+          "ko": "나 나갈 준비 됐어. 자정사 준비됐다."
+        },
+        {
+          "en": "Your car is ready to go.",
+          "ko": "네 차 갈 준비 됐어."
+        },
+        {
+          "en": "Is my car ready to go?",
+          "ko": "제 차 다 됐나요?"
+        },
+        {
+          "en": "I am ready to eat.",
+          "ko": "나 먹을 준비 됐어."
+        },
+        {
+          "en": "The baby is ready to eat.",
+          "ko": "아기가 먹을 준비가 됐어. (= 아기를 먹일 준비가 됐어)",
+          "note": "✏️ 아기주어가 먹을 준비 됐다는 뜻"
+        },
+        {
+          "en": "Our food is ready (for us) to eat.",
+          "ko": "우리 음식 다 됐어."
+        },
+        {
+          "en": "Our food is ready to pick up.",
+          "ko": "음식 픽업 준비 됐어요."
+        },
+        {
+          "en": "Your hair is not ready (for me) to cut.",
+          "ko": "네 머리카락이 아직 (내가) 자를 준비가 안 됐어."
+        }
+      ]
     }
   ],
   "daySummaries": {
@@ -2184,6 +2553,23 @@
         "too ↔ enough는 같은 구조의 거울: 방향만 반대",
         "순환구조 vs 직선구조: to V 뒤 목적어 자리가 비어있으면 순환구조",
         "too는 `very/so`와 다름 — '기대 이하' 뉘앙스, 결과 함의"
+      ]
+    },
+    "6": {
+      "dayTitle": "WORTH · HAVE TO",
+      "headline": "가치 있어(worth) · 해야 해(have to) — 두 패턴의 핵심 뉘앙스",
+      "keyPoints": [
+        "**S is worth N**: S는 N의 값어치가 있다. `well worth` = 충분히 그 값 해",
+        "**It is worth ~ing / S is worth ~ing**: ~해볼 만해. 순환구조 — S가 ~ing의 의미상 목적어 (`The book is worth reading` → 책을 읽는 것)",
+        "**It is not worth ~ing**: ~해봤자 소용없어. `It isn't worth it.` = 그럴 가치 없어",
+        "**have to**: 의무·필수. `don't have to` = **안 해도 돼** (금지 아님, must not과 다름)",
+        "`had to` = 어쩔 수 없이 ~했어. `You didn't have to!` = 그럴 필요 없었는데!",
+        "**READY TO V**: S is ready to V. 사람·사물 모두 주어 가능. 사물 주어면 순환구조"
+      ],
+      "mustRemember": [
+        "worth ~ing 순환구조: S worth ~ing → ~ing 뒤에 it 붙이지 말 것 (`The book is worth reading it` X)",
+        "don't have to ≠ must not — '안 해도 돼' vs '하면 안 돼'",
+        "not worth ~ing = 해봤자 소용없어 (뉘앙스: 시도 자체가 의미없음)"
       ]
     }
   }

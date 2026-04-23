@@ -52,9 +52,16 @@ export default function PracticeResultPage() {
       <p className="mt-3 text-sm text-muted-foreground">
         정답률: {result.correct} / {result.total} ({pct}%)
       </p>
+      {result.retryTotal != null && result.retryTotal > 0 ? (
+        <p className="mt-2 text-sm text-muted-foreground tabular-nums">
+          재풀이: {result.retryCorrect ?? 0} / {result.retryTotal}
+        </p>
+      ) : null}
       {result.wrong.length > 0 ? (
         <div className="mt-8">
-          <h2 className="text-sm font-semibold">틀린 문제</h2>
+          <h2 className="text-sm font-semibold">
+            오답 보관함에 추가됨 · {result.wrong.length}개
+          </h2>
           <ul className="mt-3 space-y-2 text-sm">
             {result.wrong.map((q) => (
               <li key={q.id} className="rounded-md border border-border p-3">
@@ -73,6 +80,9 @@ export default function PracticeResultPage() {
         </Button>
         <Button asChild type="button" variant="outline">
           <Link href="/">홈으로</Link>
+        </Button>
+        <Button asChild type="button" variant="outline">
+          <Link href="/dashboard/">📊 대시보드</Link>
         </Button>
       </div>
     </article>

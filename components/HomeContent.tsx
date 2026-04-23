@@ -3,8 +3,9 @@
 import Link from 'next/link';
 
 import { useLastViewedDay } from '@/hooks/useLastViewedDay';
+import { usePracticeState } from '@/hooks/usePracticeState';
 import { CURRENT_CURRICULUM } from '@/lib/curriculum';
-import { getAllDays, getGroupsByDay } from '@/types';
+import { countWrongBank, getAllDays, getGroupsByDay } from '@/types';
 
 import { DayCard } from './DayCard';
 
@@ -25,8 +26,10 @@ function statsForDay(day: number) {
 
 export function HomeContent() {
   const last = useLastViewedDay();
+  const { practice } = usePracticeState();
   const curriculum = CURRENT_CURRICULUM;
   const days = getAllDays(curriculum).sort((a, b) => b - a);
+  const wrongCount = countWrongBank(practice);
 
   return (
     <div>
@@ -45,6 +48,20 @@ export function HomeContent() {
         >
           🎯 전체 연습
         </Link>
+        <Link
+          href="/dashboard/"
+          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+        >
+          📊 대시보드
+        </Link>
+        {wrongCount > 0 ? (
+          <Link
+            href="/practice/wrong/"
+            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+          >
+            📝 오답 보관함 ({wrongCount})
+          </Link>
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-4">
