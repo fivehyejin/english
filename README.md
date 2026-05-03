@@ -967,7 +967,5 @@ english-learning-notebook/
 ├── DATA_SCHEMA.md               ← TypeScript 타입 정의
 ├── DESIGN_GUIDE.md              ← 디자인 가이드 (shadcn, 팔레트, 폰트, 컴포넌트 사용법)
 ├── CHANGELOG.md                 ← 이전 버전에서 바뀐 점 (Cursor가 이해하기 쉽게)
-├── curriculum-m2.json           ← Month 2 데이터 (Day 1~5)
-└── prototype/
-    └── english_review.html      ← 이전 프로토타입 (참고용, 비주얼은 따르지 말 것)
+└── curriculum-m2.json           ← Month 2 데이터 (루트에서 import)
 ```
