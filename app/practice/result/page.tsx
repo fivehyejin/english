@@ -34,10 +34,6 @@ export default function PracticeResultPage() {
     );
   }
 
-  const pct = result.total
-    ? Math.round((result.correct / result.total) * 100)
-    : 0;
-
   return (
     <article className="mx-auto max-w-xl py-8">
       <Link
@@ -49,8 +45,8 @@ export default function PracticeResultPage() {
       <h1 className="mt-6 text-2xl font-bold tracking-tight md:text-3xl">
         연습 완료!
       </h1>
-      <p className="mt-3 text-sm text-muted-foreground">
-        정답률: {result.correct} / {result.total} ({pct}%)
+      <p className="mt-3 text-sm tabular-nums text-muted-foreground">
+        {result.correct} / {result.total}
       </p>
       {result.retryTotal != null && result.retryTotal > 0 ? (
         <p className="mt-2 text-sm text-muted-foreground tabular-nums">
@@ -60,7 +56,7 @@ export default function PracticeResultPage() {
       {result.wrong.length > 0 ? (
         <div className="mt-8">
           <h2 className="text-sm font-semibold">
-            오답 보관함에 추가됨 · {result.wrong.length}개
+            어려움 표시한 문제 · {result.wrong.length}개
           </h2>
           <ul className="mt-3 space-y-2 text-sm">
             {result.wrong.map((q) => (

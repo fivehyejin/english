@@ -2,23 +2,27 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { useDifficultExamples } from '@/hooks/useDifficultExamples';
+import { usePracticeState } from '@/hooks/usePracticeState';
 import { CURRENT_CURRICULUM } from '@/lib/curriculum';
 import {
   countCollocationInScope,
   countCompositionInScope,
   countMinimalPairsInScope,
+  countSpeakInScope,
 } from '@/lib/practice-global';
+import { setSpeakDelay } from '@/lib/storage';
 import { cn } from '@/lib/utils';
 import {
   countAllDifficult,
   type GlobalPracticeConfig,
   type PracticeScope,
   type PracticeState,
+  type SpeakDelaySeconds,
 } from '@/types';
 
 import { KindCard } from './KindCard';
@@ -26,7 +30,7 @@ import { KindCard } from './KindCard';
 const CONFIG_KEY = 'english-global-practice-config';
 const DIFF_KEYS = 'english-global-practice-difficult-keys';
 
-type GlobalKind = 'collocation' | 'minimal-pairs' | 'composition';
+type GlobalKind = 'collocation' | 'minimal-pairs' | 'composition' | 'speak';
 
 const KIND_OPTS: Array<{
   kind: GlobalKind;
@@ -48,15 +52,22 @@ const KIND_OPTS: Array<{
     title: '직접 작문',
     description: '한국어 → 영어 타이핑',
   },
+  {
+    kind: 'speak',
+    title: '🆕 Speak Mode',
+    description: '한국어 보고 영어로 말해보기 → 정답 듣고 따라 말하기 (회화 연습)',
+  },
 ];
 
 export function PracticeSetup() {
   const router = useRouter();
   const { items } = useDifficultExamples();
+  const { practice: storedPractice, refresh } = usePracticeState();
   const practiceSlice: PracticeState = {
     difficultExamples: items,
     sessionHistory: [],
     wrongBank: {},
+    speakDelay: storedPractice.speakDelay,
   };
   const difficultCount = countAllDifficult(practiceSlice);
 
@@ -66,6 +77,18 @@ export function PracticeSetup() {
   ]);
   const [length, setLength] = useState<5 | 10 | 20>(10);
   const [retryWrongInSession, setRetryWrongInSession] = useState(true);
+  const [speakDelay, setSpeakDelayState] = useState<SpeakDelaySeconds>(5);
+
+  useEffect(() => {
+    const d = storedPractice.speakDelay;
+    setSpeakDelayState(d === 3 || d === 5 || d === 7 ? d : 5);
+  }, [storedPractice.speakDelay]);
+
+  const pickSpeakDelay = (sec: SpeakDelaySeconds) => {
+    setSpeakDelayState(sec);
+    setSpeakDelay(sec);
+    refresh();
+  };
 
   const counts = useMemo((): Record<GlobalKind, number> => {
     const c = CURRENT_CURRICULUM;
@@ -73,6 +96,7 @@ export function PracticeSetup() {
       collocation: countCollocationInScope(c, scope),
       'minimal-pairs': countMinimalPairsInScope(c, scope),
       composition: countCompositionInScope(c, scope),
+      speak: countSpeakInScope(c, scope),
     };
   }, [scope]);
 
@@ -117,7 +141,7 @@ export function PracticeSetup() {
     startSession(
       {
         scope: 'all',
-        kinds: ['collocation', 'minimal-pairs', 'composition'],
+        kinds: ['collocation', 'minimal-pairs', 'composition', 'speak'],
         length: 'difficult-only',
         retryWrongInSession,
         source: 'global',
@@ -164,8 +188,10 @@ export function PracticeSetup() {
           {(
             [
               ['all', '전체'],
-              ['d1-3', 'Day 1~3'],
-              ['d4-5', 'Day 4~5'],
+              ['d1-2', 'Day 1~2 · 동사 기초'],
+              ['d3-4', 'Day 3~4 · 동사 활용'],
+              ['d5-6', 'Day 5~6 · 형용사 구문'],
+              ['d7-8', 'Day 7~8 · 대명사·구조'],
             ] as const
           ).map(([value, label]) => (
             <button
@@ -201,6 +227,34 @@ export function PracticeSetup() {
         ))}
       </section>
 
+      {selectedKinds.includes('speak') ? (
+        <section className="mt-6 space-y-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            Speak Mode · 한국어 노출 시간
+          </h2>
+          <div className="flex gap-2">
+            {([3, 5, 7] as const).map((sec) => (
+              <button
+                key={sec}
+                type="button"
+                onClick={() => pickSpeakDelay(sec)}
+                className={cn(
+                  'flex-1 rounded-md border px-4 py-3 text-sm font-medium transition-colors',
+                  speakDelay === sec
+                    ? 'border-primary bg-primary text-primary-foreground'
+                    : 'hover:bg-muted'
+                )}
+              >
+                {sec}초
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground">
+            한국어만 보이는 시간. 익숙해지면 줄여서 난이도를 올릴 수 있어요.
+          </p>
+        </section>
+      ) : null}
+
       <section className="mt-8 space-y-3">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
           세션 길이
@@ -230,7 +284,7 @@ export function PracticeSetup() {
           checked={retryWrongInSession}
           onChange={(e) => setRetryWrongInSession(e.target.checked)}
         />
-        세션 끝에 틀린 거 다시 풀기
+        세션 끝에 표시한 문제 다시 풀기
       </label>
 
       <Button

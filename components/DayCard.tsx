@@ -23,7 +23,7 @@ export function DayCard({
 }: DayCardProps) {
   return (
     <Link
-      href={`/day/${day}`}
+      href={`/day/${day}/`}
       className="block rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary/30 hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:p-6"
     >
       <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">

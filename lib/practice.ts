@@ -1,4 +1,4 @@
-import type { PatternGroup, PracticeQuestion } from '@/types';
+import type { CurriculumData, PatternGroup, PracticeQuestion } from '@/types';
 
 const SISTER_SETS: string[][] = [
   ['m2d4-try-N', 'm2d4-try-ing', 'm2d4-try-to-V'],
@@ -156,4 +156,40 @@ export function uniqueByExample(questions: PracticeQuestion[]): PracticeQuestion
     out.push(q);
   }
   return out;
+}
+
+/** 일반 그룹 예문만, KO→EN Speak 연습용 */
+export function generateSpeakQuestions(
+  curriculum: CurriculumData,
+  dayFilter?: number | number[]
+): PracticeQuestion[] {
+  const days = dayFilter
+    ? Array.isArray(dayFilter)
+      ? dayFilter
+      : [dayFilter]
+    : null;
+
+  const groups = curriculum.groups.filter((g) => {
+    if (g.kind === 'class-note') return false;
+    if (days && !days.includes(g.day)) return false;
+    return g.examples.length > 0;
+  });
+
+  const questions: PracticeQuestion[] = [];
+  for (const g of groups) {
+    g.examples.forEach((ex, idx) => {
+      questions.push({
+        id: `speak-${g.id}-${idx}`,
+        kind: 'speak',
+        groupId: g.id,
+        exampleIdx: idx,
+        prompt: ex.ko,
+        fullEn: ex.en,
+        answer: ex.en,
+        choices: undefined,
+        ko: ex.ko,
+      });
+    });
+  }
+  return shuffle(questions);
 }

@@ -10,7 +10,7 @@ export function DayNav({ prevDay, nextDay }: DayNavProps) {
     <nav className="mt-12 flex items-center justify-between gap-4 border-t border-border pt-6">
       {prevDay != null ? (
         <Link
-          href={`/day/${prevDay}`}
+          href={`/day/${prevDay}/`}
           className="flex flex-col text-left text-sm text-foreground no-underline transition-colors hover:text-primary"
         >
           <span className="text-xs text-muted-foreground">← 이전</span>
@@ -22,7 +22,7 @@ export function DayNav({ prevDay, nextDay }: DayNavProps) {
 
       {nextDay != null ? (
         <Link
-          href={`/day/${nextDay}`}
+          href={`/day/${nextDay}/`}
           className="ml-auto flex flex-col text-right text-sm text-foreground no-underline transition-colors hover:text-primary"
         >
           <span className="text-xs text-muted-foreground">다음 →</span>

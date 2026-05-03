@@ -47,6 +47,8 @@ export interface PracticeState {
   difficultExamples: Record<string, DifficultFlag>;
   sessionHistory: SessionRecord[];
   wrongBank: Record<string, WrongEntry>;
+  /** Speak Mode: 한국어만 보이는 시간(초). 미설정 시 UI 기본 5 */
+  speakDelay?: SpeakDelaySeconds;
 }
 
 export interface AppState {
@@ -94,9 +96,13 @@ export type PracticeKind =
   | 'fill-in'
   | 'pattern-choice'
   | 'sort-transitivity'
+  | 'speak'
   | 'collocation'
   | 'minimal-pairs'
   | 'composition';
+
+/** Speak Mode · 한국어 노출 시간(초), localStorage `practice.speakDelay` */
+export type SpeakDelaySeconds = 3 | 5 | 7;
 
 export interface PracticeQuestion {
   id: string;
@@ -134,7 +140,12 @@ export interface PracticeSessionConfig {
   length: 5 | 10 | 'all' | 'difficult-only';
 }
 
-export type PracticeScope = 'all' | 'd1-3' | 'd4-5';
+export type PracticeScope =
+  | 'all'
+  | 'd1-2'
+  | 'd3-4'
+  | 'd5-6'
+  | 'd7-8';
 
 export interface GlobalPracticeConfig {
   scope: PracticeScope;

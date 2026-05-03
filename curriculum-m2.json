@@ -5,33 +5,6 @@
   "topicNote": "동사암기 · 조동사 · have/get/keep · take · try · enough · too~to · worth · 목적어 2개 동사 · the other·another",
   "groups": [
     {
-      "id": "m2d1-verb-learning-method",
-      "day": 1,
-      "dayTopic": "자·타동사로 모두 쓰이는 동사들",
-      "title": "동사 학습법 9단계",
-      "pattern": "동사 하나를 제대로 익히는 방법",
-      "meaning": "대략 200개의 기본 동사를 이 9단계로 익히자",
-      "kind": "class-note",
-      "noteSource": "✏️ 개인 필기 (이미지 11)",
-      "notes": [
-        "1. Definition (뜻)",
-        "2. Pronunciation (발음)",
-        "3. Accent (강세)",
-        "4. Spelling (철자) — 영국/미국 차이 포함",
-        "5. 동사 변화형: go-went-gone, write-wrote-written, make-made-made",
-        "   → 과거분사(p.p.)는 형용사로도 쓰임: gone girl (떠난 여자), written test (쓰여진 시험), It is written in English",
-        "6. 자동사(Vi) + p + N  vs  타동사(Vt) + O(목적어)",
-        "   · 타동사 목적어 예: Explain the book(O) / Don't date me(O) / Marry me(O) — about·with·with 필요 X",
-        "   · 전치사 목적어 예: Look at me / Wait for me / Listen to me",
-        "   · Go on a date with him → go는 자동사 (p + N 필요)",
-        "7. V-ing vs to V — 'You promised to give up smoking' (동사 뜻이 행동/행위)",
-        "8. Preposition: leave (A 출발지 / for B 목적지) — 각각 생략 가능",
-        "   · help 누구 with 일 / bet $ on 뭐 / prepare 뭐 for event → 앞은 타동사, 뒤는 자동사",
-        "9. 예문 암기"
-      ],
-      "examples": []
-    },
-    {
       "id": "m2d1-leave",
       "day": 1,
       "dayTopic": "자·타동사로 모두 쓰이는 동사들",
@@ -527,26 +500,29 @@
       ]
     },
     {
-      "id": "m2d2-modal-probability",
-      "day": 2,
-      "dayTopic": "조동사 (modal verbs)",
-      "title": "조동사별 가능성 비교표",
-      "pattern": "will > should > would > could > may > might",
-      "meaning": "같은 '추측·가능성'이라도 확신의 정도가 다르다",
+      "id": "m2d1-verb-learning-method",
+      "day": 1,
+      "dayTopic": "자·타동사로 모두 쓰이는 동사들",
+      "title": "동사 학습법 9단계",
+      "pattern": "동사 하나를 제대로 익히는 방법",
+      "meaning": "대략 200개의 기본 동사를 이 9단계로 익히자",
       "kind": "class-note",
-      "noteSource": "✏️ 개인 필기 (이미지 13)",
+      "noteSource": "✏️ 개인 필기 (이미지 11)",
       "notes": [
-        "조동사별 확신 % (대략):",
-        "will  — 예측 (껄) / 강한 확신   — 90~100%",
-        "should — 마땅해 / 합리적 기대    — 60~80%",
-        "would — 추정 / ~겠지             — 50~70%",
-        "could — 가능성 / ~일 수도 있어   — 50%",
-        "may   — 중립 / ~일지도 몰라      — 30~50%",
-        "might — 희박한 가능성 / 혹시 ~일지도 — 20~40%",
-        "",
-        "⚠️ 중요: 영어는 미래 시제가 없음 → '예측'했다고 미래시제라고 생각하면 안됨",
-        "⚠️ 조동사는 시제가 없음 (could도 미래시제라고 하면 X)",
-        "예: 'It might work' = 그렇게 될지도 / 30% 가능성"
+        "1. Definition (뜻)",
+        "2. Pronunciation (발음)",
+        "3. Accent (강세)",
+        "4. Spelling (철자) — 영국/미국 차이 포함",
+        "5. 동사 변화형: go-went-gone, write-wrote-written, make-made-made",
+        "   → 과거분사(p.p.)는 형용사로도 쓰임: gone girl (떠난 여자), written test (쓰여진 시험), It is written in English",
+        "6. 자동사(Vi) + p + N  vs  타동사(Vt) + O(목적어)",
+        "   · 타동사 목적어 예: Explain the book(O) / Don't date me(O) / Marry me(O) — about·with·with 필요 X",
+        "   · 전치사 목적어 예: Look at me / Wait for me / Listen to me",
+        "   · Go on a date with him → go는 자동사 (p + N 필요)",
+        "7. V-ing vs to V — 'You promised to give up smoking' (동사 뜻이 행동/행위)",
+        "8. Preposition: leave (A 출발지 / for B 목적지) — 각각 생략 가능",
+        "   · help 누구 with 일 / bet $ on 뭐 / prepare 뭐 for event → 앞은 타동사, 뒤는 자동사",
+        "9. 예문 암기"
       ],
       "examples": []
     },
@@ -864,6 +840,30 @@
           "ko": "너였어. 그건 너여야만 했었어."
         }
       ]
+    },
+    {
+      "id": "m2d2-modal-probability",
+      "day": 2,
+      "dayTopic": "조동사 (modal verbs)",
+      "title": "조동사별 가능성 비교표",
+      "pattern": "will > should > would > could > may > might",
+      "meaning": "같은 '추측·가능성'이라도 확신의 정도가 다르다",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 (이미지 13)",
+      "notes": [
+        "조동사별 확신 % (대략):",
+        "will  — 예측 (껄) / 강한 확신   — 90~100%",
+        "should — 마땅해 / 합리적 기대    — 60~80%",
+        "would — 추정 / ~겠지             — 50~70%",
+        "could — 가능성 / ~일 수도 있어   — 50%",
+        "may   — 중립 / ~일지도 몰라      — 30~50%",
+        "might — 희박한 가능성 / 혹시 ~일지도 — 20~40%",
+        "",
+        "⚠️ 중요: 영어는 미래 시제가 없음 → '예측'했다고 미래시제라고 생각하면 안됨",
+        "⚠️ 조동사는 시제가 없음 (could도 미래시제라고 하면 X)",
+        "예: 'It might work' = 그렇게 될지도 / 30% 가능성"
+      ],
+      "examples": []
     },
     {
       "id": "m2d3-possession-verbs-overview",
@@ -2472,6 +2472,1046 @@
           "ko": "네 머리카락이 아직 (내가) 자를 준비가 안 됐어."
         }
       ]
+    },
+    {
+      "id": "m2d7-overview",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "수여동사 개요",
+      "pattern": "동사 + 사람(간접) + 사물(직접) ↔ 동사 + 사물 + 전치사 + 사람",
+      "meaning": "동사마다 사용하는 전치사가 다르다 (to me / for me)",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 04/28",
+      "notes": [
+        "수여동사 = 목적어를 2개 받는 동사 (간접목적어 + 직접목적어)",
+        "",
+        "두 가지 패턴:",
+        "  • 패턴 #1 (to me): 방향성 있는 동사 — give, lend, send, hand, bring, show, owe, pay, pass",
+        "    Show me the money. = Show the money to me.",
+        "  • 패턴 #2 (for me): 만들어/사다 주는 동사 — buy, make, get",
+        "    Buy me a drink. = Buy a drink for me.",
+        "  • 예외: prepare는 \"음식을 직접 조리하다\" 의미 (이 그룹과 다름)",
+        "",
+        "⚠️ 중요 규칙들:",
+        "  • Give me it (X) → Give it to me (O)",
+        "    이유: 대명사 it은 간접목적어 자리에 못 옴",
+        "  • Give me this/that (O) — this/that은 사이즈가 있어서 OK",
+        "  • 간접목적어가 길면 to+사람으로 옮김:",
+        "    Give the poor children in Africa the money (X)",
+        "    → Give the money to the poor children in Africa (O)",
+        "",
+        "헷갈리는 짝꿍:",
+        "  • give ↔ take (주다 ↔ 받다, 소유권 이전)",
+        "  • lend ↔ borrow (빌려주다 ↔ 빌리다, 일시적)"
+      ],
+      "examples": []
+    },
+    {
+      "id": "m2d7-give",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "GIVE",
+      "pattern": "give 사람 사물 = give 사물 to 사람",
+      "meaning": "~에게 ~를 주다",
+      "examples": [
+        {
+          "en": "Give me a call.",
+          "ko": "나한테 전화 한 통 줘."
+        },
+        {
+          "en": "Would you give me a hand?",
+          "ko": "나 좀 도와줄래?",
+          "note": "✏️ give a hand = 도움"
+        },
+        {
+          "en": "Give him a hand.",
+          "ko": "걔 좀 도와줘. / 걔한테 박수 쳐 줘."
+        },
+        {
+          "en": "Please, give me a break.",
+          "ko": "좀 봐줘요."
+        },
+        {
+          "en": "Give me a chance. (= Give a chance to me.)",
+          "ko": "내게 기회를 줘요. (좀 봐줘요.)"
+        },
+        {
+          "en": "Give me another chance. / Give me one more chance.",
+          "ko": "내게 한 번만 더 기회를 줘봐요."
+        },
+        {
+          "en": "Give it to me.",
+          "ko": "그거 나한테 줘.",
+          "note": "✏️ Give me it (X) → Give it to me (O). 대명사 it은 간접목적어 자리에 못 옴"
+        },
+        {
+          "en": "Give me this. (= Give this to me.)",
+          "ko": "이거 나한테 줘.",
+          "note": "✏️ this/that은 OK (사이즈가 있어서)"
+        },
+        {
+          "en": "Give me that. (= Give that to me.)",
+          "ko": "저거 나한테 줘."
+        },
+        {
+          "en": "I gave you it all. (= I gave it all to you.)",
+          "ko": "난 네게 그걸 다 주었었지.",
+          "note": "✏️ 동격인데 911 사용"
+        },
+        {
+          "en": "Give it back to me.",
+          "ko": "그거 나한테 돌려줘."
+        },
+        {
+          "en": "I gave it all back to her.",
+          "ko": "난 그녀에게 그걸 전부 다 돌려줬어."
+        },
+        {
+          "en": "Give me some time. (= Give some time to me.)",
+          "ko": "나한테 시간 좀 줘."
+        },
+        {
+          "en": "Give me some more time. (= Give some more time to me.)",
+          "ko": "나한테 시간 좀 더 줘."
+        },
+        {
+          "en": "You gave me hope. (= You gave hope to me.)",
+          "ko": "당신은 내게 희망을 주었죠."
+        },
+        {
+          "en": "Give hope to the children in Africa.",
+          "ko": "아프리카 어린들에게 희망을 주세요.",
+          "note": "✏️ 간접목적어가 길면 to+사람으로"
+        },
+        {
+          "en": "I gave him everything. (= I gave everything to him.)",
+          "ko": "난 그에게 모든 걸 주었죠."
+        },
+        {
+          "en": "Give me a kiss. (= Give a kiss to me.)",
+          "ko": "내게 뽀뽀해줘.",
+          "note": "✏️ Kiss me는 연인에게"
+        },
+        {
+          "en": "Give Daddy a kiss. (= Give a kiss to Dad.)",
+          "ko": "아빠한테 뽀뽀해드려."
+        },
+        {
+          "en": "Give Mommy a kiss. (= Give a kiss to Mom.)",
+          "ko": "엄마한테 뽀뽀해드려."
+        },
+        {
+          "en": "Give me a hug. (= Give a hug to me.)",
+          "ko": "나 안아줘."
+        },
+        {
+          "en": "Give it a rest!",
+          "ko": "작작 좀 해. 걷어치워. 집어치워!",
+          "note": "✏️ 짜증날 때 농담 섞어서"
+        },
+        {
+          "en": "Give me the salt. (X)",
+          "ko": "그 소금 좀 줘. (X)",
+          "note": "✏️ salt는 give 안 씀 → Pass me the salt (O), 냄겨내지 묶음"
+        }
+      ]
+    },
+    {
+      "id": "m2d7-pass",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "PASS",
+      "pattern": "pass 사람 사물 = pass 사물 to 사람",
+      "meaning": "~에게 ~를 집어주다",
+      "examples": [
+        {
+          "en": "Pass me the salt. (= Pass the salt to me.)",
+          "ko": "그 소금 좀 (내게) 집어 줘.",
+          "note": "✏️ 식탁에서 give 대신 pass 씀"
+        },
+        {
+          "en": "Pass me the water. (= Pass the water to me.)",
+          "ko": "그 물 좀 집어 줘."
+        }
+      ]
+    },
+    {
+      "id": "m2d7-lend",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "LEND",
+      "pattern": "lend 사람 사물 = lend 사물 to 사람",
+      "meaning": "~에게 ~를 빌려주다 (↔ borrow: 빌리다)",
+      "examples": [
+        {
+          "en": "Lend me some money. (= Lend some money to me.)",
+          "ko": "나한테 돈 좀 빌려줘."
+        },
+        {
+          "en": "Will you lend it to me?",
+          "ko": "그거 나한테 좀 빌려줄래?",
+          "note": "✏️ Lend me it (X) → Lend it to me (O)"
+        },
+        {
+          "en": "Will you lend me a hand?",
+          "ko": "나 좀 도와줄래?",
+          "note": "✏️ a hand = 일손"
+        },
+        {
+          "en": "Could you lend me a pen? (= Could you lend a pen to me?)",
+          "ko": "나 펜 하나만 빌려줄래?"
+        },
+        {
+          "en": "Could you lend me your umbrella? (= Could you lend your umbrella to me?)",
+          "ko": "네 우산 좀 빌려줄래?"
+        }
+      ]
+    },
+    {
+      "id": "m2d7-send",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "SEND",
+      "pattern": "send 사람 사물 = send 사물 to 사람",
+      "meaning": "~에게 ~를 보내주다",
+      "examples": [
+        {
+          "en": "I sent you an e-mail. (= I sent an e-mail to you.)",
+          "ko": "내가 너한테 메일 하나 보냈어."
+        },
+        {
+          "en": "Did you send me a message? (= ... send a message to me?)",
+          "ko": "너 나한테 메시지 보냈니?"
+        },
+        {
+          "en": "Send a letter to one of your friends.",
+          "ko": "네 친구 중 한 명에게 편지를 보내봐."
+        },
+        {
+          "en": "Send me a photo of you.",
+          "ko": "나한테 네 사진 하나 보내줘."
+        },
+        {
+          "en": "Could you send me a photocopy of the article?",
+          "ko": "그 기사의 복사본 하나 내게 보내줄 수 있어?",
+          "note": "✏️ photocopy = 복사본"
+        }
+      ]
+    },
+    {
+      "id": "m2d7-hand",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "HAND",
+      "pattern": "hand 사람 사물 = hand 사물 to 사람",
+      "meaning": "~에게 ~를 건네주다",
+      "examples": [
+        {
+          "en": "Hand me your phone. (= Hand your phone to me.)",
+          "ko": "네 전화기 좀 건네줘 봐."
+        },
+        {
+          "en": "Hand me that hammer. (= ... hand that hammer to me.)",
+          "ko": "저 망치 좀 건네줘."
+        },
+        {
+          "en": "Hand me that pair of scissors. (/ Hand me those scissors.)",
+          "ko": "저 가위 좀 건네줘."
+        }
+      ]
+    },
+    {
+      "id": "m2d7-bring",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "BRING",
+      "pattern": "bring 사람 사물 = bring 사물 to 사람",
+      "meaning": "~에게 ~를 가져오다",
+      "examples": [
+        {
+          "en": "Bring me some water. (= Bring some water to me.)",
+          "ko": "내게 물 좀 가져와."
+        },
+        {
+          "en": "Bring it (back) to me.",
+          "ko": "그거 내게 (도로) 가져와.",
+          "note": "✏️ Bring me it (X)"
+        }
+      ]
+    },
+    {
+      "id": "m2d7-show",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "SHOW",
+      "pattern": "show 사람 사물 = show 사물 to 사람",
+      "meaning": "~에게 ~를 보여주다",
+      "examples": [
+        {
+          "en": "Show me the money. (= Show the money to me.)",
+          "ko": "내게 그 돈을 보여줘."
+        },
+        {
+          "en": "Show me your car. (= Show your car to me.)",
+          "ko": "네 승용차 내게 보여줘 봐."
+        },
+        {
+          "en": "Show me your resume. (= Show your resume to me.)",
+          "ko": "네 이력서 내게 보여줘 봐."
+        },
+        {
+          "en": "Show it to me.",
+          "ko": "그거 내게 보여줘.",
+          "note": "✏️ Show me it (X)"
+        },
+        {
+          "en": "Show me the way.",
+          "ko": "내게 그 길을 보여줘. (따라가 주면서 보여줘.)",
+          "note": "✏️ 로보트"
+        },
+        {
+          "en": "You showed me your love. (= You showed your love to me.)",
+          "ko": "넌 내게 네 사랑을 보여줬어."
+        }
+      ]
+    },
+    {
+      "id": "m2d7-owe",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "OWE",
+      "pattern": "owe 사람 사물 = owe 사물 to 사람",
+      "meaning": "~에게 ~를 줄 것이 있다 (빚지다, 신세지다)",
+      "examples": [
+        {
+          "en": "I owe you 10 dollars. (= I owe 10 dollars to you.)",
+          "ko": "내가 너한테 10불 줄 거 있어."
+        },
+        {
+          "en": "I owe you one.",
+          "ko": "내가 너한테 한 번 빚졌다. (다음엔 내가 낼게.)"
+        },
+        {
+          "en": "I owe you a lot. (= I owe a lot to you.)",
+          "ko": "내가 네게 신세 진 것이 많다."
+        },
+        {
+          "en": "Jinx! You owe me a Coke!",
+          "ko": "찌찌뽕! 너 나한테 콜라 사!",
+          "note": "✏️ jinx = 찌찌뽕"
+        },
+        {
+          "en": "I owe it to you.",
+          "ko": "그거, 네 덕분이야.",
+          "note": "✏️ I owe you it (X)"
+        },
+        {
+          "en": "I owe you it all. (= I owe it all to you.)",
+          "ko": "그게 다 네 덕분이야."
+        },
+        {
+          "en": "How much (money) do I owe you?",
+          "ko": "얼마 드리면 되죠? (얼마예요?)",
+          "note": "✏️ IOU = I Owe You · Let's chip in / Let's break the bill (go Dutch는 X)"
+        }
+      ]
+    },
+    {
+      "id": "m2d7-pay",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "PAY",
+      "pattern": "pay 사람 사물 = pay 사물 to 사람",
+      "meaning": "~에게 ~를 지불하다",
+      "examples": [
+        {
+          "en": "Pay me the money. (= Pay the money to me.)",
+          "ko": "나한테 돈 내세요."
+        },
+        {
+          "en": "Pay me back the money. (= Pay the money back to me.)",
+          "ko": "나한테 돈 갚아."
+        },
+        {
+          "en": "Would you pay me the fee? (= ... pay the fee to me?)",
+          "ko": "저한테 요금 내주시겠어요?"
+        },
+        {
+          "en": "She paid me a visit when I was in the hospital.",
+          "ko": "그 여자가 나 입원 중일 때 문병 왔어.",
+          "note": "✏️ pay a visit = 방문하다"
+        },
+        {
+          "en": "Will you pay attention to me?",
+          "ko": "나한테 주목해줄래?",
+          "note": "✏️ pay attention to = 주목하다"
+        }
+      ]
+    },
+    {
+      "id": "m2d7-buy",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "BUY",
+      "pattern": "buy 사람 사물 = buy 사물 for 사람",
+      "meaning": "~에게 ~를 사주다 (for me 패턴)",
+      "examples": [
+        {
+          "en": "Buy me lunch. (= Buy lunch for me.)",
+          "ko": "나한테 점심 사."
+        },
+        {
+          "en": "Buy me a drink. (= Buy a drink for me.)",
+          "ko": "나한테 술 한잔 사."
+        },
+        {
+          "en": "Can I buy you a cup of coffee? (= Can I buy a cup of coffee for you?)",
+          "ko": "제가 당신께 커피 한잔 사도 될까요?"
+        },
+        {
+          "en": "I bought this for you.",
+          "ko": "이거 너 주려고 샀어."
+        },
+        {
+          "en": "Did you buy it for me?",
+          "ko": "그거 나 주려고 샀어?",
+          "note": "✏️ Did you buy me it? (X)"
+        },
+        {
+          "en": "I don't buy it.",
+          "ko": "나 그 말 안 믿어.",
+          "note": "✏️ buy = 믿다 (속어)"
+        }
+      ]
+    },
+    {
+      "id": "m2d7-make",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "MAKE",
+      "pattern": "make 사람 사물 = make 사물 for 사람",
+      "meaning": "~에게 ~를 만들어주다",
+      "examples": [
+        {
+          "en": "I'll make you dinner. (= I'll make dinner for you.)",
+          "ko": "내가 너 저녁 차려줄게."
+        },
+        {
+          "en": "Make me some coffee. (= Make some coffee for me.)",
+          "ko": "나 커피 좀 타줘."
+        },
+        {
+          "en": "Make me a somaek. (= Make a somaek for me.)",
+          "ko": "나 소맥 하나 만들어줘."
+        },
+        {
+          "en": "My father used to make me kimchi fried rice. (= ... make kimchi fried rice for me.)",
+          "ko": "우리 아빤 나한테 김치볶음밥을 만들어주시곤 했어."
+        },
+        {
+          "en": "Could you make me a sandwich? (= Could you make a sandwich for me?)",
+          "ko": "나 샌드위치 하나 만들어줄래?"
+        }
+      ]
+    },
+    {
+      "id": "m2d7-get",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "GET (사다주다)",
+      "pattern": "get 사람 사물 = get 사물 for 사람",
+      "meaning": "~에게 ~를 가져다주다 / 사다주다",
+      "noteSource": "✏️ Day 3의 GET (상태 만들기)과는 다른 용법",
+      "notes": [
+        "이 GET은 Day 3에서 배운 \"상태로 만들기\" GET과는 다름.",
+        "여기서는 \"~에게 ~를 사다주다/가져다주다\" 의미의 수여동사."
+      ],
+      "examples": [
+        {
+          "en": "Could you get me a blanket? (= Could you get a blanket for me?)",
+          "ko": "나 담요 하나 갖다 줄래요?"
+        },
+        {
+          "en": "Could you get me a bowl of rice? (= Could you get a bowl of rice for me?)",
+          "ko": "나 밥 한 공기 갖다 줄래요?"
+        },
+        {
+          "en": "I can't reach it. - I'll get it for you.",
+          "ko": "나 저거 팔이 안 닿아. - 내가 꺼내줄게.",
+          "note": "✏️ I'll get you it (X)"
+        },
+        {
+          "en": "Get me Susan (on the phone).",
+          "ko": "(내게) Susan 바꿔줘 봐."
+        },
+        {
+          "en": "We're out of cooking oil. - I'll get you some.",
+          "ko": "식용유가 떨어졌어요. - 내가 좀 사다 줄게."
+        },
+        {
+          "en": "Can anyone get some medicine for me?",
+          "ko": "누구, 나 약 좀 사다 줄 수 있어?"
+        }
+      ]
+    },
+    {
+      "id": "m2d7-be-adj-of",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "자기 의지와 무관한 마음 + of",
+      "pattern": "be + 형용사 + of + N",
+      "meaning": "자기 의지와 무관하게 일어나는 마음·감정 (전치사 of로 통일)",
+      "noteSource": "✏️ 04/30 칠판 필기",
+      "notes": [
+        "이런 형용사 뒤엔 of가 옴 (예외 X):",
+        "  afraid · sure · nervous · suspicious · fond · proud",
+        "",
+        "공통점: 자기가 일부러 만들어낼 수 없는 감정 — 저절로 일어나는 마음",
+        "비교: be afraid of (무서워하다) vs scare (놀라게 하다, 능동)"
+      ],
+      "examples": [
+        {
+          "en": "I am afraid of dogs.",
+          "ko": "난 개가 무서워."
+        },
+        {
+          "en": "I am sure of winning.",
+          "ko": "난 이길 자신이 있어."
+        },
+        {
+          "en": "I am nervous of the interview.",
+          "ko": "그 면접이 긴장돼."
+        },
+        {
+          "en": "I am suspicious of him.",
+          "ko": "난 그가 의심스러워."
+        },
+        {
+          "en": "I am fond of her.",
+          "ko": "난 그녀가 좋아.",
+          "note": "✏️ fond = 애틋하게 좋아하는 (We have fond memories — 애틋한 추억)"
+        },
+        {
+          "en": "I am proud of my son.",
+          "ko": "내 아들이 자랑스러워."
+        }
+      ]
+    },
+    {
+      "id": "m2d7-look",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "look (자동사 + 전치사)",
+      "pattern": "look + 부사/전치사",
+      "meaning": "보다 (방향에 따라 의미가 달라짐)",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 04/28",
+      "notes": [
+        "look은 자동사. 전치사·부사와 함께 써야 함.",
+        "",
+        "📍 부사 (방향·위치)",
+        "  here / there / out / in / away / around / forward / back / up / down",
+        "",
+        "📍 전치사구 (구체적 위치·대상)",
+        "  • at me / to the right / to the west",
+        "  • on the board / on the ground / on page 3",
+        "  • around you / into my eyes",
+        "  • in the fridge / in the mirror / in the bag",
+        "  • out of the window / over the rainbow / under the carpet",
+        "",
+        "📍 자주 쓰는 표현",
+        "  • He looks down on me — 그는 날 깔본다",
+        "  • I look up to him — 난 그를 우러러본다",
+        "  • Look forward to + N(명사) / ~ing — 부푸러대하다",
+        "    (to는 전치사이므로 명사·동명사가 옴)"
+      ],
+      "examples": [
+        {
+          "en": "Look back at me.",
+          "ko": "(돌아) 날 봐.",
+          "note": "✏️ 04/30 예문 추가"
+        },
+        {
+          "en": "Look away from me.",
+          "ko": "날 피해 봐. (시선을 돌려)"
+        },
+        {
+          "en": "Look up to the sky.",
+          "ko": "하늘을 올려다봐."
+        },
+        {
+          "en": "Look down on the ground.",
+          "ko": "땅을 내려다봐."
+        },
+        {
+          "en": "Look up at the moon.",
+          "ko": "달을 올려다봐."
+        },
+        {
+          "en": "I look up to him.",
+          "ko": "난 그를 우러러본다.",
+          "note": "✏️ look up to = 존경하다"
+        },
+        {
+          "en": "He looks down on me.",
+          "ko": "그는 날 깔본다.",
+          "note": "✏️ look down on = 깔보다"
+        },
+        {
+          "en": "I'm looking forward to my birthday.",
+          "ko": "내 생일을 기대하고 있어.",
+          "note": "✏️ to + N(명사)"
+        },
+        {
+          "en": "I'm looking forward to seeing you.",
+          "ko": "널 만날 것을 기대하고 있어.",
+          "note": "✏️ to + ~ing (전치사 to라 명사 형태인 동명사)"
+        }
+      ]
+    },
+    {
+      "id": "m2d7-busy-hurry",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "busy vs in hurry (상황 구분)",
+      "pattern": "busy = 일이 바쁨 / in hurry = 시간이 촉박함",
+      "meaning": "둘 다 \"바쁘다\"지만 뉘앙스가 다름",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 04/28",
+      "notes": [
+        "busy: 일이 많아서 바쁨 (일의 양 문제)",
+        "  • I'm busy. — 일이 바빠서 너랑 연락 못 해.",
+        "    (길에서 갑자기 만난 상황: 지금 일이 많아서 통화하기 어려워)",
+        "",
+        "in hurry: 시간이 촉박함 (시간 문제)",
+        "  • I'm in a hurry. — 지금 시간이 촉박해서, 나중에 연락할게.",
+        "    (시간 부족, 나중에 연락할게 라는 의미)"
+      ],
+      "examples": []
+    },
+    {
+      "id": "m2d7-lend-take-borrow",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "헷갈리는 짝꿍: give/take, lend/borrow",
+      "pattern": "give ↔ take (소유권 이전) / lend ↔ borrow (일시적)",
+      "meaning": "방향이 반대인 동사들 — 누가 누구에게서 받느냐 차이",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 04/28",
+      "notes": [
+        "give / take",
+        "  • give = 주다 (내가 → 상대)",
+        "  • take = 받다, 가져가다 (상대 → 내가)",
+        "  • Give me the money — 내게 돈 줘",
+        "  • Take the money — 그 돈 가져가",
+        "",
+        "lend / borrow (일시적, 다시 돌려받음)",
+        "  • lend = 빌려주다 (내가 → 상대, 나중에 돌려받음)",
+        "  • borrow = 빌리다 (상대 → 내가, 나중에 돌려줌)",
+        "  • Lend me the money — 나한테 돈 빌려줘",
+        "  • Can I borrow the money? — 내가 그 돈 빌릴 수 있을까?",
+        "",
+        "추가 어휘:",
+        "  • be afraid / sure / fond / proud / nervous — 자기 의지 부족해서 일어나는 감정의 f-",
+        "  • We have a lot of fond memories — 애틋한 추억",
+        "  • My mother always talked about me so fondly — 다정하게",
+        "  • Let's chip in / Let's break the bill — 더치페이 (go Dutch는 X)",
+        "  • IOU = I Owe You (차용증 표현)"
+      ],
+      "examples": []
+    },
+    {
+      "id": "m2d7-walk-extended",
+      "day": 7,
+      "dayTopic": "목적어 2개 받는 동사들 (수여동사)",
+      "title": "walk (자·타동사 확장)",
+      "pattern": "walk + 방향/전치사 / walk + 사람·동물",
+      "meaning": "어느 방향으로 걷게 되거나, 누구와 함께 걷거나",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 04/28 (Day 1 walk 확장)",
+      "notes": [
+        "walk는 자동사. 전치사·부사와 같이 씀.",
+        "",
+        "📍 부사 (방향·위치)",
+        "  here / there / out / in / away / home / back",
+        "  forward / backward / up / down / upstairs / downstairs",
+        "",
+        "📍 전치사구 (구체적 행선지·경로)",
+        "  • to school / to work / to church / to the park",
+        "  • around the park / up the stairs / down the stairs",
+        "  • to the 7th floor / in(to) the room / across the street",
+        "  • out of the room / up the steep slope / down the easy slope",
+        "",
+        "📍 the 유무 차이",
+        "  개념적 장소엔 the 빠짐: walk to school / to work / to church",
+        "  구체적 장소엔 the 들어감: walk to the park / to the 7th floor",
+        "",
+        "📍 자주 쓰는 패턴",
+        "  • walk + 사람·동물 (10% 타동사 용법):",
+        "    walk the dog / walk me / walk you",
+        "  • I'll walk you out — 바깥까지 데려다줄게",
+        "  • I'll walk you in — 같이 들어갈게"
+      ],
+      "examples": [
+        {
+          "en": "Don't walk away from me.",
+          "ko": "날 두고 가지 마.",
+          "note": "✏️ 04/30 예문 추가"
+        },
+        {
+          "en": "Walk up (the stairs) to the 7th floor.",
+          "ko": "7층까지 (계단) 걸어 올라와.",
+          "note": "✏️ the stairs는 생략 가능"
+        }
+      ]
+    },
+    {
+      "id": "m2d8-overview",
+      "day": 8,
+      "dayTopic": "the other · another · others (대명사·한정사)",
+      "title": "the other / another / others 개요",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 04/30",
+      "notes": [
+        "한국어로는 모두 \"다른\"이지만, 영어는 상황에 따라 다름",
+        "",
+        "🎯 두 축으로 구분",
+        "  • 막연한 vs 한정된 (the 유무)",
+        "  • 단수 vs 복수 (s 유무)",
+        "",
+        "📊 정리표",
+        "  • the other (N)  → 하나 남은 다른 것 (한정·단수)",
+        "  • the others / the other Ns → 남은 것들 전부 (한정·복수)",
+        "  • another (N)    → 또 하나 / 하나 더 (막연·단수, 추가)",
+        "  • others / other Ns → 막연하게 다른 것들 (막연·복수)",
+        "  • some other (N) / some other Ns → 그거 말고 다른 뭔가(들) (대체)",
+        "",
+        "⚠️ 한정사 주의",
+        "  명사 앞엔 a/an, the, other, 's 중 하나 와야 함",
+        "  • a, an = 막연한",
+        "  • the = 한정된",
+        "  • other = 다른 / 그거 말고 다른",
+        "  • 's = ~의 (소유)",
+        "",
+        "🔑 추가(another) vs 대체(some other)",
+        "  • another bowl of rice — 한 그릇 더 (추가)",
+        "  • some other plan — 그 계획 말고 다른 것 (대체)"
+      ],
+      "examples": []
+    },
+    {
+      "id": "m2d8-the-other",
+      "day": 8,
+      "dayTopic": "the other · another · others (대명사·한정사)",
+      "title": "the other (N)",
+      "pattern": "the other + 단수명사 / the other (혼자 쓰임)",
+      "meaning": "하나 남은 다른 것 (한정·단수)",
+      "examples": [
+        {
+          "en": "I have two children. One is a boy. The other is a girl.",
+          "ko": "난 애들이 둘 있어요. 하나는 남자애, 또 하난 딸이죠."
+        },
+        {
+          "en": "You can use the other side of the paper, too.",
+          "ko": "종이 뒷면도 사용하실 수 있어요."
+        },
+        {
+          "en": "Where's my other shoe?",
+          "ko": "내 신발 다른 짝은 어디 있지?"
+        },
+        {
+          "en": "Turn the knob the other way around.",
+          "ko": "손잡이를 반대로 돌려.",
+          "note": "✏️ the other way around = 거꾸로"
+        },
+        {
+          "en": "Look to your right. No, no! Look the other way!",
+          "ko": "오른쪽 봐. 아니, 아니! 반대편 보라고!",
+          "note": "✏️ the other way = 부사로 쓰임"
+        },
+        {
+          "en": "Why are we going in the other direction?",
+          "ko": "왜 우린 반대 방향으로 가고 있는 거야?"
+        },
+        {
+          "en": "One way or the other, we have to finish it by tomorrow.",
+          "ko": "이랬거나 저랬거나 그 일 내일까지 마쳐야 해."
+        },
+        {
+          "en": "We have two options. Now we have to decide one way or the other.",
+          "ko": "우린 두 가지 선택이 있어. 이제 이렇게 할지 저렇게 할지 결정해야 해."
+        }
+      ]
+    },
+    {
+      "id": "m2d8-the-others",
+      "day": 8,
+      "dayTopic": "the other · another · others (대명사·한정사)",
+      "title": "the others / the other Ns",
+      "pattern": "the others (혼자) / the other + 복수명사",
+      "meaning": "남은 것들 전부 (한정·복수)",
+      "examples": [
+        {
+          "en": "Set aside the pork, and mix up the other ingredients.",
+          "ko": "돼지고기를 따로 두고 나머지 재료들은 다 섞어요.",
+          "note": "✏️ set ~ aside = 따로 두다"
+        },
+        {
+          "en": "I have 3 children. One is a girl. The others are boys.",
+          "ko": "난 애들이 셋 있어요. 하나는 딸, 나머지는 아들이죠."
+        },
+        {
+          "en": "Can you meet me at school at 4? I've told the others.",
+          "ko": "학교에서 4시에 볼 수 있을까? 다른 애들한텐 다 얘기해놨어.",
+          "note": "✏️ I've told = 현재완료시제 (행동을 남겨놓은 결과물 유효함)"
+        },
+        {
+          "en": "There were ten candidates. Three people passed. The others failed.",
+          "ko": "열 명의 지원자가 있었는데 세 명 붙고 나머지는 떨어졌어."
+        }
+      ]
+    },
+    {
+      "id": "m2d8-another",
+      "day": 8,
+      "dayTopic": "the other · another · others (대명사·한정사)",
+      "title": "another (N)",
+      "pattern": "another + 단수명사 / another (혼자)",
+      "meaning": "또 하나 / 하나 더 (막연·단수, 추가)",
+      "examples": [
+        {
+          "en": "Let's play another game.",
+          "ko": "우리 한 게임 더 하자."
+        },
+        {
+          "en": "Do we want another round?",
+          "ko": "우리 한 잔씩 더 돌려야지?",
+          "note": "✏️ 원 잔 더 돌려? (술자리)"
+        },
+        {
+          "en": "May I have another bowl of rice?",
+          "ko": "밥 한 공기 더 먹어도 될까요?"
+        },
+        {
+          "en": "Let's hit another bar.",
+          "ko": "우리 2차 가자. (한잔 더 마시러 가자.)"
+        },
+        {
+          "en": "Do you have another pen?",
+          "ko": "펜 하나 더 있니?"
+        },
+        {
+          "en": "Do you have another guy?",
+          "ko": "너 다른 남자 있어?"
+        },
+        {
+          "en": "I have another question. May I ask another question?",
+          "ko": "질문이 하나 더 있어요. 질문 하나 더 해도 될까요?"
+        },
+        {
+          "en": "I think I'll have to take another aspirin.",
+          "ko": "아스피린 하나 더 먹어야 할 것 같아.",
+          "note": "✏️ 약은 take"
+        },
+        {
+          "en": "I'm going to get some more popcorn and another soda.",
+          "ko": "팝콘 좀 더 사고 탄산수도 하나 더 사야겠어."
+        },
+        {
+          "en": "One way or another, we'll find a way out.",
+          "ko": "이런 수를 쓰든 아니면 다른 수를 쓰든 어떻게든 우린 출구를 찾을 거야."
+        },
+        {
+          "en": "There were three children. One was American. Another was African. The other was Korean.",
+          "ko": "세 아이가 있었어. 하나는 미국인이었고 또 하나는 아프리카인, 나머지 하나는 한국인이었지.",
+          "note": "✏️ one / another / the other 세 개 비교 핵심 예문"
+        }
+      ]
+    },
+    {
+      "id": "m2d8-some-other",
+      "day": 8,
+      "dayTopic": "the other · another · others (대명사·한정사)",
+      "title": "some other (N) / some other Ns",
+      "pattern": "some other + 단수/복수명사",
+      "meaning": "그거 말고 다른 뭔가(들) — 대체",
+      "examples": [
+        {
+          "en": "This game is boring. Let's play some other game.",
+          "ko": "이 게임 재미없다. 우리 (이거 말고) 다른 게임 하자."
+        },
+        {
+          "en": "I don't like this bar. Let's go to some other bar.",
+          "ko": "나 이 술집 맘에 안 들어. 다른 술집 가자."
+        },
+        {
+          "en": "This aspirin doesn't work. - Take some other kind (of aspirin).",
+          "ko": "이 아스피린 효과가 없네. - 다른 종류 복용해봐."
+        },
+        {
+          "en": "No! It's a horror movie, isn't it? Let's watch some other movie.",
+          "ko": "아이고! 그거 공포영화지? 다른 영화 보자."
+        },
+        {
+          "en": "Let's go to the amusement park some other time.",
+          "ko": "놀이공원은 다음번에 가자."
+        },
+        {
+          "en": "Are you busy tonight? Okay. Maybe some other time then.",
+          "ko": "오늘 밤은 바빠? 알았어. 그럼 다음 기회에 하지 뭐."
+        },
+        {
+          "en": "Can we eat some other food?",
+          "ko": "(그거 말고) 다른 거 먹을 수 있을까?"
+        },
+        {
+          "en": "This passport is no longer valid. Do you have some other kind of ID?",
+          "ko": "이 여권은 더 이상 유효하지 않네요. 다른 종류의 신분증 있으세요?"
+        }
+      ]
+    },
+    {
+      "id": "m2d8-others",
+      "day": 8,
+      "dayTopic": "the other · another · others (대명사·한정사)",
+      "title": "others / other Ns",
+      "pattern": "others (혼자) / other + 복수명사",
+      "meaning": "막연하게 다른 것들 (the 없음 = 한정 안 됨)",
+      "examples": [
+        {
+          "en": "Please, don't tell others.",
+          "ko": "제발 남들한테 얘기하지 말아줘."
+        },
+        {
+          "en": "Don't tell others about your problems.",
+          "ko": "남들한테 네 문제들에 대해 얘기하지 마."
+        },
+        {
+          "en": "I have other plans tomorrow. How about some other time?",
+          "ko": "내일은 다른 약속들이 있어. 다음 기회 어때?"
+        },
+        {
+          "en": "I know you like baseball. What other sports do you like?",
+          "ko": "너 야구 좋아하는 건 알아. 다른 스포츠는 뭘 좋아해?"
+        },
+        {
+          "en": "You have a cold? It's best to stay away from other people.",
+          "ko": "감기 들었어? 남들한테서 떨어져 있는 게 최고야."
+        },
+        {
+          "en": "Some people like sports. Other people like music.",
+          "ko": "어떤 이들은 운동 좋아하고 다른 이들은 음악 좋아해.",
+          "note": "✏️ Some ~ Other ~ 짝 표현"
+        },
+        {
+          "en": "Don't listen to other people.",
+          "ko": "남들 얘기 듣지 마."
+        },
+        {
+          "en": "Don't talk about other people.",
+          "ko": "남들 얘기 하지 마."
+        },
+        {
+          "en": "You're not like other people.",
+          "ko": "넌 남들과는 달라.",
+          "note": "✏️ like = ~같은 (전치사)"
+        },
+        {
+          "en": "I'm glad you're not like other mothers.",
+          "ko": "엄마는 다른 엄마들하고 달라서 좋아."
+        }
+      ]
+    },
+    {
+      "id": "m2d8-one-ones",
+      "day": 8,
+      "dayTopic": "the other · another · others (대명사·한정사)",
+      "title": "one / ones (대명사 활용)",
+      "pattern": "이미 언급한 명사 반복 대신 → one (단수) / ones (복수)",
+      "meaning": "같은 명사를 반복하지 않으려고 쓰는 대명사",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 04/30",
+      "notes": [
+        "📍 의문사 + one(s)",
+        "  • Which hat? - The brown one or the gray one? (여기서 one = hat)",
+        "  • Which one? / Which ones?",
+        "  • This one or that one? / These ones or those ones?",
+        "",
+        "📍 자주 쓰는 표현",
+        "  • Contact lens (콘택트 렌즈)",
+        "  • exactly (정확히)",
+        "  • call a taxi — 안전한 택시",
+        "  • look on the board — 저 칠판 봐 (교실에 칠판 하나)",
+        "",
+        "📍 특정 짝으로 자주 나오는 것들 → 한정된 것처럼 쓰임",
+        "  • English / sandwich (자주 3개 연이어 계속 될 때, 둘은 자음 때기)",
+        "  • What are you saving the money for? (그 돈, 약연한 X)",
+        "  • people are dying (어딘가에 계속 일이 죽어가고 있어요)",
+        "  • people die — 현재 X → \"일반적인 이야기\""
+      ],
+      "examples": []
+    },
+    {
+      "id": "m2d8-some-others-pair",
+      "day": 8,
+      "dayTopic": "the other · another · others (대명사·한정사)",
+      "title": "some + others 짝 표현",
+      "pattern": "Some ~ . Others ~ . / Some ~ . Other Ns ~ .",
+      "meaning": "어떤 이들은 ~, 또 다른 이들은 ~",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 04/30",
+      "notes": [
+        "막연한 그룹을 둘로 나눠서 비교할 때 쓰는 짝 표현",
+        "",
+        "📍 자주 쓰는 패턴",
+        "  • Some people like sports. Others like music.",
+        "  • Some people like sports. Other people like music.",
+        "  • Some Ns ~ . Others ~ .",
+        "",
+        "📍 single → group 다이어그램",
+        "  • one ↔ the other (둘 중 하나, 나머지 하나)",
+        "  • one ↔ the others = the rest of the Ns (하나, 나머지 전부)",
+        "  • some ↔ others (일부, 다른 일부 — 막연)",
+        "  • some ↔ the others (특정 일부, 나머지 전부)",
+        "",
+        "⚠️ 주의",
+        "  • the other children(s) (X) — 복수형은 the other children",
+        "  • another는 단수형만 가능 (an + other)"
+      ],
+      "examples": []
+    },
+    {
+      "id": "m2d8-add-vs-replace",
+      "day": 8,
+      "dayTopic": "the other · another · others (대명사·한정사)",
+      "title": "추가(another) vs 대체(some other)",
+      "pattern": "another = 하나 더 추가 / some other = 그거 말고 다른 것",
+      "meaning": "비슷해 보이지만 의미가 다름",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 04/30",
+      "notes": [
+        "🎯 핵심 차이",
+        "  • another → 추가 (이미 있는 것에 + 하나 더)",
+        "  • some other → 대체 (이거 말고 다른 것으로 바꿈)",
+        "",
+        "📍 추가 (another)",
+        "  • May I borrow another pen? — 펜 하나 더 빌려줄래? (이미 하나 있고, 추가)",
+        "  • May I have another bowl of rice? — 밥 한 공기 더",
+        "  • Let's hit another bar. — 한 잔 더 (2차 가자)",
+        "  • Let's watch another movie. — 영화 한 편 더",
+        "",
+        "📍 대체 (some other)",
+        "  • Do you have some other color? — 다른 색 있어요? (이거 말고)",
+        "  • A: I'm afraid I have some other plans.",
+        "    B: It's a shame. Maybe some other time then. (다음 기회에)",
+        "  • Find some other girl. — 다른 여자 찾아 봐",
+        "  • Let's watch some other movie. — 다른 영화 보자 (이건 별로)",
+        "",
+        "⚠️ 같은 \"another/some other movie\"라도",
+        "  • Let's catch another movie — 영화 한 편 더 (추가)",
+        "  • Let's watch some other movie — 다른 영화 (대체)"
+      ],
+      "examples": []
     }
   ],
   "daySummaries": {
@@ -2570,6 +3610,46 @@
         "worth ~ing 순환구조: S worth ~ing → ~ing 뒤에 it 붙이지 말 것 (`The book is worth reading it` X)",
         "don't have to ≠ must not — '안 해도 돼' vs '하면 안 돼'",
         "not worth ~ing = 해봤자 소용없어 (뉘앙스: 시도 자체가 의미없음)"
+      ]
+    },
+    "7": {
+      "dayTitle": "목적어 2개 받는 동사들 (수여동사)",
+      "headline": "두 사람 사이를 오가는 동사들 — 전치사 to/for로 갈린다",
+      "keyPoints": [
+        "수여동사는 **간접목적어(사람) + 직접목적어(사물)** 2개를 받는다",
+        "**패턴 #1 (to me)**: give · lend · send · hand · bring · show · owe · pay · pass — 방향성 있는 동사들",
+        "**패턴 #2 (for me)**: buy · make · get — 만들어/사다 주는 동사들",
+        "두 형태는 같은 의미: `Show me the money` = `Show the money to me`",
+        "⚠️ 대명사 `it`은 간접목적어 자리에 못 옴: `Give me it (X)` → `Give it to me (O)`",
+        "`this`/`that`은 가능: `Give me this (O)` (사이즈가 있어서)",
+        "간접목적어가 길어지면 **to+사람** 형태로 옮겨야 함",
+        "헷갈리는 짝꿍: **give↔take** (소유권 이전), **lend↔borrow** (일시적)",
+        "**자기 의지와 무관한 마음**은 모두 `be + 형용사 + of`: afraid · sure · nervous · suspicious · fond · proud"
+      ],
+      "mustRemember": [
+        "salt 같은 식탁 위 물건은 give 안 쓰고 **pass** 씀: `Pass me the salt` (O)",
+        "`I owe you one` = 다음엔 내가 낼게 / `IOU = I Owe You` 차용증",
+        "look은 자동사라 전치사 필수: `look down on` (깔보다), `look up to` (우러러보다), `look forward to N` (부푸러대하다)"
+      ]
+    },
+    "8": {
+      "dayTitle": "the other · another · others (대명사·한정사)",
+      "headline": "한국어로는 모두 \"다른\"이지만, 영어는 한정·단복수·추가/대체로 갈린다",
+      "keyPoints": [
+        "**the other (N)** = 하나 남은 다른 것 (한정·단수): `One is a boy. The other is a girl.`",
+        "**the others / the other Ns** = 남은 것들 전부 (한정·복수): `One is a girl. The others are boys.`",
+        "**another (N)** = 또 하나 / 하나 더 (막연·단수, **추가**): `May I have another bowl of rice?`",
+        "**others / other Ns** = 막연하게 다른 것들: `Don't tell others.` / `Other people like music.`",
+        "**some other (N) / some other Ns** = 그거 말고 다른 뭔가(들) — **대체**: `Let's go to some other bar.`",
+        "핵심 비교: **another = 추가** vs **some other = 대체**",
+        "`Some ~ . Others ~ .` 짝 표현으로 그룹 둘로 나누기",
+        "`one / ones`는 같은 명사 반복 대신 쓰는 대명사 (Which hat? — The brown one)"
+      ],
+      "mustRemember": [
+        "**one + the other** = 둘 중 하나, 나머지 하나 (총 2개)",
+        "**one + another + the other** = 셋 중 첫째, 둘째, 나머지 하나 (총 3개)",
+        "**one + the others** = 하나 + 나머지 전부 (총 여러 개)",
+        "명사 앞엔 a/an · the · other · 's 중 하나가 꼭 있어야 함"
       ]
     }
   }

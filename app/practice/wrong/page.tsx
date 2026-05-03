@@ -94,7 +94,7 @@ export default function WrongPracticeSetupPage() {
       length === 'all' ? sortedKeys : sortedKeys.slice(0, Math.min(length, sortedKeys.length));
     const config: GlobalPracticeConfig = {
       scope: 'all',
-      kinds: ['collocation', 'minimal-pairs', 'composition'],
+      kinds: ['collocation', 'minimal-pairs', 'composition', 'speak'],
       length,
       source: 'wrong-bank',
       retryWrongInSession,

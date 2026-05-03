@@ -5,6 +5,7 @@ import {
   type DifficultFlag,
   type PracticeState,
   type SessionRecord,
+  type SpeakDelaySeconds,
   type WrongEntry,
   emptyPracticeState,
 } from '@/types';
@@ -58,14 +59,18 @@ export function getState(): Stored {
     ...nestedDiff,
   };
 
+  const speakDelay = nested?.speakDelay as SpeakDelaySeconds | undefined;
+
   const practice: PracticeState =
     Object.keys(merged).length > 0 ||
     nestedHistory.length > 0 ||
-    Object.keys(nestedWrongBank).length > 0
+    Object.keys(nestedWrongBank).length > 0 ||
+    speakDelay != null
       ? {
           difficultExamples: merged,
           sessionHistory: nestedHistory as SessionRecord[],
           wrongBank: nestedWrongBank,
+          ...(speakDelay != null ? { speakDelay } : {}),
         }
       : emptyPracticeState();
 
@@ -95,6 +100,7 @@ export function setState(patch: Stored): void {
       difficultExamples: practice.difficultExamples,
       sessionHistory: practice.sessionHistory,
       wrongBank: practice.wrongBank,
+      ...(practice.speakDelay != null ? { speakDelay: practice.speakDelay } : {}),
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
   } catch {
@@ -151,9 +157,14 @@ function setPractice(patch: Partial<PracticeState>): void {
       difficultExamples: prev.difficultExamples,
       sessionHistory: prev.sessionHistory,
       wrongBank: prev.wrongBank,
+      speakDelay: prev.speakDelay,
       ...patch,
     },
   });
+}
+
+export function setSpeakDelay(sec: SpeakDelaySeconds): void {
+  setPractice({ speakDelay: sec });
 }
 
 export function addSessionRecord(record: SessionRecord): void {

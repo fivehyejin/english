@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { difficultKey, useDifficultExamples } from '@/hooks/useDifficultExamples';
+import { usePracticeState } from '@/hooks/usePracticeState';
 import {
   addSessionRecord,
   addToWrongBank,
@@ -26,6 +27,7 @@ import { kindLabel } from './kindLabels';
 import { QuestionCollocation } from './QuestionCollocation';
 import { QuestionComposition } from './QuestionComposition';
 import { QuestionMinimalPairs } from './QuestionMinimalPairs';
+import { SpeakQuestion } from './SpeakQuestion';
 
 const RESULT_KEY = 'english-global-practice-result';
 
@@ -54,6 +56,8 @@ export function GlobalPracticeSession({
 }: Props) {
   const router = useRouter();
   const { items, mark, unmark } = useDifficultExamples();
+  const { practice } = usePracticeState();
+  const speakDelay = practice.speakDelay ?? 5;
   const [startedAt] = useState(() => new Date().toISOString());
   const [phase, setPhase] = useState<SessionPhase>('main');
   const [mainIdx, setMainIdx] = useState(0);
@@ -170,6 +174,31 @@ export function GlobalPracticeSession({
     }
   };
 
+  const onSpeakRated = (markedDifficult: boolean) => {
+    if (!current) return;
+    const key = difficultKey(current.groupId, current.exampleIdx);
+
+    if (markedDifficult) {
+      mark(key, {
+        markedAt: items[key]?.markedAt ?? new Date().toISOString().slice(0, 10),
+        sessionsStruggled: (items[key]?.sessionsStruggled ?? 0) + 1,
+      });
+      addToWrongBank(key);
+      if (phase === 'main') {
+        setMainWrongIds((prev) => pushUnique(prev, current.id));
+      }
+      return;
+    }
+
+    if (items[key]) unmark(key);
+    removeFromWrongBank(key);
+    if (phase === 'main') {
+      setMainWrongIds((prev) => prev.filter((id) => id !== current.id));
+    } else {
+      setRetryCorrect((v) => v + 1);
+    }
+  };
+
   const onCompositionSelfGrade = (wasCorrect: boolean) => {
     if (!current) return;
     applyDifficultAndWrongBank(current, wasCorrect);
@@ -240,7 +269,7 @@ export function GlobalPracticeSession({
         <div className="mb-6 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border bg-muted px-4 py-2 text-sm text-muted-foreground">
             <RotateCcw className="h-3.5 w-3.5" />
-            아까 틀린 거 다시 · {retryIdx + 1} / {retryPool.length}
+            어려움 표시한 문제 다시 · {retryIdx + 1} / {retryPool.length}
           </div>
         </div>
       ) : null}
@@ -262,6 +291,15 @@ export function GlobalPracticeSession({
       </div>
 
       <div className="rounded-lg border bg-card p-6 md:p-8">
+        {current.kind === 'speak' ? (
+          <SpeakQuestion
+            key={current.id}
+            q={current}
+            speakDelay={speakDelay}
+            onRated={onSpeakRated}
+            onNext={next}
+          />
+        ) : null}
         {current.kind === 'collocation' ? (
           <QuestionCollocation
             q={current}
@@ -287,12 +325,14 @@ export function GlobalPracticeSession({
         ) : null}
       </div>
 
-      {revealed && current.kind !== 'composition' ? (
+      {revealed &&
+      current.kind !== 'composition' &&
+      current.kind !== 'speak' ? (
         <div className="mt-6 flex justify-end">
           <Button type="button" onClick={next}>
             {phase === 'main' && mainIdx + 1 === mainTotal
               ? retryWrongInSession && mainWrongIds.length > 0
-                ? '틀린 거 다시 풀기 →'
+                ? '다시 풀기 →'
                 : '결과 보기'
               : phase === 'retry' && retryIdx + 1 === retryPool.length
                 ? '결과 보기'

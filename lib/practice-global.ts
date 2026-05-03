@@ -1,3 +1,4 @@
+import { generateSpeakQuestions } from '@/lib/practice';
 import type {
   CurriculumData,
   GlobalPracticeConfig,
@@ -6,7 +7,7 @@ import type {
   PracticeQuestion,
   PracticeScope,
 } from '@/types';
-import { getAllDays, parseDifficultKey } from '@/types';
+import { difficultKey, getAllDays, parseDifficultKey } from '@/types';
 
 const KNOWN_PREPS = new Set([
   'in',
@@ -79,9 +80,36 @@ export function daysInScope(
 ): number[] {
   const all = getAllDays(curriculum);
   if (scope === 'all') return all;
-  if (scope === 'd1-3') return all.filter((d) => d >= 1 && d <= 3);
-  if (scope === 'd4-5') return all.filter((d) => d >= 4 && d <= 5);
+  if (scope === 'd1-2') return all.filter((d) => d >= 1 && d <= 2);
+  if (scope === 'd3-4') return all.filter((d) => d >= 3 && d <= 4);
+  if (scope === 'd5-6') return all.filter((d) => d >= 5 && d <= 6);
+  if (scope === 'd7-8') return all.filter((d) => d >= 7 && d <= 8);
   return all;
+}
+
+/** 어려움 키에 해당하는 Speak 문항만 */
+export function buildSpeakQuestionsForDifficultKeys(
+  curriculum: CurriculumData,
+  keys: string[]
+): PracticeQuestion[] {
+  const set = new Set(keys);
+  return generateSpeakQuestions(curriculum).filter((q) =>
+    set.has(difficultKey(q.groupId, q.exampleIdx))
+  );
+}
+
+/** 오답 보관함 키 목록으로 풀 구성(선택한 유형만) */
+export function buildQuestionsFromWrongBankKeys(
+  curriculum: CurriculumData,
+  kinds: PracticeKind[],
+  keys: string[]
+): PracticeQuestion[] {
+  const legacy = buildDifficultOnlyQuestions(curriculum, keys);
+  let pool = legacy.filter((q) => kinds.includes(q.kind));
+  if (kinds.includes('speak')) {
+    pool = pool.concat(buildSpeakQuestionsForDifficultKeys(curriculum, keys));
+  }
+  return dedupeQuestions(pool);
 }
 
 export function groupsInScope(
@@ -582,6 +610,16 @@ export function countCompositionInScope(
   return buildCompositionQuestions(curriculum, scope).length;
 }
 
+export function countSpeakInScope(
+  curriculum: CurriculumData,
+  scope: PracticeScope
+): number {
+  return generateSpeakQuestions(
+    curriculum,
+    daysInScope(scope, curriculum)
+  ).length;
+}
+
 function dedupeByExampleAndKind(qs: PracticeQuestion[]): PracticeQuestion[] {
   const seen = new Set<string>();
   const out: PracticeQuestion[] = [];
@@ -605,7 +643,13 @@ export function buildGlobalQuestionPool(
 ): PracticeQuestion[] {
   if (config.length === 'difficult-only') {
     const keys = difficultKeys ?? [];
-    return shuffle(buildDifficultOnlyQuestions(curriculum, keys));
+    const legacy = buildDifficultOnlyQuestions(curriculum, keys);
+    let pool = legacy.filter((q) => config.kinds.includes(q.kind));
+    if (config.kinds.includes('speak')) {
+      pool = pool.concat(buildSpeakQuestionsForDifficultKeys(curriculum, keys));
+    }
+    pool = dedupeQuestions(pool);
+    return shuffle(pool);
   }
   let pool: PracticeQuestion[] = [];
   for (const k of config.kinds) {
@@ -620,6 +664,13 @@ export function buildGlobalQuestionPool(
     } else if (k === 'composition') {
       pool = pool.concat(
         buildCompositionQuestions(curriculum, config.scope)
+      );
+    } else if (k === 'speak') {
+      pool = pool.concat(
+        generateSpeakQuestions(
+          curriculum,
+          daysInScope(config.scope, curriculum)
+        )
       );
     }
   }

@@ -7,7 +7,10 @@ import { toast } from 'sonner';
 
 import { GlobalPracticeSession } from '@/components/practice/GlobalPracticeSession';
 import { CURRENT_CURRICULUM } from '@/lib/curriculum';
-import { buildDifficultOnlyQuestions, buildGlobalQuestionPool } from '@/lib/practice-global';
+import {
+  buildGlobalQuestionPool,
+  buildQuestionsFromWrongBankKeys,
+} from '@/lib/practice-global';
 import type { GlobalPracticeConfig, PracticeQuestion, SessionRecord } from '@/types';
 
 const CONFIG_KEY = 'english-global-practice-config';
@@ -58,7 +61,11 @@ export default function PracticeSessionPage() {
     let finalPool = pool;
     if (source === 'wrong-bank') {
       const keys = diffKeys ?? [];
-      finalPool = buildDifficultOnlyQuestions(CURRENT_CURRICULUM, keys);
+      finalPool = buildQuestionsFromWrongBankKeys(
+        CURRENT_CURRICULUM,
+        config.kinds,
+        keys
+      );
       if (config.length !== 'difficult-only' && config.length !== 'all') {
         finalPool = finalPool.slice(
           0,

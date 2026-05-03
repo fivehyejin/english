@@ -62,7 +62,7 @@ export function DayView({ day }: { day: number }) {
       </h2>
       <div className="mt-4">
         <Button asChild variant="outline" className="gap-2">
-          <Link href={`/day/${day}/practice`}>
+          <Link href={`/day/${day}/practice/`}>
             <PencilLine className="h-4 w-4" />
             📝 연습 모드
           </Link>
