@@ -1,5 +1,6 @@
 import type { DaySummary } from '@/types';
 
+import { DiagramBlock } from './DiagramBlock';
 import { InlineMarkdown } from './InlineMarkdown';
 
 export function KeyIdeaBox({ summary }: { summary: DaySummary }) {
@@ -14,6 +15,13 @@ export function KeyIdeaBox({ summary }: { summary: DaySummary }) {
       <p className="mt-3 text-lg font-semibold leading-snug md:text-xl">
         {summary.headline}
       </p>
+
+      {summary.diagram ? (
+        <DiagramBlock
+          svg={summary.diagram.svg}
+          caption={summary.diagram.caption}
+        />
+      ) : null}
 
       <ul className="mt-5 space-y-2 text-sm leading-relaxed md:text-base">
         {summary.keyPoints.map((point, i) => (

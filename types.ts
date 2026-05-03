@@ -18,6 +18,10 @@ export interface DaySummary {
   headline: string;
   keyPoints: string[];
   mustRemember?: string[];
+  diagram?: {
+    svg: string;
+    caption?: string;
+  };
 }
 
 export interface PatternGroup {
