@@ -3,6 +3,16 @@ import type { CurriculumData, PatternGroup, PracticeQuestion } from '@/types';
 const SISTER_SETS: string[][] = [
   ['m2d4-try-N', 'm2d4-try-ing', 'm2d4-try-to-V'],
   ['m2d3-have', 'm2d3-get', 'm2d3-keep'],
+  // Day 9 — 같은 보충어 카테고리끼리 빈칸 후보 추출용
+  [
+    'm2d9-age-time-adj',
+    'm2d9-length-adj',
+    'm2d9-dimension-adj',
+    'm2d9-clock-adj',
+    'm2d9-body-depth',
+  ],
+  ['m2d9-away-adv', 'm2d9-only-away'],
+  ['m2d9-position-pn', 'm2d9-time-pn', 'm2d9-price-pn'],
 ];
 
 function shuffle<T>(items: T[]): T[] {

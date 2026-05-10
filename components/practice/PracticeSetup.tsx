@@ -191,7 +191,7 @@ export function PracticeSetup() {
               ['d1-2', 'Day 1~2 · 동사 기초'],
               ['d3-4', 'Day 3~4 · 동사 활용'],
               ['d5-6', 'Day 5~6 · 형용사 구문'],
-              ['d7-8', 'Day 7~8 · 대명사·구조'],
+              ['d7-9', 'Day 7~9 · 구조·수+단위'],
             ] as const
           ).map(([value, label]) => (
             <button

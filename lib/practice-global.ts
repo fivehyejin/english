@@ -83,7 +83,10 @@ export function daysInScope(
   if (scope === 'd1-2') return all.filter((d) => d >= 1 && d <= 2);
   if (scope === 'd3-4') return all.filter((d) => d >= 3 && d <= 4);
   if (scope === 'd5-6') return all.filter((d) => d >= 5 && d <= 6);
-  if (scope === 'd7-8') return all.filter((d) => d >= 7 && d <= 8);
+  if (scope === 'd7-9') return all.filter((d) => d >= 7 && d <= 9);
+  // 예전 세션(JSON) 호환
+  if ((scope as string) === 'd7-8')
+    return all.filter((d) => d >= 7 && d <= 9);
   return all;
 }
 

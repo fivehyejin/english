@@ -3512,6 +3512,525 @@
         "  • Let's watch some other movie — 다른 영화 (대체)"
       ],
       "examples": []
+    },
+    {
+      "id": "m2d9-overview",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "핵심 구조 — 80문장의 뼈대",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 05/07 (개강 첫 수업)",
+      "notes": [
+        "🎯 학습목표: She is 6 months pregnant.",
+        "이 한 문장이 80개 표현의 마스터키",
+        "",
+        "📐 핵심 구조",
+        "  S + be + [수 + 단위] + [보충어]",
+        "                ↓           ↓",
+        "             \"~만큼\"     adj / adv / p+n",
+        "",
+        "📍 단위는 항상 \"~만큼\"으로 해석",
+        "  • 6 months pregnant = 임신 6개월\"만큼\"이다",
+        "  • 7 stories high   = 7층\"만큼\" 높다",
+        "  • 494 km long      = 494km\"만큼\" 길다",
+        "  • 2 days away      = 이틀\"만큼\" 떨어져있다",
+        "",
+        "📍 보충어 3가지 형태",
+        "  ① adj  — old, pregnant, long, tall, high, deep, wide",
+        "          thick, short, late, early, fast, slow",
+        "  ② adv  — away, ahead, up, down, apart, upstairs",
+        "          downstairs",
+        "  ③ p+n  — behind me, in front of me, next to me",
+        "          after 9, to 3, from Seoul",
+        "",
+        "💡 수업 통찰",
+        "  영어는 [수+단위]를 동사 뒤에 던지고",
+        "  형용사·부사·전치사로 어떤 종류의 차이인지 명시"
+      ],
+      "examples": []
+    },
+    {
+      "id": "m2d9-age-time-adj",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "시간·나이 (수+단위+adj)",
+      "pattern": "S + be + [숫자 + months/years/minutes] + [old/pregnant/late/early]",
+      "meaning": "나이·임신·지각 정도를 표현",
+      "examples": [
+        {
+          "en": "The baby is 3 months old.",
+          "ko": "그 아기 생후 3개월이야."
+        },
+        {
+          "en": "She is 6 months pregnant.",
+          "ko": "그 여자 임신 6개월이야."
+        },
+        {
+          "en": "You are 5 minutes late.",
+          "ko": "너 5분 늦었어."
+        },
+        {
+          "en": "We are 5 minutes early.",
+          "ko": "우리 5분 일찍 왔네."
+        },
+        {
+          "en": "How old is the baby?",
+          "ko": "아기 몇 살이에요?"
+        },
+        {
+          "en": "How many months old is the baby?",
+          "ko": "아기 생후 몇 개월 되었어요?"
+        },
+        {
+          "en": "How many months pregnant is she?",
+          "ko": "그 여자 임신 몇 개월이에요?"
+        },
+        {
+          "en": "How late am I?",
+          "ko": "나 얼마나 늦었어?"
+        },
+        {
+          "en": "How many minutes late am I?",
+          "ko": "나 몇 분 늦었어?"
+        },
+        {
+          "en": "How early are we?",
+          "ko": "우리 얼마나 일찍 온 거야?"
+        }
+      ]
+    },
+    {
+      "id": "m2d9-length-adj",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "길이·분량 (수+단위+long)",
+      "pattern": "S + be + [숫자 + hours/pages/chapters/km] + long",
+      "meaning": "영화 시간, 책 분량, 강 길이 등",
+      "examples": [
+        {
+          "en": "The movie is 3 hours long.",
+          "ko": "그 영화 3시간짜리야."
+        },
+        {
+          "en": "The book is 200 pages long.",
+          "ko": "그 책 200페이지 짜리야."
+        },
+        {
+          "en": "The book is 20 chapters long.",
+          "ko": "그 책 20챕터 짜리야."
+        },
+        {
+          "en": "The Han (river) is 494 kilometers long.",
+          "ko": "한강은 494킬로미터야.",
+          "note": "✏️ four hundred and ninety-four"
+        },
+        {
+          "en": "How long is the movie?",
+          "ko": "그 영화 얼마나 길어?"
+        },
+        {
+          "en": "How many hours long is the movie?",
+          "ko": "그 영화 몇 시간짜리야?"
+        },
+        {
+          "en": "How many pages long is the book?",
+          "ko": "그 책 몇 페이지 짜리야?"
+        },
+        {
+          "en": "How long is the Han river?",
+          "ko": "한강은 얼마나 길어?"
+        }
+      ]
+    },
+    {
+      "id": "m2d9-dimension-adj",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "치수 (short/deep/wide/high/thick/tall)",
+      "pattern": "S + be + [수+단위] + [short/deep/wide/high/thick/tall]",
+      "meaning": "부족·깊이·폭·높이·두께·키",
+      "examples": [
+        {
+          "en": "I am 10 dollars short.",
+          "ko": "나 10불 모자라.",
+          "note": "✏️ short = 부족하다 / I am 10 dollars short of time/money/energy"
+        },
+        {
+          "en": "The Han (river) is 8 meters deep.",
+          "ko": "한강은 수심 8미터야."
+        },
+        {
+          "en": "The stream is 10 meters wide.",
+          "ko": "그 시냇물은 폭이 10미터야."
+        },
+        {
+          "en": "Mt. Halla is 1950 meters high.",
+          "ko": "한라산은 높이 1950미터야."
+        },
+        {
+          "en": "The building is 7 stories high.",
+          "ko": "그 건물은 7층짜리야."
+        },
+        {
+          "en": "I am 178 centimeters tall.",
+          "ko": "나 키 178 센티미터야."
+        },
+        {
+          "en": "The wall is 10 centimeters thick.",
+          "ko": "그 벽 두께 10센티미터야."
+        },
+        {
+          "en": "How many dollars short are you?",
+          "ko": "너 몇 불 모자라?"
+        },
+        {
+          "en": "How deep is the Han river?",
+          "ko": "한강은 얼마나 깊어?"
+        },
+        {
+          "en": "How wide is the stream?",
+          "ko": "그 시냇물 폭이 얼마나 넓어?"
+        },
+        {
+          "en": "How high is Mt. Halla?",
+          "ko": "한라산은 얼마나 높아?"
+        },
+        {
+          "en": "How tall are you?",
+          "ko": "너 키 몇이야?"
+        },
+        {
+          "en": "How thick is the wall?",
+          "ko": "그 벽 얼마나 두꺼워?"
+        }
+      ]
+    },
+    {
+      "id": "m2d9-clock-adj",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "시계 (fast/slow)",
+      "pattern": "S + be + [수+minutes] + [fast/slow/late]",
+      "meaning": "시계의 빠름·느림 정도",
+      "examples": [
+        {
+          "en": "The clock is 5 minutes fast.",
+          "ko": "그 시계 5분 빨라."
+        },
+        {
+          "en": "My watch is 5 minutes slow.",
+          "ko": "내 손목시계 5분 느려.",
+          "note": "✏️ slow = late로도 씀"
+        },
+        {
+          "en": "How fast is the clock?",
+          "ko": "그 시계 얼마나 빨라?"
+        },
+        {
+          "en": "How many minutes fast is the clock?",
+          "ko": "그 시계 몇 분 빨라?"
+        },
+        {
+          "en": "How slow is your watch?",
+          "ko": "네 손목시계 얼마나 느려?"
+        }
+      ]
+    },
+    {
+      "id": "m2d9-away-adv",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "거리감 (away/ahead/up/down)",
+      "pattern": "S + be + [수+단위] + [away/ahead/up/down/apart]",
+      "meaning": "떨어진·앞선·위·아래·간격",
+      "examples": [
+        {
+          "en": "The test is 2 days away.",
+          "ko": "시험이 이틀 남았어."
+        },
+        {
+          "en": "Gangnam station is 3 minutes away from here.",
+          "ko": "강남역은 여기서 3분이야."
+        },
+        {
+          "en": "Busan is 5 hours away from Seoul.",
+          "ko": "부산은 서울에서 5시간이야."
+        },
+        {
+          "en": "Seoul station is 7 stops away from Sadang.",
+          "ko": "서울역은 사당에서 7정거장이야."
+        },
+        {
+          "en": "Shinsa-dong is 3 blocks away from Gangnam.",
+          "ko": "신사동은 강남에서 세 블록이야."
+        },
+        {
+          "en": "My office is 2 floors up.",
+          "ko": "내 사무실은 두 층 위에 있어."
+        },
+        {
+          "en": "She lives 2 floors up (from me).",
+          "ko": "그 여자는 내 두 층 위에 살아."
+        },
+        {
+          "en": "The trash bin is half floor down.",
+          "ko": "쓰레기통은 반 층 아래 있어요."
+        },
+        {
+          "en": "We are 2 years apart.",
+          "ko": "우리 2살 차이야.",
+          "note": "✏️ apart = 갈라진"
+        },
+        {
+          "en": "I live 3 blocks apart from my parents.",
+          "ko": "난 부모님과 세 블록 떨어져 살아.",
+          "note": "✏️ 분가해서 산다"
+        },
+        {
+          "en": "Seocho station is 2 stops ahead.",
+          "ko": "서초역은 다다음 역이야.",
+          "note": "✏️ ahead = 앞으로 / behind = 뒤"
+        },
+        {
+          "en": "How far is Gangnam station from here?",
+          "ko": "강남역이 여기서 얼마나 멀어?"
+        },
+        {
+          "en": "How many minutes away is Gangnam station?",
+          "ko": "강남역까지 몇 분 걸려?"
+        },
+        {
+          "en": "How far is Busan from Seoul?",
+          "ko": "부산은 서울에서 얼마나 멀어?"
+        },
+        {
+          "en": "How many hours away is Busan?",
+          "ko": "부산까지 몇 시간 걸려?"
+        },
+        {
+          "en": "How many stops away is Seoul station from Sadang?",
+          "ko": "서울역은 사당에서 몇 정거장이야?"
+        },
+        {
+          "en": "How far is Shinsa-dong from Gangnam?",
+          "ko": "신사동은 강남에서 얼마나 멀어?"
+        },
+        {
+          "en": "Where is your office?",
+          "ko": "네 사무실 어디야?"
+        },
+        {
+          "en": "Where is the trash bin?",
+          "ko": "쓰레기통 어디예요?"
+        }
+      ]
+    },
+    {
+      "id": "m2d9-position-pn",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "위치 관계 (behind/in front of/next to)",
+      "pattern": "S + [be/sit/live] + [수+단위] + [behind/in front of/next to + 사람]",
+      "meaning": "사람·자리 기준 위치 관계",
+      "examples": [
+        {
+          "en": "She is 2 rows behind me.",
+          "ko": "그 여자는 내 두 줄 뒤에 있어."
+        },
+        {
+          "en": "She sits 2 rows in front of me.",
+          "ko": "그 여자는 내 두 줄 앞에 앉아."
+        },
+        {
+          "en": "She sits 2 seats next to me.",
+          "ko": "그 여자는 내 두 자리 옆에 앉아."
+        },
+        {
+          "en": "He lives 2 doors next to me.",
+          "ko": "그는 내 두 집 옆에 살아."
+        },
+        {
+          "en": "We are 2 days behind the schedule.",
+          "ko": "우린 일정이 이틀 뒤처졌어."
+        },
+        {
+          "en": "We are 2 kilometers off the coast.",
+          "ko": "우린 해안에서 2킬로 떨어져 나왔어.",
+          "note": "✏️ off = 떨어져 나옴"
+        },
+        {
+          "en": "Where is she?",
+          "ko": "그 여자 어디 있어?"
+        },
+        {
+          "en": "Where does she sit?",
+          "ko": "그 여자 어디 앉아?"
+        },
+        {
+          "en": "Where does he live?",
+          "ko": "그 남자 어디 살아?"
+        }
+      ]
+    },
+    {
+      "id": "m2d9-time-pn",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "시각 표현 (after/to/before)",
+      "pattern": "It + is + [수+minutes] + [after/to + 숫자]",
+      "meaning": "시각을 분 단위로 표현",
+      "examples": [
+        {
+          "en": "It is 10 minutes after 9.",
+          "ko": "9시 10분이야.",
+          "note": "✏️ 10분만큼 9시를 지나침"
+        },
+        {
+          "en": "It is 10 minutes to 3.",
+          "ko": "3시 10분 전이야.",
+          "note": "✏️ 10분만큼 3시로 향함"
+        },
+        {
+          "en": "The best time is 30 minutes after meals.",
+          "ko": "최적의 시간은 식후 30분이야."
+        },
+        {
+          "en": "Take the medicine 30 mins after meals.",
+          "ko": "식후 30분에 약을 먹어."
+        },
+        {
+          "en": "What time is it?",
+          "ko": "몇 시야?"
+        }
+      ]
+    },
+    {
+      "id": "m2d9-price-pn",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "가격 표현 (over/under)",
+      "pattern": "It + is + a little + [over/under] + [숫자]",
+      "meaning": "기준선보다 조금 많거나 적음",
+      "examples": [
+        {
+          "en": "It is a little over 10 dollars.",
+          "ko": "그건 10불이 조금 넘어."
+        },
+        {
+          "en": "It is a little under 10 dollars.",
+          "ko": "그건 10불이 조금 안 돼."
+        },
+        {
+          "en": "How much is it?",
+          "ko": "그거 얼마야?"
+        }
+      ]
+    },
+    {
+      "id": "m2d9-body-depth",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "신체로 표현하는 깊이·높이",
+      "pattern": "S + be + [신체부위]-deep / [신체부위]-high",
+      "meaning": "직관적인 깊이·높이 표현",
+      "examples": [
+        {
+          "en": "Beauty is only skin deep.",
+          "ko": "아름다움이란 단지 피부 한 꺼풀에 지나지 않아.",
+          "note": "✏️ 속담"
+        },
+        {
+          "en": "The water is knee-deep.",
+          "ko": "물이 무릎까지 차올랐어."
+        },
+        {
+          "en": "The snow is chest high.",
+          "ko": "눈이 가슴 높이만큼 쌓였어."
+        }
+      ]
+    },
+    {
+      "id": "m2d9-only-away",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "근거리 강조 (only ~ away)",
+      "pattern": "S + is + only [a + 명사] + away",
+      "meaning": "조금만 ~하면 닿는다 (가까움 강조)",
+      "examples": [
+        {
+          "en": "Just call me. I am only a call away.",
+          "ko": "전화만 해. 난 전화하면 바로 올 거리에 있으니까."
+        },
+        {
+          "en": "The beach is only a short walk away.",
+          "ko": "해변은 조금만 걸어가면 나와."
+        },
+        {
+          "en": "The beach is only a short distance away.",
+          "ko": "해변은 아주 근거리에 있어요."
+        },
+        {
+          "en": "The beach is only a short drive away.",
+          "ko": "해변은 조금만 운전해서 가면 있어요."
+        },
+        {
+          "en": "Busan is only a short flight away from here.",
+          "ko": "부산은 여기서 비행기로 얼마 안 걸려요."
+        }
+      ]
+    },
+    {
+      "id": "m2d9-grade-above",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "학년·등급 차이 (above/below)",
+      "pattern": "S + is + [수+grades] + above/below + 사람",
+      "meaning": "학년·등급의 위·아래",
+      "examples": [
+        {
+          "en": "She is two grades above him.",
+          "ko": "그 여자가 그 남자보다 두 학년 위야."
+        }
+      ]
+    },
+    {
+      "id": "m2d9-from-to",
+      "day": 9,
+      "dayTopic": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "title": "from A to B / 추가 어휘",
+      "kind": "class-note",
+      "noteSource": "✏️ 개인 필기 · 05/07",
+      "notes": [
+        "📍 from / to 의 차이",
+        "  • from 서울  →  내 출발지",
+        "  • to 부산    →  내 도착지·목적지",
+        "",
+        "📍 약 복용 시간 표현",
+        "  Take the medicine 30 mins after meals.",
+        "  → 식후 30분 \"만큼\" 지나서",
+        "  → \"30분에\" 약을 먹어",
+        "",
+        "📍 거리·위치 부사 비교",
+        "  over 400 km — 400km \"넘게\"",
+        "  apart       — \"갈라져\" 떨어진 (We are 2 years apart)",
+        "  ahead       — \"앞\" (Seocho station is 2 stops ahead)",
+        "  behind      — \"뒤\"",
+        "  upstairs    — \"한 층 위\"",
+        "  downstairs  — \"한 층 아래\"",
+        "",
+        "📍 수업에서 나온 단어",
+        "  • homebody — 집순이/집돌이",
+        "  • knee-deep — 무릎까지 (물 깊이)",
+        "  • chest-high — 가슴 높이까지",
+        "  • skin deep — 피부 한 꺼풀 (속담)",
+        "",
+        "📍 only ~ away 짝꿍",
+        "  • only a call away  — 전화 한 통이면 닿는 거리",
+        "  • only a short walk away — 잠깐 걸으면",
+        "  • only a short drive away — 잠깐 운전하면",
+        "  • only a short flight away — 비행기로 잠깐"
+      ],
+      "examples": []
     }
   ],
   "daySummaries": {
@@ -3670,6 +4189,29 @@
       "diagram": {
         "caption": "5가지 형태로 갈리는 \"다른\"",
         "svg": "<svg width=\"100%\" viewBox=\"0 0 380 720\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"the other / another / others 5가지 비교\">\n<text x=\"20\" y=\"32\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" font-weight=\"500\" fill=\"currentColor\">한국어 \"다른\" → 영어 5가지</text>\n<text x=\"20\" y=\"68\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" font-weight=\"500\" fill=\"currentColor\">one + the other (둘 중 하나, 나머지 하나)</text>\n<circle cx=\"60\" cy=\"104\" r=\"10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n<circle cx=\"92\" cy=\"104\" r=\"10\" fill=\"currentColor\"/>\n<text x=\"112\" y=\"108\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">← the other</text>\n<text x=\"55\" y=\"128\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">↑</text>\n<text x=\"48\" y=\"146\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">one</text>\n<line x1=\"20\" y1=\"174\" x2=\"360\" y2=\"174\" stroke=\"currentColor\" stroke-width=\"0.5\" opacity=\"0.4\"/>\n<text x=\"20\" y=\"208\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" font-weight=\"500\" fill=\"currentColor\">one + another + the other (셋 중 하나씩)</text>\n<circle cx=\"60\" cy=\"244\" r=\"10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n<circle cx=\"92\" cy=\"244\" r=\"10\" fill=\"currentColor\"/>\n<circle cx=\"124\" cy=\"244\" r=\"10\" fill=\"currentColor\"/>\n<text x=\"55\" y=\"268\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">↑</text>\n<text x=\"87\" y=\"268\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">↑</text>\n<text x=\"119\" y=\"268\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">↑</text>\n<text x=\"48\" y=\"286\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">one</text>\n<text x=\"76\" y=\"286\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">another</text>\n<text x=\"146\" y=\"286\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">the other</text>\n<line x1=\"20\" y1=\"314\" x2=\"360\" y2=\"314\" stroke=\"currentColor\" stroke-width=\"0.5\" opacity=\"0.4\"/>\n<text x=\"20\" y=\"348\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" font-weight=\"500\" fill=\"currentColor\">one + the others (하나 + 나머지 전부)</text>\n<circle cx=\"60\" cy=\"384\" r=\"10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n<circle cx=\"92\" cy=\"384\" r=\"8\" fill=\"currentColor\"/>\n<circle cx=\"118\" cy=\"384\" r=\"8\" fill=\"currentColor\"/>\n<circle cx=\"144\" cy=\"384\" r=\"8\" fill=\"currentColor\"/>\n<circle cx=\"170\" cy=\"384\" r=\"8\" fill=\"currentColor\"/>\n<text x=\"55\" y=\"408\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">↑</text>\n<text x=\"120\" y=\"408\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">↑</text>\n<text x=\"48\" y=\"426\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">one</text>\n<text x=\"98\" y=\"426\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">the others</text>\n<line x1=\"20\" y1=\"454\" x2=\"360\" y2=\"454\" stroke=\"currentColor\" stroke-width=\"0.5\" opacity=\"0.4\"/>\n<text x=\"20\" y=\"488\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" font-weight=\"500\" fill=\"currentColor\">some + others (일부 + 다른 일부, 막연)</text>\n<circle cx=\"50\" cy=\"524\" r=\"8\" fill=\"currentColor\"/>\n<circle cx=\"74\" cy=\"524\" r=\"8\" fill=\"currentColor\"/>\n<circle cx=\"98\" cy=\"524\" r=\"8\" fill=\"currentColor\"/>\n<circle cx=\"138\" cy=\"524\" r=\"8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n<circle cx=\"162\" cy=\"524\" r=\"8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n<text x=\"69\" y=\"548\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">↑</text>\n<text x=\"146\" y=\"548\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">↑</text>\n<text x=\"58\" y=\"566\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">some</text>\n<text x=\"135\" y=\"566\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">others</text>\n<line x1=\"20\" y1=\"594\" x2=\"360\" y2=\"594\" stroke=\"currentColor\" stroke-width=\"0.5\" opacity=\"0.4\"/>\n<text x=\"20\" y=\"628\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" font-weight=\"500\" fill=\"currentColor\">another vs some other</text>\n<text x=\"20\" y=\"662\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">another  →  하나 더 (추가)</text>\n<text x=\"20\" y=\"682\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">           May I have another bowl?</text>\n<text x=\"20\" y=\"704\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">some other → 그거 말고 다른 것 (대체)</text>\n</svg>"
+      }
+    },
+    "9": {
+      "dayTitle": "S + be + 수·단위 + 보충어 (양·정도·위치 표현)",
+      "headline": "[수 + 단위] 뒤에 보충어를 던지는 한 패턴으로 80문장이 풀린다",
+      "keyPoints": [
+        "기본 구조: **S + be + [수 + 단위] + [보충어]** — 단위는 \"~만큼\"으로 해석",
+        "**핵심 학습 문장**: `She is 6 months pregnant.` (6개월\"만큼\" 임신한 상태)",
+        "**보충어 ① adj**: old · pregnant · long · tall · high · deep · wide · thick · short · late · early · fast",
+        "**보충어 ② adv**: away · ahead · up · down · apart · upstairs · downstairs",
+        "**보충어 ③ p+n**: behind me · in front of me · next to me · after 9 · to 3",
+        "시간 표현: `10 minutes after 9` (지나침) ↔ `10 minutes to 3` (향함)",
+        "근거리 강조: `only a call away` / `only a short walk away`",
+        "비교 표현: `a little over 10 dollars` / `a little under 10 dollars`"
+      ],
+      "mustRemember": [
+        "단위는 항상 \"**~만큼**\"으로 해석하면 끝 (6 months pregnant = 임신 6개월\"만큼\")",
+        "**ahead** ↔ **behind** / **up** ↔ **down** / **apart** (갈라짐)",
+        "신체 부위로 깊이 표현: `knee-deep` (무릎까지), `chest-high` (가슴까지)"
+      ],
+      "diagram": {
+        "caption": "S + be + 수·단위 + 보충어 — Month 2 후반기 마스터 구조",
+        "svg": "<svg width=\"100%\" viewBox=\"0 0 380 580\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Day 9 핵심 구조\">\n<text x=\"20\" y=\"32\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" font-weight=\"500\" fill=\"currentColor\">한 패턴이 80문장의 뼈대</text>\n<text x=\"20\" y=\"52\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"12\" fill=\"currentColor\" opacity=\"0.6\">She is 6 months pregnant.</text>\n\n<rect x=\"20\" y=\"78\" width=\"60\" height=\"36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n<text x=\"50\" y=\"100\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" text-anchor=\"middle\">S</text>\n<text x=\"50\" y=\"128\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\" text-anchor=\"middle\">주어</text>\n\n<text x=\"88\" y=\"100\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">+</text>\n\n<rect x=\"100\" y=\"78\" width=\"60\" height=\"36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n<text x=\"130\" y=\"100\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" text-anchor=\"middle\">be</text>\n<text x=\"130\" y=\"128\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\" text-anchor=\"middle\">be동사</text>\n\n<text x=\"168\" y=\"100\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">+</text>\n\n<rect x=\"180\" y=\"78\" width=\"80\" height=\"36\" fill=\"currentColor\"/>\n<text x=\"220\" y=\"100\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"white\" text-anchor=\"middle\">수+단위</text>\n<text x=\"220\" y=\"128\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\" text-anchor=\"middle\">~만큼</text>\n\n<text x=\"268\" y=\"100\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" opacity=\"0.6\">+</text>\n\n<rect x=\"280\" y=\"78\" width=\"80\" height=\"36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n<text x=\"320\" y=\"100\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\" text-anchor=\"middle\">보충어</text>\n<text x=\"320\" y=\"128\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\" text-anchor=\"middle\">상태 묘사</text>\n\n<line x1=\"20\" y1=\"156\" x2=\"360\" y2=\"156\" stroke=\"currentColor\" stroke-width=\"0.5\" opacity=\"0.4\"/>\n\n<text x=\"20\" y=\"184\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" font-weight=\"500\" fill=\"currentColor\">보충어 3가지 형태</text>\n\n<text x=\"20\" y=\"216\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">① adj (형용사)</text>\n<text x=\"40\" y=\"236\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"12\" fill=\"currentColor\" opacity=\"0.6\">old · pregnant · long · tall · high</text>\n<text x=\"40\" y=\"252\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"12\" fill=\"currentColor\" opacity=\"0.6\">deep · wide · thick · short · late</text>\n<text x=\"40\" y=\"274\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"12\" fill=\"currentColor\">  She is 6 months pregnant.</text>\n\n<line x1=\"20\" y1=\"294\" x2=\"360\" y2=\"294\" stroke=\"currentColor\" stroke-width=\"0.5\" stroke-dasharray=\"2 3\" opacity=\"0.4\"/>\n\n<text x=\"20\" y=\"322\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">② adv (부사)</text>\n<text x=\"40\" y=\"342\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"12\" fill=\"currentColor\" opacity=\"0.6\">away · ahead · up · down · apart</text>\n<text x=\"40\" y=\"358\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"12\" fill=\"currentColor\" opacity=\"0.6\">upstairs · downstairs</text>\n<text x=\"40\" y=\"380\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"12\" fill=\"currentColor\">  The test is 2 days away.</text>\n\n<line x1=\"20\" y1=\"400\" x2=\"360\" y2=\"400\" stroke=\"currentColor\" stroke-width=\"0.5\" stroke-dasharray=\"2 3\" opacity=\"0.4\"/>\n\n<text x=\"20\" y=\"428\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"13\" fill=\"currentColor\">③ p + n (전치사 + 명사)</text>\n<text x=\"40\" y=\"448\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"12\" fill=\"currentColor\" opacity=\"0.6\">behind me · in front of me</text>\n<text x=\"40\" y=\"464\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"12\" fill=\"currentColor\" opacity=\"0.6\">next to me · after 9 · to 3</text>\n<text x=\"40\" y=\"486\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"12\" fill=\"currentColor\">  She is 2 rows behind me.</text>\n<text x=\"40\" y=\"502\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"12\" fill=\"currentColor\">  It is 10 minutes after 9.</text>\n\n<line x1=\"20\" y1=\"528\" x2=\"360\" y2=\"528\" stroke=\"currentColor\" stroke-width=\"0.5\" opacity=\"0.4\"/>\n\n<text x=\"20\" y=\"556\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">⚠️ 단위는 항상 \"~만큼\"으로 해석:</text>\n<text x=\"20\" y=\"572\" font-family=\"ui-monospace, SFMono-Regular, Menlo, Consolas, monospace\" font-size=\"11\" fill=\"currentColor\" opacity=\"0.6\">    6 months pregnant = 임신 6개월\"만큼\"이다</text>\n</svg>"
       }
     }
   }

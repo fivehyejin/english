@@ -149,7 +149,7 @@ export type PracticeScope =
   | 'd1-2'
   | 'd3-4'
   | 'd5-6'
-  | 'd7-8';
+  | 'd7-9';
 
 export interface GlobalPracticeConfig {
   scope: PracticeScope;
